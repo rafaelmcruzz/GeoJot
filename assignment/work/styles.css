@@ -1,0 +1,48 @@
+body {
+  background: url(../image/background.webp);
+  background-repeat: no-repeat;
+  background-position: center center; /* 调整图片位置到居中 */
+  background-size: cover; /* 调整图片大小覆盖整个页面，保持图片比例 */
+}
+
+.zoom {
+  width: 100 vw;
+}
+/* 将外层容器设置为flex容器，并使其子项居中 */
+.body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* 使容器高度占满整个视口高度 */
+  flex-direction: column; /* 使子元素垂直排列 */
+}
+
+/* 添加一些样式来美化表单和按钮 */
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px; /* 在表单元素之间添加一些间隙 */
+}
+
+input[type="text"], input[type="password"] {
+  padding: 10px;
+  margin: 5px 0; /* 在输入框上下添加一些外边距 */
+  width: 200px; /* 设置输入框的宽度 */
+}
+
+button {
+  padding: 10px 20px;
+  cursor: pointer; /* 当鼠标悬停时显示指针 */
+}
+
+
+
+input[type="text"], input[type="password"], button {
+  font-family: 'Titillium Web', sans-serif; /* 与背景图匹配的字体 */
+  border: none;
+  border-radius: 20px; /* 圆角边框 */
+  padding: 10px 20px;
+  margin: 10px 0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 轻微的阴影 */
+}
