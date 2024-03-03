@@ -1,0 +1,66 @@
+/* styles.css */
+
+/* Ensure the background image covers the entire viewport */
+body {
+  background: url(./background.webp) no-repeat center center fixed;
+  background-size: cover;
+  margin: 0;
+  padding: 0;
+}
+
+/* Center the content vertically and horizontally */
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* Style for the login and register forms */
+.form {
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+}
+
+/* Style for input fields and button */
+input[type="text"],
+input[type="password"],
+input[type="email"],
+button {
+  font-family: 'Titillium Web', sans-serif;
+  border: none;
+  border-radius: 20px;
+  padding: 10px 20px;
+  margin: 10px 0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%; /* Ensure full width */
+  box-sizing: border-box; /* Include padding and border in width */
+}
+
+/* Additional styles for the register form */
+.form.register {
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+}
+
+.form.register input[type="text"],
+.form.register input[type="password"],
+.form.register input[type="email"],
+.form.register button {
+  font-family: 'Titillium Web', sans-serif;
+  border: none;
+  border-radius: 20px;
+  padding: 10px 20px;
+  margin: 10px 0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%; /* Ensure full width */
+  box-sizing: border-box; /* Include padding and border in width */
+}
+
+
+
+
