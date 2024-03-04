@@ -1,32 +1,52 @@
 import React, { useState } from 'react';
-import './styles.css'; // Import your global CSS file
-import Register from './Register'; // Import the Register component
+import axios from 'axios'; // Import Axios for making HTTP requests
+import Register from './Register';
 
 function Login() {
   const [showRegister, setShowRegister] = useState(false); // State to track whether to show the register form
+  const [username, setUsername] = useState(''); // State to store username input
+  const [password, setPassword] = useState(''); // State to store password input
 
   const toggleRegisterForm = () => {
     setShowRegister(prevState => !prevState);
+  };
+
+  const handleLoginSubmit = async (event) => {
+    event.preventDefault();
+
+    try {
+      // Send login credentials to the backend for authentication
+      const response = await axios.post('http://localhost:3000/api/login', {
+        username,
+        password
+      });
+
+      // Handle successful login - e.g., redirect to dashboard
+      console.log('User logged in successfully:', response.data);
+    } catch (error) {
+      // Handle login error - e.g., display error message to the user
+      console.error('Error logging in:', error);
+    }
   };
 
   return (
     <div className="login-page">
       <div className="form">
         {!showRegister ? (
-        <div>
+          <div>
             <h2>User Login</h2>
-            <form action="/submit-login" method="post">
-                <div className="form-group">
-                   <label htmlFor="username">Username:</label>
-                  <input type="text" id="username" name="username" required />
-             </div>
-                <div className="form-group">
-                    <label htmlFor="password">Password:</label>
-                    <input type="text" id="password" name="password" required />
-             </div>
-             <button type="submit">Login</button>
+            <form onSubmit={handleLoginSubmit}>
+              <div className="form-group">
+                <label htmlFor="username">Username:</label>
+                <input type="text" id="username" name="username" value={username} onChange={(e) => setUsername(e.target.value)} required />
+              </div>
+              <div className="form-group">
+                <label htmlFor="password">Password:</label>
+                <input type="password" id="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+              </div>
+              <button type="submit">Login</button>
             </form>
-        </div>
+          </div>
         ) : (
           <Register />
         )}
@@ -42,5 +62,3 @@ function Login() {
 }
 
 export default Login;
-
-
