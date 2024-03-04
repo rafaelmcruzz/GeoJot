@@ -1,23 +1,40 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 
 function Register() {
   // Define state variables for email, username, and password
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  // const [passwordConfirm, setPasswordConfirm] = useState('');
 
   // Handle form submission
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    // You can send the form data (email, username, password) to your backend for database storage here
-    console.log('Form submitted:', { email, username, password });
+    console.log('hhihihi')
+    
+    try {
+
+      console.log('trying')
+      // Send the registration data to the backend
+      const response = await axios.post('http://localhost:3000/api/register', {
+        email,
+        username,
+        password
+      });
+
+      // Handle successful registration
+      console.log('User registered successfully:', response.data);
+      // Optionally, redirect the user to a different page or display a success message
+    } catch (error) {
+      // Handle registration error
+      console.error('Error registering user:', error);
+      // Optionally, display an error message to the user
+    }
+    
     // Reset the form fields
     setEmail('');
     setUsername('');
     setPassword('');
-
-    // setPasswordConfirm('');
   };
 
   return (
@@ -36,10 +53,6 @@ function Register() {
           <label htmlFor="password">Password:</label>
           <input type="password" id="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
         </div>
-        {/* <div className="form-group">
-          <label htmlFor="password-confirm">Confirm Password:</label>
-          <input type="password" id="password-confirm" name="password-confirm" value={passwordConfirm} onChange={(e) => setPasswordConfirm(e.target.value)} required />
-        </div> */}
         <button type="submit">Register</button>
       </form>
     </div>
