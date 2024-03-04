@@ -7,7 +7,7 @@ function App() {
   return (
     <div className="container">
       <div className="form">
-        <Register/>
+        <Login/>
       </div>
     </div>
   );
