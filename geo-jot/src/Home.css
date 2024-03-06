@@ -1,65 +1,69 @@
 .app {
-    display: flex;
-  }
-  
-  .left-sidebar {
-    width: 300px;
-    height: 100%;
-    background-color: #f0f0f0;
-    padding: 20px;
-    box-sizing: border-box;
-    float: left;
-    border-right: 2px solid #ccc; /* 添加右边框 */
-    border-bottom: 2px solid #ccc; /* 添加底部边框 */
-    border-radius: 10px; /* 添加边框圆角 */
-  }
-  
-  .user-profile {
-    border-bottom: 2px solid #ccc; /* 添加用户头像区域的底部边框 */
-    padding-bottom: 20px; /* 添加底部边距 */
-  }
-  
-  .user-profile img {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-  }
-  
-  .user-profile p {
-    font-size: 18px;
-    font-weight: bold;
-  }
-  
-  .address-block {
-    margin-top: 20px;
-  }
-  
-  .address-block h2 {
-    font-size: 24px;
-  }
-  
-  .address-block ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .address-block li {
-    margin-bottom: 10px;
-    border-bottom: 1px solid #ccc; /* 添加地址项之间的底部边框 */
-    padding-bottom: 10px; /* 添加底部边距 */
-  }
-  
-  .selected-address-details {
-    margin-top: 20px;
-    border-top: 2px solid #ccc; /* 添加顶部边框 */
-    padding-top: 20px; /* 添加顶部边距 */
-  }
-  
-  .selected-address-details h2 {
-    font-size: 24px;
-  }
-  
-  .selected-address-details p {
-    font-size: 18px;
-  }
+  display: flex;
+}
+
+.left-sidebar {
+  width: 300px;
+  height: 100vh; /* Set height to 100% of viewport height */
+  background-color: #f0f0f0;
+  padding: 20px;
+  box-sizing: border-box;
+  border-right: 2px solid #ccc; /* Add right border */
+  border-bottom: 2px solid #ccc; /* Add bottom border */
+  border-radius: 10px; /* Add border radius */
+}
+
+.main-content {
+  flex: 1; /* Take up remaining space */
+}
+
+.user-profile {
+  border-bottom: 2px solid #ccc; /* 添加用户头像区域的底部边框 */
+  padding-bottom: 20px; /* 添加底部边距 */
+}
+
+.user-profile img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+
+.user-profile p {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.address-block {
+  margin-top: 20px;
+}
+
+.address-block h2 {
+  font-size: 24px;
+}
+
+.address-block ul {
+  list-style: none;
+  padding: 0;
+}
+
+.address-block li {
+  margin-bottom: 10px;
+  border-bottom: 1px solid #ccc; /* 添加地址项之间的底部边框 */
+  padding-bottom: 10px; /* 添加底部边距 */
+}
+
+.selected-address-details {
+  margin-top: 20px;
+  border-top: 2px solid #ccc; /* 添加顶部边框 */
+  padding-top: 20px; /* 添加顶部边距 */
+}
+
+.selected-address-details h2 {
+  font-size: 24px;
+}
+
+.selected-address-details p {
+  font-size: 18px;
+}
+
   
