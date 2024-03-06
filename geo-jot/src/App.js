@@ -1,5 +1,5 @@
 import React from 'react';
-import './styles.css'; // Import your global CSS file
+//import './styles.css'; // Import your global CSS file
 import Login from './Login'; // Import the Login component
 import Register from './Register';
 import Home from './Home';
