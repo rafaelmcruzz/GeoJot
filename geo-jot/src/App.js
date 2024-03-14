@@ -9,6 +9,7 @@ function App() {
     <div className="container">
       <div className="form">
         <Home/>
+        <Login/>
       </div>
     </div>
   );
