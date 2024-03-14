@@ -1,11 +1,11 @@
 import React from 'react';
 
-function LeftSidebar({ user, addresses, selectedAddress }) {
+function LeftSidebar({ user, addresses, selectedAddress, username }) {
   return (
     <div className="left-sidebar">
       <div className="user-profile">
         <img src={user.avatar} alt="User Avatar" />
-        <p>{user.name}</p>
+        <p>{username}</p>
       </div>
       <div className="address-block">
         <h2>My Addresses</h2>
@@ -13,7 +13,7 @@ function LeftSidebar({ user, addresses, selectedAddress }) {
           {addresses.map((address, index) => (
             <li key={index}>
               <p>{address.name}</p>
-              {/* 可以根据需要显示其他地址信息 */}
+              {/* Additional address information can be displayed as needed*/}
               <p>{address.notes}</p>
             </li>
           ))}

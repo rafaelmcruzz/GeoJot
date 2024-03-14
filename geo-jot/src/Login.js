@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import axios from 'axios'; // Import Axios for making HTTP requests
 import Register from './Register';
+import { Navigate } from "react-router-dom";
 
-function Login() {
+function Login({ setUsername }) {
   const [showRegister, setShowRegister] = useState(false); // State to track whether to show the register form
-  const [username, setUsername] = useState(''); // State to store username input
+  const [usernameInput, setUsernameInput] = useState(''); // State to store username input
   const [password, setPassword] = useState(''); // State to store password input
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // State to track login status
 
   const toggleRegisterForm = () => {
     setShowRegister(prevState => !prevState);
@@ -17,17 +19,24 @@ function Login() {
     try {
       // Send login credentials to the backend for authentication
       const response = await axios.post('http://localhost:3000/api/login', {
-        username,
+        username: usernameInput,
         password
       });
 
-      // Handle successful login - e.g., redirect to dashboard
+      // Handle successful login
       console.log('User logged in successfully:', response.data);
+      setIsLoggedIn(true);
+      setUsername(response.data.username); // Update the username in the parent component
     } catch (error) {
       // Handle login error - e.g., display error message to the user
       console.error('Error logging in:', error);
     }
   };
+
+  if (isLoggedIn) {
+    // Redirect to home page after successful login
+    return <Navigate to="/home" />;
+  }
 
   return (
     <div className="login-page">
@@ -38,7 +47,7 @@ function Login() {
             <form onSubmit={handleLoginSubmit}>
               <div className="form-group">
                 <label htmlFor="username">Username:</label>
-                <input type="text" id="username" name="username" value={username} onChange={(e) => setUsername(e.target.value)} required />
+                <input type="text" id="username" name="username" value={usernameInput} onChange={(e) => setUsernameInput(e.target.value)} required />
               </div>
               <div className="form-group">
                 <label htmlFor="password">Password:</label>
