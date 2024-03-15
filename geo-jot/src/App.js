@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from './Login'; // Import the Login component
 //import Register from './Register';
 import Home from './Home';
+import LoginPage from './LoginPage';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path="/home" element={<Home />} />
       </Routes>
     </Router>
+    // <LoginPage/>
   );
 }
 

@@ -1,5 +1,9 @@
 /* styles.css */
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 /* Ensure the background image covers the entire viewport */
 body {
   /* background: url(./background.webp) no-repeat center center fixed; */
