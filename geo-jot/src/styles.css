@@ -65,6 +65,22 @@ button {
   box-sizing: border-box; /* Include padding and border in width */
 }
 
+/* Pin form styling */
+.form-group {
+  margin-bottom: 15px; /* Add margin between form groups */
+}
+
+label {
+  display: block; /* Display labels as block elements to place them above inputs */
+  margin-bottom: 5px; /* Add margin below labels for spacing */
+}
+
+/* Adjust label position for media input */
+.media-label {
+  display: inline-block; /* Display label as inline-block element */
+  margin-right: 10px; /* Add margin to separate label from input */
+}
+
 
 
 
