@@ -16,22 +16,18 @@ const Form = ({ onSubmit }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Form submission logic here
-    const formData = {
-      notes,
-      mediaFiles
-    };
-    // Pass the form data to the parent component for further processing
+    const formData = { notes, mediaFiles };
     onSubmit(formData);
+
     // Clear form fields after submission if needed
-    setNotes('');
-    setMediaFiles([]);
+    setNotes(''); 
+    setMediaFiles([]); 
   };
 
   return (
-    <div className="form"> {/* Add the class to inherit styling */}
+    <div className="form"> {/* Adds the 'form' class for overall styling */}
       <form onSubmit={handleSubmit}>
-        <div className="form-group">
+        <div className="form-group"> 
           <label htmlFor="notes">Notes:</label>
           <textarea
             id="notes"
@@ -41,7 +37,9 @@ const Form = ({ onSubmit }) => {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="media" className="media-label">Attach Media:</label>
+          <label htmlFor="media" className="media-label">
+            Attach Media:
+          </label>
           <input
             type="file"
             id="media"

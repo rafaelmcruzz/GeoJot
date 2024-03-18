@@ -123,3 +123,53 @@ label {
 .close-button:hover {
   color: #ed1111; /* Change color on hover if desired */
 }
+
+
+/* styles.css */
+.form {
+  background-color: #ffffff; /* White background */
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Light shadow */
+}
+
+.form-group {
+  margin-bottom: 16px;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  color: #333333; /* Dark text color */
+  margin-bottom: 8px;
+}
+
+textarea,
+input[type="file"] {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #cccccc; /* Light gray border */
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 14px;
+}
+
+button[type="submit"] {
+  background-color: #0070f3; /* Anthropic blue color */
+  color: #ffffff; /* White text color */
+  border: none;
+  padding: 10px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+  background-color: #0054b3; /* Darker blue on hover */
+}
+
+.media-label {
+  display: inline-block;
+  margin-bottom: 8px;
+}
