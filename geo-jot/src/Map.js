@@ -8,8 +8,8 @@ import markerIconPng from './Pin.png'; // Ensure you have a marker icon image
 // Define the custom marker icon
 const customIcon = new L.Icon({
   iconUrl: markerIconPng,
-  iconSize: [25, 41],
-  iconAnchor: [12, 41],
+  iconSize: [40, 40],
+  iconAnchor: [20, 41],
   popupAnchor: [1, -34],
 });
 
@@ -25,7 +25,7 @@ function Map() {
         setMarkers([...markers, newMarker]);
       },
       popupopen() {
-        setShowForm(true);
+        setShowForm(false);
       },
       popupclose() {
         setShowForm(false);
@@ -53,7 +53,10 @@ function Map() {
         {markers.map((position, idx) => (
           <Marker key={idx} position={position} icon={customIcon}>
             <Popup>
-              <button onClick={() => setSelectedPosition(position)}>Add Details</button>
+              <button onClick={() => {
+                setSelectedPosition(position); 
+                setShowForm(true); 
+              }}>Add Details</button>
             </Popup>
           </Marker>
         ))}
@@ -61,7 +64,7 @@ function Map() {
       {showForm && selectedPosition && (
         <div className="modal-backdrop">
           <div className="form-modal">
-            <button onClick={() => setShowForm(false)}>Close</button> {/* Close button */}
+            <button className="close-button" onClick={() => setShowForm(false)}>X</button> {/* Close button */}
             <Form onSubmit={handleFormSubmit} />
           </div>
         </div>

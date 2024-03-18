@@ -89,22 +89,37 @@ label {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(5px);
+  background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000; /* Ensure it's above other content */
+  z-index: 1000; /* Ensure this is appropriately set to be above other content */
 }
 
 .form-modal {
-  background: white;
+  position: relative;
+  background-color: #fff;
   padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1001; /* Above the backdrop */
 }
 
+.close-button {
+  font-size: 14px; /* Adjust as necessary */
+  color: #000000; /* Text color */
+  background-color: rgb(255, 255, 255); /* Background color, e.g., Bootstrap primary button color */
+  border: 1px solid #000000; /* Border color */
+  padding: 1px 8px; /* Padding */
+  border-radius: 10px; /* Rounded corners */
+  cursor: pointer; /* Mouse cursor on hover */
+  position: absolute;
+  top: -3px;
+  right: 9px;
+  width: 30px;
+  z-index: 10; /* Ensure it's above other modal content */
+}
 
-
-
-
+.close-button:hover {
+  color: #ed1111; /* Change color on hover if desired */
+}
