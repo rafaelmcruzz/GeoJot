@@ -1,15 +1,36 @@
 import React, { useState } from 'react';
+import axios from 'axios'; // Import Axios for making HTTP requests
+import { Navigate } from "react-router-dom";// Import Axios for making HTTP requests
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle login logic here
-    console.log('Email:', email);
-    console.log('Password:', password);
+    try {
+      // Send login credentials to the backend for authentication
+      const response = await axios.post('http://localhost:3000/api/login', {
+        email: email,
+        password: password
+      });
+
+      // Handle successful login
+      console.log('User logged in successfully:', response.data);
+      setIsLoggedIn(true);
+      // You may want to do something with the response data here
+    } catch (error) {
+      // Handle login error - e.g., display error message to the user
+      console.error('Error logging in:', error);
+    }
   };
+
+  if (isLoggedIn) {
+    // Redirect to home page after successful login
+    // Replace '/home' with the path where you want to redirect
+    return <Navigate to="/home" />;
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-900">

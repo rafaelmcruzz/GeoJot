@@ -26,7 +26,12 @@ function Login({ setUsername }) {
       // Handle successful login
       console.log('User logged in successfully:', response.data);
       setIsLoggedIn(true);
-      setUsername(response.data.username); // Update the username in the parent component
+      setUsername(response.data.user.username); // Adjusted access path
+      // After successful login
+      sessionStorage.setItem('isLoggedIn', 'true');
+      sessionStorage.setItem('username', response.data.user.username);
+
+ 
     } catch (error) {
       // Handle login error - e.g., display error message to the user
       console.error('Error logging in:', error);

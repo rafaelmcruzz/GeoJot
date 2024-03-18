@@ -1,28 +1,35 @@
-import React from 'react';
-import './styles.css'; // Import your global CSS file
+import React, { useState, useEffect } from 'react';
+import './styles.css';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Login from './Login'; // Import the Login component
-//import Register from './Register';
+import Login from './Login';
 import Home from './Home';
-import LoginPage from './LoginPage';
 
 function App() {
+  const [username, setUsername] = useState(''); // Add this line
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+
+  useEffect(() => {
+    const loggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
+    const storedUsername = sessionStorage.getItem('username');
+
+    if (loggedIn && storedUsername) {
+      setIsLoggedIn(true);
+      setUsername(storedUsername);
+    }
+  }, []);
+
+
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/home" element={<Home />} />
+        <Route path="/" element={<Login setUsername={setUsername} />} /> {/* Modify this line */}
+        <Route path="/home" element={<Home username={username} />} /> {/* Modify this line */}
       </Routes>
     </Router>
-    // <LoginPage/>
+
+    
   );
 }
 
 export default App;
-
-
-
-
-
-
-
