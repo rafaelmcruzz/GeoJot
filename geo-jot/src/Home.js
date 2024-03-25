@@ -1,6 +1,7 @@
 import React from 'react';
 import './Home.css'; // Introduce CSS Style Files
 import Map from './Map';
+import Search from './Search';
 
 // LeftSidebar components
 function LeftSidebar({ user, username }) {
@@ -32,9 +33,14 @@ function App(props) {
   };
 
   return (
-    <div className="app">
-      <LeftSidebar user={user} username={user.name} />
-      <MainContent />
+    <div className="home">
+      <div className="search-bar">
+        <Search />
+      </div>
+      <div className="content-container">
+        <LeftSidebar user={user} username={user.name} />
+        <MainContent />
+      </div>
     </div>
   );
 }
