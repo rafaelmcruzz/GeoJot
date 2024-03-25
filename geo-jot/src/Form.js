@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import './styles.css'; // Import the styles.css file
 
 const Form = ({ onSubmit, onEdit }) => {
-  const [name, setName] = useState(''); // New state for name input
+  const [name, setName] = useState('');
   const [notes, setNotes] = useState('');
   const [mediaFiles, setMediaFiles] = useState([]);
+  const [showMore, setShowMore] = useState(false); // State to control the display of the view more window
 
-  // Handle change for the name input
   const handleNameChange = (e) => {
     setName(e.target.value);
   };
@@ -20,12 +20,10 @@ const Form = ({ onSubmit, onEdit }) => {
     setMediaFiles(files);
   };
 
-  // Adjusted to include name in the submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const formData = { name, notes, mediaFiles }; // Now includes name and mediaFiles
+    const formData = { name, notes, mediaFiles };
 
-    // Assuming the API can handle name and mediaFiles now
     try {
       await fetch('http://localhost:3000/api/pins', {
         method: 'POST',
@@ -35,7 +33,6 @@ const Form = ({ onSubmit, onEdit }) => {
         body: JSON.stringify(formData),
       });
 
-      // Clear form fields after successful submission
       setName('');
       setNotes('');
       setMediaFiles([]);
@@ -44,8 +41,13 @@ const Form = ({ onSubmit, onEdit }) => {
     }
   };
 
+  // Function to toggle the display of the view more window
+  const handleViewMore = () => {
+    setShowMore(!showMore);
+  };
+
   return (
-    <div className="form"> {/* Adds the 'form' class for overall styling */}
+    <div className="form">
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="name">Name:</label>
@@ -77,12 +79,37 @@ const Form = ({ onSubmit, onEdit }) => {
             multiple
           />
         </div>
+        {/* Placeholder for the music box, you might need to implement or embed an actual music player based on your API */}
+        <div className="form-group">
+          <label htmlFor="music">Music:</label>
+          <input
+            id="music"
+            type="text"
+            placeholder="Enter music link..."
+          />
+        </div>
         <button type="submit">Submit</button>
-        <button type="button" onClick={onEdit}>Edit</button> {/* New edit (return) button */}
+        <button type="button" onClick={onEdit}>Edit</button>
+        <button type="button" onClick={handleViewMore}>View More</button>
       </form>
+      {showMore && (
+        <div className="view-more-window">
+          <div className="left-side">
+            <p>Name: {name}</p>
+            <p>Notes: {notes}</p>
+            {/* Display music information or player here based on your API */}
+            <p>Music: {/* Music information or player */}</p>
+          </div>
+          <div className="right-side">
+            {/* Display images, assuming mediaFiles contains URLs */}
+            {mediaFiles.map((file, index) => (
+              <img key={index} src={URL.createObjectURL(file)} alt="Media" />
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 };
 
 export default Form;
-
