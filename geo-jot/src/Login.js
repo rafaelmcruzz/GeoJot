@@ -1,78 +1,101 @@
-import React, { useState } from 'react';
-import axios from 'axios'; // Import Axios for making HTTP requests
-import Register from './Register';
-import { Navigate } from "react-router-dom";
+const sign_in_btn = document.querySelector("#sign-in-btn");
+const sign_up_btn = document.querySelector("#sign-up-btn");
+const container = document.querySelector(".container");
 
-function Login({ setUsername }) {
-  const [showRegister, setShowRegister] = useState(false); // State to track whether to show the register form
-  const [usernameInput, setUsernameInput] = useState(''); // State to store username input
-  const [password, setPassword] = useState(''); // State to store password input
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // State to track login status
+sign_up_btn.addEventListener("click", () => {
+  container.classList.add("sign-up-mode");
+});
 
-  const toggleRegisterForm = () => {
-    setShowRegister(prevState => !prevState);
-  };
-
-  const handleLoginSubmit = async (event) => {
-    event.preventDefault();
-
-    try {
-      // Send login credentials to the backend for authentication
-      const response = await axios.post('http://localhost:3000/api/login', {
-        username: usernameInput,
-        password
+sign_in_btn.addEventListener("click", () => {
+  container.classList.remove("sign-up-mode");
+});
+document.addEventListener("DOMContentLoaded", function() {
+    const signInForm = document.querySelector(".sign-in-form");
+  
+    signInForm.addEventListener("submit", function(event) {
+      event.preventDefault(); // Prevent the default form submission behavior
+  
+      // Get the values of username and password input fields
+      const username = signInForm.querySelector('input[type="text"]').value;
+      const password = signInForm.querySelector('input[type="password"]').value;
+  
+      // Create an object containing data to send to the backend
+      const formData = {
+        username: username,
+        password: password
+      };
+  
+      // Send a POST request to the backend to verify user identity
+      fetch("/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(formData)
+      })
+      .then(response => {
+        if (response.ok) {
+          // If the response status code is 200, user identity is verified
+          return response.json();
+        } else {
+          // If the response status code is not 200, display an error message
+          throw new Error("Failed to sign in. Please check your credentials.");
+        }
+      })
+      .then(data => {
+        // Handle successful response, e.g., redirect to user's profile page
+        window.location.href = "/profile";
+      })
+      .catch(error => {
+        // Handle error, e.g., display error message to the user
+        console.error("Error:", error.message);
       });
-
-      // Handle successful login
-      console.log('User logged in successfully:', response.data);
-      setIsLoggedIn(true);
-      setUsername(response.data.user.username); // Adjusted access path
-      // After successful login
-      sessionStorage.setItem('isLoggedIn', 'true');
-      sessionStorage.setItem('username', response.data.user.username);
-
- 
-    } catch (error) {
-      // Handle login error - e.g., display error message to the user
-      console.error('Error logging in:', error);
-    }
-  };
-
-  if (isLoggedIn) {
-    // Redirect to home page after successful login
-    return <Navigate to="/home" />;
-  }
-
-  return (
-    <div className="login-page">
-      <div className="form">
-        {!showRegister ? (
-          <div>
-            <h2>User Login</h2>
-            <form onSubmit={handleLoginSubmit}>
-              <div className="form-group">
-                <label htmlFor="username">Username:</label>
-                <input type="text" id="username" name="username" value={usernameInput} onChange={(e) => setUsernameInput(e.target.value)} required />
-              </div>
-              <div className="form-group">
-                <label htmlFor="password">Password:</label>
-                <input type="password" id="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
-              </div>
-              <button type="submit">Login</button>
-            </form>
-          </div>
-        ) : (
-          <Register />
-        )}
-        <form className="login-form">
-          {/* Button to toggle between login and register forms */}
-          <button type="button" onClick={toggleRegisterForm}>
-            {showRegister ? 'Already have an account? Login' : 'Don\'t have an account? Sign up'}
-          </button>
-        </form>
-      </div>
-    </div>
-  );
-}
-
-export default Login;
+    });
+  });
+  document.addEventListener("DOMContentLoaded", function() {
+    const signUpForm = document.querySelector(".sign-up-form");
+  
+    signUpForm.addEventListener("submit", function(event) {
+      event.preventDefault(); // Prevent the default form submission behavior
+  
+      // Get the values of username, email, and password input fields
+      const username = signUpForm.querySelector('input[name="username"]').value;
+      const email = signUpForm.querySelector('input[name="email"]').value;
+      const password = signUpForm.querySelector('input[name="password"]').value;
+  
+      // Create an object containing data to send to the backend
+      const formData = {
+        username: username,
+        email: email,
+        password: password
+      };
+  
+      // Send a POST request to the backend to register the user
+      fetch("/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(formData)
+      })
+      .then(response => {
+        if (response.ok) {
+          // If the response status code is 200, user registration is successful
+          return response.json();
+        } else {
+          // If the response status code is not 200, display an error message
+          throw new Error("Failed to sign up. Please try again.");
+        }
+      })
+      .then(data => {
+        // Handle successful response, e.g., redirect to a success page
+        window.location.href = "/success";
+      })
+      .catch(error => {
+        // Handle error, e.g., display error message to the user
+        console.error("Error:", error.message);
+      });
+    });
+  });
+  
+  
