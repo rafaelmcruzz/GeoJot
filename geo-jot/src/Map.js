@@ -39,6 +39,10 @@ function Map() {
     fetchPins();
   }, []); // The empty array ensures this effect runs once on mount
 
+  useEffect(() => {
+    console.log(selectedMarker);
+  }, [selectedMarker]);
+
   // Function to handle marker deletion
   const deleteMarker = async (markerId) => {
     try {
@@ -91,6 +95,9 @@ function Map() {
           _id: uuidv4(),
           position: e.latlng,
           name: '', // Initial name is empty
+          notes: '', // Initial notes is empty
+          music: '', // Initial music is empty
+          media: null, // Initial media is null
         };
         setMarkers((currentMarkers) => [...currentMarkers, newMarker]);
         // Call handleMapClick to send the marker to the backend
@@ -107,16 +114,36 @@ function Map() {
     return null;
   }
 
-  const handleFormSubmit = (formData) => {
-    console.log(formData);
-    // Update the name of the selected marker
-    const updatedMarkers = markers.map(marker =>
-      marker === selectedMarker ? { ...marker, name: formData.name } : marker
-    );
-    setMarkers(updatedMarkers);
-    setShowForm(false);
-    setSelectedMarker(null);
+  const handleFormSubmit = async (formData) => {
+    try {
+      const response = await fetch(`http://localhost:3000/api/pins/${formData._id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+  
+      if (response.ok) {
+        // Logic to update the local state with the new details of the pin
+        const updatedMarkers = markers.map(marker =>
+          marker._id === formData._id ? { ...marker, ...formData } : marker
+        );
+        setMarkers(updatedMarkers);
+        setShowForm(false);
+        setSelectedMarker(null);
+      } else {
+        console.error('Failed to update pin:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error updating pin:', error);
+    }
   };
+
+  const handleSelectMarker = (marker) => {
+    setSelectedMarker(marker);
+    setShowForm(true);
+  }
 
   return (
     <div className="map">
@@ -130,8 +157,7 @@ function Map() {
           <Marker key={idx} position={marker.position} icon={customIcon}>
             <Popup>
               <button onClick={() => {
-                setSelectedMarker(marker);
-                setShowForm(true);
+                handleSelectMarker(marker)
               }}>Add Details</button>
               <button onClick={() => deleteMarker(marker._id)}>Delete</button> {/* Button to Delete Marker */}
             </Popup>
@@ -142,7 +168,7 @@ function Map() {
         <div className="modal-backdrop">
           <div className="form-modal">
             <button className="close-button" onClick={() => setShowForm(false)}>X</button>
-            <Form onSubmit={handleFormSubmit} initialName={selectedMarker.name} />
+            <Form onSubmit={handleFormSubmit} _id={selectedMarker._id} />
           </div>
         </div>
       )}

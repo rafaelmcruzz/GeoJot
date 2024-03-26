@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import './styles.css'; // Import the styles.css file
 
-const Form = ({ onSubmit, onEdit }) => {
+const Form = ({ onSubmit, onEdit, _id }) => {
   const [name, setName] = useState('');
   const [notes, setNotes] = useState('');
+  const [music, setMusic] = useState('');
   const [mediaFiles, setMediaFiles] = useState([]);
   const [showMore, setShowMore] = useState(false); // State to control the display of the view more window
 
@@ -15,6 +16,10 @@ const Form = ({ onSubmit, onEdit }) => {
     setNotes(e.target.value);
   };
 
+  const handleMusicChange = (e) => {
+    setNotes(e.target.value);
+  }
+
   const handleMediaChange = (e) => {
     const files = Array.from(e.target.files);
     setMediaFiles(files);
@@ -22,24 +27,29 @@ const Form = ({ onSubmit, onEdit }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const formData = { name, notes, mediaFiles };
+    const formData = { name, notes, music, mediaFiles };
+
+    const url = _id ? `http://localhost:3000/api/pins/${_id}` : 'http://localhost:3000/api/pins';
+    const method = _id ? 'PUT' : 'POST';
 
     try {
-      await fetch('http://localhost:3000/api/pins', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
+      await fetch(url, {
+      method: method,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData),
+    });
 
-      setName('');
-      setNotes('');
-      setMediaFiles([]);
-    } catch (error) {
-      console.error('Error submitting form:', error);
-    }
-  };
+    // Reset form fields
+    setName('');
+    setNotes('');
+    setMusic('');
+    setMediaFiles([]);
+  } catch (error) {
+    console.error('Error submitting form:', error);
+  }
+};
 
   // Function to toggle the display of the view more window
   const handleViewMore = () => {
@@ -85,6 +95,7 @@ const Form = ({ onSubmit, onEdit }) => {
           <input
             id="music"
             type="text"
+            onchange={handleMusicChange}
             placeholder="Enter music link..."
           />
         </div>
@@ -98,7 +109,7 @@ const Form = ({ onSubmit, onEdit }) => {
             <p>Name: {name}</p>
             <p>Notes: {notes}</p>
             {/* Display music information or player here based on your API */}
-            <p>Music: {/* Music information or player */}</p>
+            <p>Music: {music}</p>
           </div>
           <div className="right-side">
             {/* Display images, assuming mediaFiles contains URLs */}
