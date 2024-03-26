@@ -4,7 +4,6 @@ import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import Form from './Form';
 import markerIconPng from './Pin.png';
-import { v4 as uuidv4 } from 'uuid'; // Importing uuidv4
 
 const customIcon = new L.Icon({
   iconUrl: markerIconPng,
@@ -39,52 +38,33 @@ function Map() {
     fetchPins();
   }, []); // The empty array ensures this effect runs once on mount
 
-  // Function to handle marker deletion
-  const deleteMarker = async (markerId) => {
-    try {
-      const response = await fetch(`http://localhost:3000/api/pins/${markerId}`, {
-        method: 'DELETE',
-      });
-
-      if (response.ok) {
-        // If the deletion was successful, update the state or UI accordingly
-        console.log('Pin successfully deleted');
-        setMarkers(currentMarkers => currentMarkers.filter(marker => marker._id !== markerId));
-      } else {
-        // Handle cases where the backend responds with an error (e.g., pin not found)
-        console.error('Failed to delete pin:', await response.text());
-      }
-    } catch (error) {
-      console.error('Error deleting pin:', error);
-    }
-  };
-
   function LocationMarker() {
+
     const handleMapClick = async (newMarker) => {
       // Assuming your backend expects an object with position and name
       try {
-        const response = await fetch('http://localhost:3000/api/pins', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(newMarker),
-        });
+          const response = await fetch('http://localhost:3000/api/pins', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(newMarker),
+          });
 
-        const data = await response.json();
-        console.log('Pin saved successfully:', data);
-        // Update the new marker with the generated _id
-        newMarker._id = data._id;
-        setMarkers((currentMarkers) => [...currentMarkers, newMarker]);
+          const data = await response.json();
+          console.log('Pin saved successfully:', data);
+          // You might want to do something here upon successful saving,
+          // like updating the marker with a response ID or showing a message to the user.
       } catch (error) {
-        console.error('Error creating pin:', error);
+          console.error('Error creating pin:', error);
+          // Handle any errors, such as by showing an error message to the user.
       }
-    };
+  };
+
 
     useMapEvents({
       contextmenu(e) {
         const newMarker = {
-          _id: uuidv4(), // Generate a unique ID for the new marker
           position: e.latlng,
           name: '', // Initial name is empty
         };
@@ -129,7 +109,6 @@ function Map() {
                 setSelectedMarker(marker);
                 setShowForm(true);
               }}>Add Details</button>
-              <button onClick={() => deleteMarker(marker._id)}>Delete</button> {/* Button to Delete Marker */}
             </Popup>
           </Marker>
         ))}
