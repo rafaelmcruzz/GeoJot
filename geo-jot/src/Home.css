@@ -94,4 +94,24 @@
   width: 250px;
   transform: scale(1.3);
 }
+
+.drawing1 {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.left-section,
+.right-section {
+  flex: 1;
+}
+
+.form-group {
+  margin-bottom: 10px;
+}
+
+.image img {
+  width: 100px;
+  height: auto;
+}
   
