@@ -2,13 +2,19 @@ import React from 'react';
 import './Home.css'; // Introduce CSS Style Files
 import Map from './Map';
 import Search from './Search';
+import { useUser } from './UserContext';
 
 // LeftSidebar components
-function LeftSidebar({ user, username }) {
+function LeftSidebar() {
+
+  const { username } = useUser();
+  const avatarUrl = 'user-avatar.jpg';
+  
+
   return (
     <div className="left-sidebar">
       <div className="user-profile">
-        <img src={user.avatar} alt="User Avatar" />
+        <img src={avatarUrl} alt="User Avatar" />
         <p>{username} </p> {/* Display username */}
       </div>
     </div>
@@ -25,20 +31,15 @@ function MainContent() {
 }
 
 // App components
-function App(props) {
+function App() {
   // Use the passed username instead of hardcoding
-  const user = {
-    name: props.username, // Fallback to 'John Doe' if username is not provided
-    avatar: 'user-avatar.jpg',
-  };
-
   return (
     <div className="home">
       <div className="search-bar">
         <Search />
       </div>
       <div className="content-container">
-        <LeftSidebar user={user} username={user.name} />
+        <LeftSidebar />
         <MainContent />
       </div>
     </div>

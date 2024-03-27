@@ -5,6 +5,7 @@ import L from 'leaflet';
 import Form from './Form';
 import markerIconPng from './Pin.png';
 import { v4 as uuidv4 } from 'uuid';
+import { useUser } from './UserContext';
 
 const customIcon = new L.Icon({
   iconUrl: markerIconPng,
@@ -17,11 +18,13 @@ function Map() {
   const [markers, setMarkers] = useState([]);
   const [showForm, setShowForm] = useState(false);
   const [selectedMarker, setSelectedMarker] = useState(null);
+  const { username } = useUser();
 
   // Function to fetch pins
   const fetchPins = async () => {
     try {
-      const response = await fetch('http://localhost:3000/api/pins');
+      console.log('Fetching pins for user:', username);
+      const response = await fetch(`http://localhost:3000/api/pins?username=${username}`);
       if (response.ok) {
         const pins = await response.json();
         const validPins = pins.filter(pin => pin.position && pin.position.lat && pin.position.lng);
@@ -36,8 +39,10 @@ function Map() {
 
   // useEffect to fetch pins when the component mounts
   useEffect(() => {
-    fetchPins();
-  }, []); // The empty array ensures this effect runs once on mount
+    if (username) {
+      fetchPins(); // Only fetch pins if the username exists
+    }
+  }, [username]); // Depend on username
 
   useEffect(() => {
     console.log(selectedMarker);
@@ -67,21 +72,27 @@ function Map() {
 
     const handleMapClick = async (newMarker) => {
       // Assuming your backend expects an object with position and name
+
+      const markerWithUser = { ...newMarker, username };
+
       try {
         const response = await fetch('http://localhost:3000/api/pins', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify(newMarker),
+          body: JSON.stringify(markerWithUser),
         });
 
+        if (response.ok) {
           const data = await response.json();
           console.log('Pin saved successfully:', data);
-          newMarker._id = data._id;
-          setMarkers((currentMarkers) => [...currentMarkers, newMarker]);
-          // You might want to do something here upon successful saving,
-          // like updating the marker with a response ID or showing a message to the user.
+          // Update the state with the new marker, including the _id returned from the server
+          setMarkers((currentMarkers) => [...currentMarkers, { ...markerWithUser, _id: data._id }]);
+        } else {
+          // Handle server errors or unsuccessful responses
+          console.error('Failed to save pin:', await response.text());
+        }
       } catch (error) {
           console.error('Error creating pin:', error);
           // Handle any errors, such as by showing an error message to the user.
@@ -98,8 +109,9 @@ function Map() {
           notes: '', // Initial notes is empty
           music: '', // Initial music is empty
           media: null, // Initial media is null
+          username,
         };
-        setMarkers((currentMarkers) => [...currentMarkers, newMarker]);
+        //setMarkers((currentMarkers) => [...currentMarkers, newMarker]);
         // Call handleMapClick to send the marker to the backend
         handleMapClick(newMarker);
       },

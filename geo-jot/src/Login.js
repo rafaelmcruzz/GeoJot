@@ -2,12 +2,14 @@ import React, { useState } from 'react';
 import axios from 'axios'; // Import Axios for making HTTP requests
 import Register from './Register';
 import { Navigate } from "react-router-dom";
+import { useUser } from './UserContext';
 
-function Login({ setUsername }) {
+function Login({ }) {
   const [showRegister, setShowRegister] = useState(false); // State to track whether to show the register form
   const [usernameInput, setUsernameInput] = useState(''); // State to store username input
   const [password, setPassword] = useState(''); // State to store password input
   const [isLoggedIn, setIsLoggedIn] = useState(false); // State to track login status
+  const { setUsername } = useUser();
 
   const toggleRegisterForm = () => {
     setShowRegister(prevState => !prevState);
@@ -30,6 +32,7 @@ function Login({ setUsername }) {
       // After successful login
       sessionStorage.setItem('isLoggedIn', 'true');
       sessionStorage.setItem('username', response.data.user.username);
+      console.log('Current user:', response.data.user.username);
 
  
     } catch (error) {
