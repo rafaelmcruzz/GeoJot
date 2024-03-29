@@ -114,4 +114,49 @@
   width: 100px;
   height: auto;
 }
-  
+
+.drawing2 {
+  display: flex;
+  padding-left: 20px;
+  padding-right: 20px; /* Add padding to the right side as well */
+}
+
+.left-side,
+.right-side {
+  flex: 1; /* Both sides take up equal space */
+}
+
+.left-side {
+  padding-right: 10px; /* Adjust padding between sides if needed */
+}
+
+.right-side {
+  padding-left: 10px; /* Adjust padding between sides if needed */
+  position: relative;
+  display: flex;
+  justify-content: center; /* Center images horizontally */
+  align-items: center; /* Center images vertically */
+  max-height: calc(85vh - 150px); /* Ensure the height doesn't exceed the left side */
+}
+
+textarea {
+  height: calc(88vh - 150px); /* Adjust as needed */
+  resize: none;
+}
+
+.image-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 columns */
+  gap: 10px; /* Add gap between images */
+  padding: 5px; /* Add padding between images */
+  max-height: 100%; /* Ensure the container doesn't exceed the height of the right side */
+}
+
+.image-container img {
+  max-width: 100%; /* Limit image width */
+  max-height: 100%; /* Limit image height */
+  width: auto; /* Maintain aspect ratio */
+  height: auto; /* Maintain aspect ratio */
+}
+
+
