@@ -3,6 +3,8 @@ import axios from 'axios'; // Import Axios for making HTTP requests
 import Register from './Register';
 import { Navigate } from "react-router-dom";
 import { useUser } from './UserContext';
+import frombg from './frombg.jpeg';
+import logo from './logo.jpg';
 
 function Login({ }) {
   const [showRegister, setShowRegister] = useState(false); // State to track whether to show the register form
@@ -47,19 +49,22 @@ function Login({ }) {
   }
 
   return (
+    <div className="background-image">
     <div className="login-page">
+      <div className='form'>
+        <img src={frombg} />
+      </div>
       <div className="form">
         {!showRegister ? (
           <div>
-            <h2>User Login</h2>
+            <img src={logo} class="logo" />
+            <h2 type="title">Welcome to GeoJot</h2>
             <form onSubmit={handleLoginSubmit}>
               <div className="form-group">
-                <label htmlFor="username">Username:</label>
-                <input type="text" id="username" name="username" value={usernameInput} onChange={(e) => setUsernameInput(e.target.value)} required />
+                <input type="text" id="username" name="username" placeholder="Username" value={usernameInput} onChange={(e) => setUsernameInput(e.target.value)} required />
               </div>
               <div className="form-group">
-                <label htmlFor="password">Password:</label>
-                <input type="password" id="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+                <input type="password" id="password" name="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
               </div>
               <button type="submit">Login</button>
             </form>
@@ -74,6 +79,7 @@ function Login({ }) {
           </button>
         </form>
       </div>
+    </div>
     </div>
   );
 }

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import logo from './logo.jpg';
 
 function Register() {
   // Define state variables for email, username, and password
@@ -39,19 +40,17 @@ function Register() {
 
   return (
     <div>
-      <h2>User Registration</h2>
+      <img src={logo} class="logo" />
+      <h2 type="title">User Registration</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <label htmlFor="username">Username:</label>
-          <input type="text" id="username" name="username" value={username} onChange={(e) => setUsername(e.target.value)} required />
+          <input type="text" id="username" name="username" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} required />
         </div>
         <div className="form-group">
-          <label htmlFor="email">Email:</label>
-          <input type="email" id="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+          <input type="email" id="email" name="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
         </div>
         <div className="form-group">
-          <label htmlFor="password">Password:</label>
-          <input type="password" id="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+          <input type="password" id="password" name="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
         </div>
         <button type="submit">Register</button>
       </form>
