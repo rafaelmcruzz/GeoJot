@@ -28,28 +28,30 @@ const Form = ({ onSubmit, onEdit, _id }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = { name, notes, music, mediaFiles };
-
+  
+    // Determine the URL and HTTP method based on the presence of _id
     const url = _id ? `http://localhost:3000/api/pins/${_id}` : 'http://localhost:3000/api/pins';
     const method = _id ? 'PUT' : 'POST';
-
+  
+    // Log the type of request being executed
+    console.log(`${method} request being executed`);
+  
     try {
       await fetch(url, {
-      method: method,
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(formData),
-    });
-
-    // Reset form fields
-    setName('');
-    setNotes('');
-    setMusic('');
-    setMediaFiles([]);
-  } catch (error) {
-    console.error('Error submitting form:', error);
-  }
-};
+        method: method,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+  
+      // If successful, log that the operation was successful
+      console.log(`${method} request successful`);
+    } catch (error) {
+      console.error('Error submitting form:', error);
+    }
+  };
+  
 
   // Function to toggle the display of the view more window
   const handleViewMore = () => {
@@ -76,6 +78,8 @@ const Form = ({ onSubmit, onEdit, _id }) => {
             value={notes}
             onChange={handleNotesChange}
             placeholder="Enter notes..."
+            style={{ height: '100px' }} // Inline style to adjust height
+
           />
         </div>
         <div className="form-group">
@@ -95,7 +99,7 @@ const Form = ({ onSubmit, onEdit, _id }) => {
           <input
             id="music"
             type="text"
-            onchange={handleMusicChange}
+            onChange={handleMusicChange}
             placeholder="Enter music link..."
           />
         </div>

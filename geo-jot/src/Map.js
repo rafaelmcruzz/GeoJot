@@ -26,9 +26,16 @@ function Map() {
       console.log('Fetching pins for user:', username);
       const response = await fetch(`http://localhost:3000/api/pins?username=${username}`);
       if (response.ok) {
-        const pins = await response.json();
-        const validPins = pins.filter(pin => pin.position && pin.position.lat && pin.position.lng);
-        setMarkers(validPins); // Assuming your backend sends an array of pins
+        let pins = await response.json();
+        pins = pins.filter(pin => pin.position && pin.position.lat && pin.position.lng);
+  
+        const pinsWithDetails = await Promise.all(pins.map(async (pin) => {
+          // Attempt to fetch details and use an empty object as fallback
+          const details = await fetchPinDetails(pin._id) || {};
+          return { ...pin, details }; // Safely append details, ensuring it's never undefined
+        }));
+  
+        setMarkers(pinsWithDetails);
       } else {
         console.error('Failed to fetch pins:', response.statusText);
       }
@@ -36,6 +43,26 @@ function Map() {
       console.error('Error fetching pins:', error);
     }
   };
+  
+  // Since fetchPinDetails might be used here before its definition, ensure it's defined appropriately
+  const fetchPinDetails = async (pinId) => {
+    try {
+      console.log(`Fetching details for pin with ID: ${pinId}`); // Debugging
+      const response = await fetch(`http://localhost:3000/api/pins/details/${pinId}`);
+      if (response.ok) {
+        const pinDetails = await response.json();
+        console.log('Fetched pin details:', pinDetails); // Debugging
+        return pinDetails;
+      } else {
+        console.error('Failed to fetch pin details:', response.statusText);
+        return null;
+      }
+    } catch (error) {
+      console.error('Error fetching pin details:', error);
+      return null;
+    }
+  };
+
 
   // useEffect to fetch pins when the component mounts
   useEffect(() => {
@@ -73,7 +100,7 @@ function Map() {
     const handleMapClick = async (newMarker) => {
       // Assuming your backend expects an object with position and name
 
-      const markerWithUser = { ...newMarker, username };
+      const markerWithUser = { ...newMarker, username, details: {} };
 
       try {
         const response = await fetch('http://localhost:3000/api/pins', {
@@ -168,10 +195,13 @@ function Map() {
         {markers.map((marker, idx) => (
           <Marker key={idx} position={marker.position} icon={customIcon}>
             <Popup>
-              <button onClick={() => {
-                handleSelectMarker(marker)
-              }}>Add Details</button>
-              <button onClick={() => deleteMarker(marker._id)}>Delete</button> {/* Button to Delete Marker */}
+              <div>
+                <strong>Name:</strong> {marker.details?.name || 'N/A'}
+                <br />
+                <strong>Notes:</strong> {marker.details?.notes || 'No notes'}
+              </div>
+              <button onClick={() => handleSelectMarker(marker)}>Add Details</button>
+              <button onClick={() => deleteMarker(marker._id)}>Delete</button>
             </Popup>
           </Marker>
         ))}
