@@ -193,24 +193,42 @@ function Map() {
         />
         <LocationMarker />
         {markers.map((marker, idx) => (
-          <Marker key={idx} position={marker.position} icon={customIcon}>
-            <Popup>
-              <div>
-                <strong>Name:</strong> {marker.details?.name || 'N/A'}
-                <br />
-                <strong>Notes:</strong> {marker.details?.notes || 'No notes'}
-              </div>
-              <button onClick={() => handleSelectMarker(marker)}>Add Details</button>
-              <button onClick={() => deleteMarker(marker._id)}>Delete</button>
-            </Popup>
-          </Marker>
+            <Marker key={idx} position={marker.position} icon={customIcon}>
+              <Popup>
+                <div>
+                  <strong>Name:</strong> {marker.details?.name || 'N/A'}
+                  <br />
+                  <strong>Notes:</strong> {marker.details?.notes || 'No notes'}
+                </div>
+                {/* Conditionally render buttons based on whether details exist */}
+                {marker.details?.name || marker.details?.notes ? (
+                  <button onClick={() => {
+                    setSelectedMarker(marker); // Assuming you have a method to handle edit
+                    setShowForm(true); // Show form for editing
+                  }}>Edit</button>
+                ) : (
+                  <button onClick={() => {
+                    handleSelectMarker(marker); // Your existing method to handle adding details
+                  }}>Add Details</button>
+                )}
+                <button onClick={() => deleteMarker(marker._id)}>Delete</button>
+              </Popup>
+            </Marker>
         ))}
       </MapContainer>
       {showForm && selectedMarker && (
         <div className="modal-backdrop">
           <div className="form-modal">
             <button className="close-button" onClick={() => setShowForm(false)}>X</button>
-            <Form onSubmit={handleFormSubmit} _id={selectedMarker._id} />
+            <Form 
+              onSubmit={handleFormSubmit} 
+              _id={selectedMarker._id} 
+              initialName={selectedMarker.details?.name || ''} 
+              initialNotes={selectedMarker.details?.notes || ''} 
+              initialMusic={selectedMarker.details?.music || ''} 
+              // Assuming mediaFiles is an array of file objects or URLs
+              initialMediaFiles={selectedMarker.details?.mediaFiles || []}
+            />
           </div>
         </div>
       )}

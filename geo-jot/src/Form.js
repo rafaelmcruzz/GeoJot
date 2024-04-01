@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import './styles.css'; // Import the styles.css file
-
-const Form = ({ onSubmit, onEdit, _id }) => {
-  const [name, setName] = useState('');
-  const [notes, setNotes] = useState('');
-  const [music, setMusic] = useState('');
-  const [mediaFiles, setMediaFiles] = useState([]);
+const Form = ({ onSubmit, onEdit, _id, initialName = '', initialNotes = '', initialMusic = '', initialMediaFiles = [] }) => {
+  const [name, setName] = useState(initialName);
+  const [notes, setNotes] = useState(initialNotes);
+  const [music, setMusic] = useState(initialMusic);
+  const [mediaFiles, setMediaFiles] = useState(initialMediaFiles);
   const [showMore, setShowMore] = useState(false); // State to control the display of the view more window
 
   const handleNameChange = (e) => {
