@@ -1,7 +1,8 @@
+// Drawing2.js
 import React from 'react';
 import './Home.css'; // Import the Home.css file
 
-const Drawing2 = () => {
+const Drawing2 = ({ onBack }) => {
   const exampleData = {
     name: "Example Name",
     notes: "These are example notes.",
@@ -51,6 +52,7 @@ const Drawing2 = () => {
             readOnly
           />
         </div>
+        <button type="button" onClick={onBack}>Back</button> {/* Call onBack when Back button is clicked */}
       </div>
       <div className="right-side">
         {/* Display Multiple Pictures */}
@@ -67,3 +69,4 @@ const Drawing2 = () => {
 };
 
 export default Drawing2;
+

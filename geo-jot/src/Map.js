@@ -3,6 +3,8 @@ import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from 'react-leaf
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import Form from './Form';
+import Drawing1 from './Drawing1';
+import Drawing2 from './Drawing2';
 import markerIconPng from './Pin.png';
 import { v4 as uuidv4 } from 'uuid';
 import { useUser } from './UserContext';
@@ -18,6 +20,7 @@ function Map() {
   const [markers, setMarkers] = useState([]);
   const [showForm, setShowForm] = useState(false);
   const [selectedMarker, setSelectedMarker] = useState(null);
+  const [selectedDrawing, setSelectedDrawing] = useState(null);
   const { username } = useUser();
 
   // Function to fetch pins
@@ -63,6 +66,32 @@ function Map() {
     }
   };
 
+  // Function to handle form submission
+  const handleFormSubmit = async (formData) => {
+    try {
+      const response = await fetch(`http://localhost:3000/api/pins/${formData._id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+  
+      if (response.ok) {
+        // Logic to update the local state with the new details of the pin
+        const updatedMarkers = markers.map(marker =>
+          marker._id === formData._id ? { ...marker, ...formData } : marker
+        );
+        setMarkers(updatedMarkers);
+        setShowForm(false);
+        setSelectedMarker(null);
+      } else {
+        console.error('Failed to update pin:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error updating pin:', error);
+    }
+  };
 
   // useEffect to fetch pins when the component mounts
   useEffect(() => {
@@ -73,6 +102,12 @@ function Map() {
 
   useEffect(() => {
     console.log(selectedMarker);
+    // Determine which drawing component to display based on selectedMarker
+    if (selectedMarker && selectedMarker.details && (selectedMarker.details.name || selectedMarker.details.notes)) {
+      setSelectedDrawing('Drawing1');
+    } else {
+      setSelectedDrawing(null); // If no details, reset selectedDrawing
+    }
   }, [selectedMarker]);
 
   // Function to handle marker deletion
@@ -86,6 +121,7 @@ function Map() {
         // If the deletion was successful, update the state or UI accordingly
         console.log('Pin successfully deleted');
         setMarkers(currentMarkers => currentMarkers.filter(marker => marker._id !== markerId));
+        setSelectedMarker(null); // Reset selected marker after deletion
       } else {
         // Handle cases where the backend responds with an error (e.g., pin not found)
         console.error('Failed to delete pin:', await response.text());
@@ -153,32 +189,6 @@ function Map() {
     return null;
   }
 
-  const handleFormSubmit = async (formData) => {
-    try {
-      const response = await fetch(`http://localhost:3000/api/pins/${formData._id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
-  
-      if (response.ok) {
-        // Logic to update the local state with the new details of the pin
-        const updatedMarkers = markers.map(marker =>
-          marker._id === formData._id ? { ...marker, ...formData } : marker
-        );
-        setMarkers(updatedMarkers);
-        setShowForm(false);
-        setSelectedMarker(null);
-      } else {
-        console.error('Failed to update pin:', response.statusText);
-      }
-    } catch (error) {
-      console.error('Error updating pin:', error);
-    }
-  };
-
   const handleSelectMarker = (marker) => {
     setSelectedMarker(marker);
     setShowForm(true);
@@ -191,44 +201,28 @@ function Map() {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        <LocationMarker />
+        <LocationMarker /> {/* Add LocationMarker here */}
         {markers.map((marker, idx) => (
-            <Marker key={idx} position={marker.position} icon={customIcon}>
-              <Popup>
-                <div>
-                  <strong>Name:</strong> {marker.details?.name || 'N/A'}
-                  <br />
-                  <strong>Notes:</strong> {marker.details?.notes || 'No notes'}
-                </div>
-                {/* Conditionally render buttons based on whether details exist */}
-                {marker.details?.name || marker.details?.notes ? (
-                  <button onClick={() => {
-                    setSelectedMarker(marker); // Assuming you have a method to handle edit
-                    setShowForm(true); // Show form for editing
-                  }}>Edit</button>
-                ) : (
-                  <button onClick={() => {
-                    handleSelectMarker(marker); // Your existing method to handle adding details
-                  }}>Add Details</button>
-                )}
-                <button onClick={() => deleteMarker(marker._id)}>Delete</button>
-              </Popup>
-            </Marker>
+          <Marker key={idx} position={marker.position} icon={customIcon} eventHandlers={{click: () => {setSelectedMarker(marker); setShowForm(true);}}}>
+          </Marker>
         ))}
       </MapContainer>
       {showForm && selectedMarker && (
         <div className="modal-backdrop">
           <div className="form-modal">
             <button className="close-button" onClick={() => setShowForm(false)}>X</button>
-            <Form 
-              onSubmit={handleFormSubmit} 
-              _id={selectedMarker._id} 
-              initialName={selectedMarker.details?.name || ''} 
-              initialNotes={selectedMarker.details?.notes || ''} 
-              initialMusic={selectedMarker.details?.music || ''} 
-              // Assuming mediaFiles is an array of file objects or URLs
-              initialMediaFiles={selectedMarker.details?.mediaFiles || []}
-            />
+            {selectedDrawing === 'Drawing1' ? (
+              <Drawing1 />
+            ) : (
+              <Form 
+                onSubmit={handleFormSubmit} 
+                onDelete={() => deleteMarker(selectedMarker._id)} 
+                initialName={selectedMarker.details?.name || ''} 
+                initialNotes={selectedMarker.details?.notes || ''} 
+                initialMusic={selectedMarker.details?.music || ''} 
+                initialMediaFiles={selectedMarker.details?.mediaFiles || []}
+              />
+            )}
           </div>
         </div>
       )}
@@ -237,3 +231,8 @@ function Map() {
 }
 
 export default Map;
+
+
+
+
+

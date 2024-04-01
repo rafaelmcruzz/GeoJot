@@ -1,7 +1,8 @@
+// Drawing1.js
 import React from 'react';
 import './Home.css'; // Import the Home.css file
 
-const Drawing1 = () => {
+const Drawing1 = ({ onViewMore }) => {
   // Placeholder data
   const pinData = {
     name: "Example Pin",
@@ -44,7 +45,7 @@ const Drawing1 = () => {
             value={pinData.song}
             readOnly
           />
-          <button type="button">View More</button>
+          <button type="button" onClick={onViewMore}>View More</button>
         </div>
       </div>
     </div>
@@ -52,6 +53,10 @@ const Drawing1 = () => {
 };
 
 export default Drawing1;
+
+
+
+
 
 
 
