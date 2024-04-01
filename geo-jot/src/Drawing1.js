@@ -44,7 +44,7 @@ const Drawing1 = () => {
             value={pinData.song}
             readOnly
           />
-          <button type="button">View Song</button>
+          <button type="button">View More</button>
         </div>
       </div>
     </div>
@@ -52,6 +52,7 @@ const Drawing1 = () => {
 };
 
 export default Drawing1;
+
 
 
 

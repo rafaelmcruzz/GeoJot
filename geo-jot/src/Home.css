@@ -139,8 +139,8 @@
   max-height: calc(85vh - 150px); /* Ensure the height doesn't exceed the left side */
 }
 
-textarea {
-  height: calc(88vh - 150px); /* Adjust as needed */
+.drawing2 textarea {
+  height: calc(88vh - 150px); 
   resize: none;
 }
 
