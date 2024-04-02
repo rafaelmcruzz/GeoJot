@@ -159,4 +159,14 @@
   height: auto; /* Maintain aspect ratio */
 }
 
+.thumbnails {
+  display: flex;
+  gap: 10px;
+}
+
+.thumbnail {
+  flex: 0 1 auto;
+  max-width: 100px;
+  height: auto;
+}
 

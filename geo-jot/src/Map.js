@@ -23,6 +23,13 @@ function Map() {
   const [selectedDrawing, setSelectedDrawing] = useState(null);
   const { username } = useUser();
 
+  // In progress 
+  // handle updating pins after submitting form data. (Currently need to refresh webpage)
+  const handleFormSubmissionSuccess = () => {
+    setShowForm(false);
+    fetchPins();
+  }
+
   // Function to fetch pins
   const fetchPins = async () => {
     try {
@@ -211,16 +218,26 @@ function Map() {
         <div className="modal-backdrop">
           <div className="form-modal">
             <button className="close-button" onClick={() => setShowForm(false)}>X</button>
+            {/* Pass the marker details to the drawing form */}
             {selectedDrawing === 'Drawing1' ? (
-              <Drawing1 />
+            <Drawing1
+                name={selectedMarker.details.name}
+                notes={selectedMarker.details.notes}
+                mediaFiles={selectedMarker.details.mediaFiles}
+                music={selectedMarker.details.music}
+                onViewMore={() => console.log('View More Clicked')}
+                onDelete={() => deleteMarker(selectedMarker._id)}
+              />
             ) : (
               <Form 
                 onSubmit={handleFormSubmit} 
+                _id={selectedMarker._id}
                 onDelete={() => deleteMarker(selectedMarker._id)} 
                 initialName={selectedMarker.details?.name || ''} 
                 initialNotes={selectedMarker.details?.notes || ''} 
                 initialMusic={selectedMarker.details?.music || ''} 
                 initialMediaFiles={selectedMarker.details?.mediaFiles || []}
+                onSubmissionSuccess={() => handleFormSubmissionSuccess()}
               />
             )}
           </div>

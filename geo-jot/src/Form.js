@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import './styles.css';
 
 const Form = ({ onSubmit, onDelete, _id, initialName = '', initialNotes = '', initialMusic = '', initialMediaFiles = [] }) => {
@@ -6,6 +6,7 @@ const Form = ({ onSubmit, onDelete, _id, initialName = '', initialNotes = '', in
   const [notes, setNotes] = useState(initialNotes);
   const [music, setMusic] = useState(initialMusic);
   const [mediaFiles, setMediaFiles] = useState(initialMediaFiles);
+  const mediaInputRef = useRef(null);
 
   const handleNameChange = (e) => {
     setName(e.target.value);
@@ -26,25 +27,32 @@ const Form = ({ onSubmit, onDelete, _id, initialName = '', initialNotes = '', in
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const formData = { name, notes, music, mediaFiles };
+    const formData = new FormData();
+    formData.append('name', name);
+    formData.append('notes', notes);
+    formData.append('music', music);
+    mediaFiles.forEach(file => formData.append('mediaFiles', file));
 
     try {
       const response = await fetch(`http://localhost:3000/api/pins${_id ? `/${_id}` : ''}`, {
         method: _id ? 'PUT' : 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
+        body: formData,
       });
 
       if (response.ok) {
         console.log(`${_id ? 'Update' : 'Create'} request successful`);
         // If it's an update operation, no need to reset form fields
-        if (!_id) {
-          setName('');
-          setNotes('');
-          setMusic('');
-          setMediaFiles([]);
+        // if (!_id) {
+        setName('');
+        setNotes('');
+        setMusic('');
+        setMediaFiles([]);
+        if(mediaInputRef.current) {
+          mediaInputRef.current.value = '';
+        }
+
+        if (typeof onSubmissionSuccess === 'function') {
+          onSubmissionSuccess();
         }
       } else {
         console.error('Failed to submit form:', response.statusText);
