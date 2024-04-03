@@ -30,6 +30,17 @@ function Map() {
     fetchPins();
   }
 
+  const viewMoreHandler = () => {
+    // Logic to transition from Drawing1 to Drawing2 with the same data
+    setSelectedDrawing('Drawing2');
+  };
+
+  // Handler for transitioning back from Drawing2 to Drawing1
+  const backToDrawing1Handler = () => {
+    setSelectedDrawing('Drawing1');
+  };
+
+
   // Function to fetch pins
   const fetchPins = async () => {
     try {
@@ -100,6 +111,18 @@ function Map() {
     }
   };
 
+  const handleFormSubmitSuccess = (updatedMarker) => {
+    const newMarkers = markers.map((marker) => {
+      if (marker._id === updatedMarker._id) {
+        return { ...marker, details: updatedMarker };
+      }
+      return marker;
+    });
+    setMarkers(newMarkers);
+    setSelectedMarker(details); // Or update selectedMarker with new details
+    setShowForm(false); // Hide form if needed
+  };
+
   // useEffect to fetch pins when the component mounts
   useEffect(() => {
     if (username) {
@@ -135,6 +158,46 @@ function Map() {
       }
     } catch (error) {
       console.error('Error deleting pin:', error);
+    }
+  };
+
+  const renderContent = () => {
+    if (selectedDrawing === 'Drawing1') {
+      return (
+        <Drawing1
+          name={selectedMarker.details.name}
+          notes={selectedMarker.details.notes}
+          mediaFiles={selectedMarker.details.mediaFiles}
+          music={selectedMarker.details.music}
+          onViewMore={viewMoreHandler}
+          onDelete={() => deleteMarker(selectedMarker._id)}
+        />
+      ) 
+    } else if (selectedDrawing === 'Drawing2') {
+      return (
+        <Drawing2
+          onBack={backToDrawing1Handler}
+          // Pass additional props as needed
+          name={selectedMarker.details.name}
+          notes={selectedMarker.details.notes}
+          mediaFiles={selectedMarker.details.mediaFiles}
+          music={selectedMarker.details.music}
+        />
+      );
+    } else {
+      return (
+        <Form 
+          onSubmit={handleFormSubmit} 
+          _id={selectedMarker._id}
+          onDelete={() => deleteMarker(selectedMarker._id)} 
+          initialName={selectedMarker.details?.name || ''} 
+          initialNotes={selectedMarker.details?.notes || ''} 
+          initialMusic={selectedMarker.details?.music || ''} 
+          initialMediaFiles={selectedMarker.details?.mediaFiles || []}
+          onSubmissionSuccess={() => handleFormSubmissionSuccess()}
+          onFormSubmitSuccess={handleFormSubmitSuccess}
+        />
+        );
     }
   };
 
@@ -196,10 +259,10 @@ function Map() {
     return null;
   }
 
-  const handleSelectMarker = (marker) => {
-    setSelectedMarker(marker);
-    setShowForm(true);
-  }
+  // const handleSelectMarker = (marker) => {
+  //   setSelectedMarker(marker);
+  //   setShowForm(true);
+  // }
 
   return (
     <div className="map">
@@ -218,28 +281,8 @@ function Map() {
         <div className="modal-backdrop">
           <div className="form-modal">
             <button className="close-button" onClick={() => setShowForm(false)}>X</button>
-            {/* Pass the marker details to the drawing form */}
-            {selectedDrawing === 'Drawing1' ? (
-            <Drawing1
-                name={selectedMarker.details.name}
-                notes={selectedMarker.details.notes}
-                mediaFiles={selectedMarker.details.mediaFiles}
-                music={selectedMarker.details.music}
-                onViewMore={() => console.log('View More Clicked')}
-                onDelete={() => deleteMarker(selectedMarker._id)}
-              />
-            ) : (
-              <Form 
-                onSubmit={handleFormSubmit} 
-                _id={selectedMarker._id}
-                onDelete={() => deleteMarker(selectedMarker._id)} 
-                initialName={selectedMarker.details?.name || ''} 
-                initialNotes={selectedMarker.details?.notes || ''} 
-                initialMusic={selectedMarker.details?.music || ''} 
-                initialMediaFiles={selectedMarker.details?.mediaFiles || []}
-                onSubmissionSuccess={() => handleFormSubmissionSuccess()}
-              />
-            )}
+            {/* Pass the marker details to the drawings forms */}
+            {renderContent()}
           </div>
         </div>
       )}
@@ -248,8 +291,3 @@ function Map() {
 }
 
 export default Map;
-
-
-
-
-

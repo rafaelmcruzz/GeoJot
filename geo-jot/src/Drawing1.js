@@ -1,8 +1,10 @@
 // Drawing1.js
-import React from 'react';
+import React  from 'react';
 import './Home.css'; // Import the Home.css file
 
 const Drawing1 = ({ name, notes, mediaFiles = [], music, onViewMore, onDelete }) => {
+
+
   return (
     <div className="drawing1">
       <div className="left-section">
@@ -57,12 +59,3 @@ const Drawing1 = ({ name, notes, mediaFiles = [], music, onViewMore, onDelete })
 };
 
 export default Drawing1;
-
-
-
-
-
-
-
-
-

@@ -2,26 +2,10 @@
 import React from 'react';
 import './Home.css'; // Import the Home.css file
 
-const Drawing2 = ({ onBack }) => {
-  const exampleData = {
-    name: "Example Name",
-    notes: "These are example notes.",
-    music: "https://example.com/music.mp3",
-    pictures: [
-      "https://via.placeholder.com/300",
-      "https://via.placeholder.com/300",
-      "https://via.placeholder.com/300",
-      "https://via.placeholder.com/300",
-      "https://via.placeholder.com/300",
-      "https://via.placeholder.com/300",
-      "https://via.placeholder.com/300",
-      "https://via.placeholder.com/300",
-      "https://via.placeholder.com/300",
-    ]
-  };
+const Drawing2 = ({ name, notes, music, mediaFiles, onBack }) => {
+  // Assume mediaFiles is an array of URLs for images
+  const imagesToDisplay = mediaFiles.slice(0, 10); // Limit the number of images to display
 
-  // Limit the number of images to be displayed to 10
-  const imagesToDisplay = exampleData.pictures.slice(0, 10);
 
   return (
     <div className="drawing2">
@@ -31,7 +15,7 @@ const Drawing2 = ({ onBack }) => {
           <input
             id="name"
             type="text"
-            value={exampleData.name}
+            value={name} // Use name prop
             readOnly
           />
         </div>
@@ -39,8 +23,9 @@ const Drawing2 = ({ onBack }) => {
           <label htmlFor="notes">Notes:</label>
           <textarea
             id="notes"
-            value={exampleData.notes}
+            value={notes} // Use notes prop
             readOnly
+            style={{ height: '100px' }}
           />
         </div>
         <div className="form-group">
@@ -48,25 +33,21 @@ const Drawing2 = ({ onBack }) => {
           <input
             id="music"
             type="text"
-            value={exampleData.music}
+            value={music} // Use music prop
             readOnly
           />
         </div>
-        <button type="button" onClick={onBack}>Back</button> {/* Call onBack when Back button is clicked */}
+        <button type="button" onClick={onBack}>Back</button>
       </div>
       <div className="right-side">
-        {/* Display Multiple Pictures */}
         <div className="image-container">
           {imagesToDisplay.map((url, index) => (
             <img key={index} src={url} alt={`Picture ${index + 1}`} />
           ))}
         </div>
-        {/* Slide buttons (next/previous) */}
-        {/* Maximum 10 pictures */}
       </div>
     </div>
   );
 };
 
 export default Drawing2;
-

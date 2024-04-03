@@ -5,6 +5,7 @@ const Form = ({ onSubmit, onDelete, _id, initialName = '', initialNotes = '', in
   const [name, setName] = useState(initialName);
   const [notes, setNotes] = useState(initialNotes);
   const [music, setMusic] = useState(initialMusic);
+  const [musicSearchResults, setMusicSearchResults] = useState([]);
   const [mediaFiles, setMediaFiles] = useState(initialMediaFiles);
   const mediaInputRef = useRef(null);
 
@@ -16,13 +17,32 @@ const Form = ({ onSubmit, onDelete, _id, initialName = '', initialNotes = '', in
     setNotes(e.target.value);
   };
 
-  const handleMusicChange = (e) => {
-    setMusic(e.target.value);
-  }
-
   const handleMediaChange = (e) => {
     const files = Array.from(e.target.files);
     setMediaFiles(files);
+  };
+
+
+
+  const handleMusicChange = async (e) => {
+    const query = e.target.value;
+    setMusic(query);
+
+    if (!query) {
+      setMusicSearchResults([]);
+      return;
+    }
+
+    try {
+      const url = `http://localhost:3000/api/spotify/search?query=${encodeURIComponent(query)}`;
+      console.log(`Making request to: ${url}`); // Log for debugging
+      const response = await fetch(url);
+      const data = await response.json();
+      console.log(data); // Log the response data for debugging
+      setMusicSearchResults(data.tracks.items); // This assumes your Spotify search response structure
+    } catch (error) {
+      console.error('Error fetching music search results:', error);
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -51,9 +71,11 @@ const Form = ({ onSubmit, onDelete, _id, initialName = '', initialNotes = '', in
           mediaInputRef.current.value = '';
         }
 
-        if (typeof onSubmissionSuccess === 'function') {
-          onSubmissionSuccess();
+        if (typeof onSubmit === 'function') {
+          onSubmit();
         }
+
+
       } else {
         console.error('Failed to submit form:', response.statusText);
       }
@@ -103,8 +125,17 @@ const Form = ({ onSubmit, onDelete, _id, initialName = '', initialNotes = '', in
             type="text"
             value={music}
             onChange={handleMusicChange}
-            placeholder="Enter music link..."
+            placeholder="Search music..."
           />
+          {musicSearchResults.length > 0 && (
+            <ul className="music-search-results">
+              {musicSearchResults.map((track) => (
+                <li key={track.id} onClick={() => setMusic(track.uri)}>
+                  {track.name} by {track.artists[0].name}
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
         <button type="submit">Submit</button>
         {onDelete && <button type="button" onClick={onDelete}>Delete</button>}
@@ -114,7 +145,3 @@ const Form = ({ onSubmit, onDelete, _id, initialName = '', initialNotes = '', in
 };
 
 export default Form;
-
-
-
-
