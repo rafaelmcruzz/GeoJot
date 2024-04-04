@@ -43,6 +43,14 @@ button {
   box-sizing: border-box; /* Include padding and border in width */
 }
 
+/* Add focus style for input fields to prevent changing border width */
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="email"]:focus {
+  border: 0.5px solid #0070f3; /* Use a consistent border width and color on focus */
+  outline: none; /* Remove default focus outline */
+}
+
 h2[type="title"] {
   line-height: 100px;
   font-size: 30px;
@@ -172,6 +180,13 @@ button[type="submit"] {
 
 button[type="submit"]:hover {
   background-color: #0054b3; /* Darker blue on hover */
+}
+
+/* Ensure input and textarea have consistent border width on focus */
+input[type="text"]:focus,
+textarea:focus {
+  border: 1px solid #0070f3; /* Consistent border color for focused state */
+  outline: none; /* Remove default focus outline */
 }
 
 .media-label {
