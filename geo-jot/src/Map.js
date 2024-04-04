@@ -111,17 +111,20 @@ function Map() {
     }
   };
 
-  const handleFormSubmitSuccess = (updatedMarker) => {
-    const newMarkers = markers.map((marker) => {
-      if (marker._id === updatedMarker._id) {
-        return { ...marker, details: updatedMarker };
-      }
-      return marker;
-    });
-    setMarkers(newMarkers);
-    setSelectedMarker(details); // Or update selectedMarker with new details
-    setShowForm(false); // Hide form if needed
-  };
+const handleFormSubmitSuccess = (updatedMarker) => {
+  const newMarkers = markers.map((marker) => {
+    if (marker._id === updatedMarker._id) {
+      // Ensure you're accessing a 'details' property on an object that's defined in this scope
+      return { ...marker, details: updatedMarker.details };
+    }
+    return marker;
+  });
+  setMarkers(newMarkers);
+  // Assuming updatedMarker contains the updated details you want to select
+  setSelectedMarker(updatedMarker); // Correct usage if updatedMarker is the correct object
+  setShowForm(false);
+};
+
 
   // useEffect to fetch pins when the component mounts
   useEffect(() => {
