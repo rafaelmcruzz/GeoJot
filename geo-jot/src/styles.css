@@ -189,6 +189,23 @@ textarea:focus {
   outline: none; /* Remove default focus outline */
 }
 
+.music-search-results {
+  max-height: 200px; 
+  overflow-y: auto; 
+  border: 1px solid #cccccc; 
+  margin-top: 10px; 
+  padding: 5px; 
+  border-radius: 4px; 
+}
+
+.music-search-results {
+  max-height: 100px;
+  overflow-y: auto;
+  max-width: 390px; 
+  box-sizing: border-box;
+}
+
+
 .media-label {
   display: inline-block;
   margin-bottom: 8px;
