@@ -42,6 +42,8 @@ function LeftSidebar() {
 }
 
 function MainContent({ selectedUser }) {
+
+  
   // Accept selectedUser as a prop and pass it to Map
   return (
     <div className="main-content">
@@ -52,6 +54,9 @@ function MainContent({ selectedUser }) {
 
 function App() {
   const [selectedUser, setSelectedUser] = useState(null);
+  const { username } = useUser(); // Get the current user's username
+  // Determine if the map being viewed is not the current user's
+  const isViewingOwnMap = !selectedUser || username === selectedUser.username;
 
   const onSelectUser = (user) => {
     console.log('Selected user:', user);
@@ -62,6 +67,13 @@ function App() {
     <div className="home">
       <div className="search-bar">
         <Search onSelectUser={onSelectUser} />
+      </div>
+      <div>
+      {!isViewingOwnMap && selectedUser && (
+        <div className="viewingMessage">
+          <p>You are viewing the pins of the user: {selectedUser.username}</p>
+        </div>
+      )}
       </div>
       <div className="content-container">
         <LeftSidebar />

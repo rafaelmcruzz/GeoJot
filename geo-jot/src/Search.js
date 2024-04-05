@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import './Home.css';
 
 const Search = ({ onSelectUser }) => {
   const [query, setQuery] = useState('');
@@ -19,23 +20,23 @@ const Search = ({ onSelectUser }) => {
   }, [query]); // Rerun the effect when query changes
 
   return (
-    <div>
+    <div className="search-container">
       <input
         type="text"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         placeholder="Search users..."
+        className="search-input"
       />
-      <ul>
-              {users.map(user => (
-          <li key={user._id} onClick={() => {
-            console.log('User clicked:', user.username); // Add this line
-            onSelectUser(user);
-          }}>
-            {user.username}
-          </li>
-        ))}
-      </ul>
+      {users.length > 0 && (
+        <ul className="search-results">
+          {users.map(user => (
+            <li key={user._id} className="search-result-item" onClick={() => onSelectUser(user)}>
+              {user.username}
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 };

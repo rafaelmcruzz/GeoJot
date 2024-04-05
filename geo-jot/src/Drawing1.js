@@ -1,7 +1,7 @@
 import React from 'react';
 import './Home.css'; // Ensure this path matches your CSS file's location
 
-const Drawing1 = ({ name, notes, mediaFiles = [], music, songDetails, onViewMore, onDelete }) => {
+const Drawing1 = ({ name, notes, mediaFiles = [], music, songDetails, onViewMore}) => {
 
   console.log("songDetails:", songDetails);
 
@@ -35,7 +35,6 @@ const Drawing1 = ({ name, notes, mediaFiles = [], music, songDetails, onViewMore
         </div>
         </div>
         <button type="button" onClick={onViewMore}>View More</button>
-        <button type="button" onClick={onDelete}>Delete Pin</button>
       </div>
       <div className="right-section">
       <div className="thumbnails">
@@ -58,7 +57,6 @@ const Drawing1 = ({ name, notes, mediaFiles = [], music, songDetails, onViewMore
             </div>
           )}
         </div>
-        <div><h1>hjhg</h1></div>
       </div>
     </div>
   );

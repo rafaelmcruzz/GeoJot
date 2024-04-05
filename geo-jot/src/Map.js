@@ -17,6 +17,9 @@ const customIcon = new L.Icon({
   popupAnchor: [1, -34],
 });
 
+
+
+
 function Map({ selectedUser }) {
   console.log("Selected user map", selectedUser);
   const [markers, setMarkers] = useState([]);
@@ -24,6 +27,9 @@ function Map({ selectedUser }) {
   const [selectedMarker, setSelectedMarker] = useState(null);
   const [selectedDrawing, setSelectedDrawing] = useState(null);
   const { username } = useUser();
+  const { username: currentUsername } = useUser();
+
+  const isViewingOwnMap = currentUsername === (selectedUser ? selectedUser.username : currentUsername);
 
   // In progress 
   // handle updating pins after submitting form data. (Currently need to refresh webpage)
@@ -40,6 +46,22 @@ function Map({ selectedUser }) {
   // Handler for transitioning back from Drawing2 to Drawing1
   const backToDrawing1Handler = () => {
     setSelectedDrawing('Drawing1');
+  };
+
+  const handleMarkerClick = (marker) => {
+    // Check if the current user is the owner of the pin
+    if (marker.username === currentUsername) {
+      // Logic to handle marker click for the owner of the pin
+      // This could include setting state to show edit/delete options
+      console.log("This is the user's own pin.");
+      setSelectedMarker(marker);
+      setShowForm(true); // Assuming you have a state to show form/modal for editing
+    } else {
+      // If the user is not the owner, maybe just show the pin details without edit/delete options
+      console.log("This pin belongs to another user.");
+      setSelectedMarker(marker);
+      // Optionally, set state to show pin details without showing edit/delete options
+    }
   };
 
 
@@ -78,10 +100,15 @@ const fetchPinsDiffUser = async (usernameParam) => {
       let pins = await response.json();
       pins = pins.filter(pin => pin.position && pin.position.lat && pin.position.lng);
 
-      const pinsWithDetails = await Promise.all(pins.map(async (pin) => {
-        const details = await fetchPinDetails(pin._id) || {};
-        return { ...pin, details };
-      }));
+      // Fetch details for each pin and filter out those without a 'name'
+      const pinsWithDetails = (await Promise.all(pins.map(async (pin) => {
+        const details = await fetchPinDetails(pin._id);
+        // Only include pins where 'details' has a 'name' property that is not empty
+        if (details && details.name) {
+          return { ...pin, details };
+        }
+        return null; // Return null for pins without a name in details
+      }))).filter(pin => pin !== null); // Filter out the nulls
 
       setMarkers(pinsWithDetails);
     } else {
@@ -208,6 +235,7 @@ const handleFormSubmitSuccess = (updatedMarker) => {
   const renderContent = () => {
   if (selectedDrawing === 'Drawing1' && selectedMarker) {
     return (
+      <>
       <Drawing1
         name={selectedMarker.details.name}
         notes={selectedMarker.details.notes}
@@ -221,6 +249,10 @@ const handleFormSubmitSuccess = (updatedMarker) => {
         onViewMore={viewMoreHandler}
         onDelete={() => deleteMarker(selectedMarker._id)}
       />
+      {isViewingOwnMap && (
+        <button onClick={() => deleteMarker(selectedMarker._id)}>Delete PINNNNN</button>
+      )}
+    </>
     ); 
   } else if (selectedDrawing === 'Drawing2') {
     return (
@@ -322,8 +354,27 @@ const handleFormSubmitSuccess = (updatedMarker) => {
         />
         <LocationMarker /> {/* Add LocationMarker here */}
         {markers.map((marker, idx) => (
-          <Marker key={idx} position={marker.position} icon={customIcon} eventHandlers={{click: () => {setSelectedMarker(marker); setShowForm(true);}}}>
-          </Marker>
+          <Marker 
+          key={idx} 
+          position={marker.position} 
+          icon={customIcon} 
+          eventHandlers={{
+            click: () => {
+              if (isViewingOwnMap) {
+                // If viewing own map, allow editing/deleting
+                setSelectedMarker(marker);
+                setShowForm(true);
+                handleMarkerClick(marker); // This should handle the logic for showing editable details
+              } else {
+                // If viewing someone else's map, only show Drawing1
+                setSelectedMarker(marker);
+                setShowForm(true); // Show the form/modal that includes Drawing1
+                setSelectedDrawing('Drawing1'); // Directly set to show Drawing1 without edit/delete options
+              }
+            }
+          }}
+        ></Marker>
+      
         ))}
       </MapContainer>
       {showForm && selectedMarker && (
