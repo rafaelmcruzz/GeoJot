@@ -4,7 +4,7 @@ import './Home.css'; // Import the Home.css file
 
 const Drawing2 = ({ name, notes, music, mediaFiles, onBack }) => {
   // Assume mediaFiles is an array of URLs for images
-  const imagesToDisplay = mediaFiles.slice(0, 10); // Limit the number of images to display
+  const imagesToDisplay = mediaFiles && mediaFiles.slice(0, 10); 
 
 
   return (
@@ -40,10 +40,14 @@ const Drawing2 = ({ name, notes, music, mediaFiles, onBack }) => {
         <button type="button" onClick={onBack}>Back</button>
       </div>
       <div className="right-side">
-        <div className="image-container">
-          {imagesToDisplay.map((url, index) => (
+      <div className="image-container"> 
+        {imagesToDisplay ? (
+            imagesToDisplay.map((url, index) => (
             <img key={index} src={url} alt={`Picture ${index + 1}`} />
-          ))}
+            ))
+        ) : (
+            <p>Loading images...</p>
+        )}
         </div>
       </div>
     </div>

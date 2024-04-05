@@ -1,30 +1,42 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-const Search = ({ onSearch }) => {
+const Search = ({ onSelectUser }) => {
   const [query, setQuery] = useState('');
+  const [users, setUsers] = useState([]);
 
-  const handleChange = (e) => {
-    setQuery(e.target.value);
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Pass the search query to the parent component for further processing
-    onSearch(query);
-    // Clear the search input after submission if needed
-    setQuery('');
-  };
+  // Fetch users based on the search query
+  useEffect(() => {
+    if (query.length > 1) { // Only search if query is 2 or more characters
+      fetch(`http://localhost:3000/api/users/search?query=${query}`)
+        .then(response => response.json())
+        .then(data => {
+          setUsers(data); // Assuming the data is an array of user objects
+        })
+        .catch(error => console.error('Error fetching user search results:', error));
+    } else {
+      setUsers([]); // Clear search results if query is too short
+    }
+  }, [query]); // Rerun the effect when query changes
 
   return (
-    <form className="search-form" onSubmit={handleSubmit}>
+    <div>
       <input
         type="text"
         value={query}
-        onChange={handleChange}
-        placeholder="Search"
-        className="search-input"
+        onChange={(e) => setQuery(e.target.value)}
+        placeholder="Search users..."
       />
-    </form>
+      <ul>
+              {users.map(user => (
+          <li key={user._id} onClick={() => {
+            console.log('User clicked:', user.username); // Add this line
+            onSelectUser(user);
+          }}>
+            {user.username}
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 };
 

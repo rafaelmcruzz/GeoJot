@@ -170,3 +170,31 @@
   height: auto;
 }
 
+
+.left-sidebar {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* This will help push the player to the bottom */
+  height: 100%; /* Ensure the sidebar takes full height */
+}
+
+.mini-player {
+  padding: 10px;
+  /* Adjustments to fit within the sidebar */
+}
+
+
+.mini-player {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+}
+
+.album-art img {
+  max-width: 100%; /* Ensure the image fits within the container */
+  border-radius: 8px; /* Optional: adds rounded corners to the album art */
+  margin-bottom: 10px; /* Space between album art and audio controls */
+}
+
+

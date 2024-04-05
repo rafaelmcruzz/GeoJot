@@ -7,6 +7,7 @@ const Form = ({ onSubmit, onDelete, _id, initialName = '', initialNotes = '', in
   const [music, setMusic] = useState(initialMusic);
   const [musicSearchResults, setMusicSearchResults] = useState([]);
   const [mediaFiles, setMediaFiles] = useState(initialMediaFiles);
+  const [selectedSongDetails, setSelectedSongDetails] = useState({});
   const mediaInputRef = useRef(null);
 
   const handleNameChange = (e) => {
@@ -51,6 +52,7 @@ const Form = ({ onSubmit, onDelete, _id, initialName = '', initialNotes = '', in
     formData.append('name', name);
     formData.append('notes', notes);
     formData.append('music', music);
+    formData.append('selectedSongDetails', JSON.stringify(selectedSongDetails));
     mediaFiles.forEach(file => formData.append('mediaFiles', file));
 
     try {
@@ -67,6 +69,7 @@ const Form = ({ onSubmit, onDelete, _id, initialName = '', initialNotes = '', in
         setNotes('');
         setMusic('');
         setMediaFiles([]);
+        setSelectedSongDetails({}); 
         if(mediaInputRef.current) {
           mediaInputRef.current.value = '';
         }
@@ -127,15 +130,22 @@ const Form = ({ onSubmit, onDelete, _id, initialName = '', initialNotes = '', in
             onChange={handleMusicChange}
             placeholder="Search music..."
           />
-          {musicSearchResults.length > 0 && (
-            <ul className="music-search-results">
-              {musicSearchResults.map((track) => (
-                <li key={track.id} onClick={() => setMusic(track.uri)}>
-                  {track.name} by {track.artists[0].name}
-                </li>
-              ))}
-            </ul>
-          )}
+            {musicSearchResults.length > 0 && (
+              <ul className="music-search-results">
+                {musicSearchResults.map((track) => (
+                  <li key={track.id} onClick={() => {
+                      setMusic(track.name); // Keep storing the song name as before
+                      setSelectedSongDetails({ // Store additional song details
+                        previewUrl: track.preview_url,
+                        albumArtUrl: track.album.images[0].url, // Assuming you want the first (largest) image
+                        title: track.name
+                      });
+                    }}>
+                    {track.name} by {track.artists.map(artist => artist.name).join(", ")}
+                  </li>
+                ))}
+              </ul>
+            )}
         </div>
         <button type="submit">Submit</button>
         {onDelete && <button type="button" onClick={onDelete}>Delete</button>}

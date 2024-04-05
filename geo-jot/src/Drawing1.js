@@ -1,9 +1,9 @@
-// Drawing1.js
-import React  from 'react';
-import './Home.css'; // Import the Home.css file
+import React from 'react';
+import './Home.css'; // Ensure this path matches your CSS file's location
 
-const Drawing1 = ({ name, notes, mediaFiles = [], music, onViewMore, onDelete }) => {
+const Drawing1 = ({ name, notes, mediaFiles = [], music, songDetails, onViewMore, onDelete }) => {
 
+  console.log("songDetails:", songDetails);
 
   return (
     <div className="drawing1">
@@ -24,35 +24,41 @@ const Drawing1 = ({ name, notes, mediaFiles = [], music, onViewMore, onDelete })
             value={notes}
             readOnly
           />
-        </div>
-        <button type="button" onClick={() => console.log('Edit button clicked')}>Edit</button>
-      </div>
-      <div className="right-section">
-        {/* Shows multiple images side by side to test for Drawing2 */}
-        <div className="thumbnails" style={{ minHeight: '100px' }}>
-          {/* { Map through mediaFiles to display thumbnails  */}
-          {
-            mediaFiles.length > 0 ? (
-              mediaFiles.map((fileUrl, index) => (
-                fileUrl && <img key={index} src={fileUrl} alt={`Media ${index + 1}`} className="thumbnail" />
-              ))
-            ) : (
-              // Display text if no images are available
-              <p style={{ textAlign: 'center', lineHeight: '100px' }}>No images available</p>
-            )
-          }
-        </div>
-        <div className="music">
-          <label htmlFor="song">Song:</label>
+          <div className="form-group">
+          <label htmlFor="music">Music:</label>
           <input
-            id="song"
+            id="music"
             type="text"
-            value={music}
+            value={music} // Use music prop
             readOnly
           />
-          <button type="button" onClick={onViewMore}>View More</button>
-          <button type="button" onClick={onDelete}>Delete Pin</button>
         </div>
+        </div>
+        <button type="button" onClick={onViewMore}>View More</button>
+        <button type="button" onClick={onDelete}>Delete Pin</button>
+      </div>
+      <div className="right-section">
+      <div className="thumbnails">
+            {mediaFiles && mediaFiles.length > 0 ? (
+              mediaFiles.map((fileUrl, index) => (
+                <img key={index} src={fileUrl} alt={`Media ${index + 1}`} className="thumbnail" />
+              ))
+            ) : (
+              <p>No images available</p>
+            )}
+          </div>
+        <div className="music">
+          {songDetails && songDetails.previewUrl && (
+            <div className="music-player">
+              <img src={songDetails.albumArtUrl} alt="Album Art" className="album-art" />
+              <p>{songDetails.title}</p>
+              <audio controls src={songDetails.previewUrl}>
+                Your browser does not support the audio element.
+              </audio>
+            </div>
+          )}
+        </div>
+        <div><h1>hjhg</h1></div>
       </div>
     </div>
   );

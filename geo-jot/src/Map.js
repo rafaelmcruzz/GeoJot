@@ -3,6 +3,7 @@ import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from 'react-leaf
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import Form from './Form';
+import Home from './Home';
 import Drawing1 from './Drawing1';
 import Drawing2 from './Drawing2';
 import markerIconPng from './Pin.png';
@@ -16,7 +17,8 @@ const customIcon = new L.Icon({
   popupAnchor: [1, -34],
 });
 
-function Map() {
+function Map({ selectedUser }) {
+  console.log("Selected user map", selectedUser);
   const [markers, setMarkers] = useState([]);
   const [showForm, setShowForm] = useState(false);
   const [selectedMarker, setSelectedMarker] = useState(null);
@@ -64,6 +66,32 @@ function Map() {
       console.error('Error fetching pins:', error);
     }
   };
+
+
+  // Function to fetch pins, now with optional username parameter
+const fetchPinsDiffUser = async (usernameParam) => {
+  try {
+    const usernameToFetch = usernameParam || username; // Use provided username or fall back to the current user
+    console.log('Fetching pins for user:', usernameToFetch);
+    const response = await fetch(`http://localhost:3000/api/pins?username=${usernameToFetch}`);
+    if (response.ok) {
+      let pins = await response.json();
+      pins = pins.filter(pin => pin.position && pin.position.lat && pin.position.lng);
+
+      const pinsWithDetails = await Promise.all(pins.map(async (pin) => {
+        const details = await fetchPinDetails(pin._id) || {};
+        return { ...pin, details };
+      }));
+
+      setMarkers(pinsWithDetails);
+    } else {
+      console.error('Failed to fetch pins:', response.statusText);
+    }
+  } catch (error) {
+    console.error('Error fetching pins:', error);
+  }
+};
+
   
   // Since fetchPinDetails might be used here before its definition, ensure it's defined appropriately
   const fetchPinDetails = async (pinId) => {
@@ -94,6 +122,8 @@ function Map() {
         },
         body: JSON.stringify(formData),
       });
+
+      console.log("formdata", formData)
   
       if (response.ok) {
         // Logic to update the local state with the new details of the pin
@@ -103,6 +133,8 @@ function Map() {
         setMarkers(updatedMarkers);
         setShowForm(false);
         setSelectedMarker(null);
+        console.log("9uhverjuiegnwf")
+
       } else {
         console.error('Failed to update pin:', response.statusText);
       }
@@ -143,6 +175,15 @@ const handleFormSubmitSuccess = (updatedMarker) => {
     }
   }, [selectedMarker]);
 
+
+  useEffect(() => {
+    
+    if (selectedUser) {
+      console.log('Fetching pins for:', selectedUser.username); // Add this line
+      fetchPinsDiffUser(selectedUser.username);
+    }
+  }, [selectedUser])
+
   // Function to handle marker deletion
   const deleteMarker = async (markerId) => {
     try {
@@ -165,44 +206,49 @@ const handleFormSubmitSuccess = (updatedMarker) => {
   };
 
   const renderContent = () => {
-    if (selectedDrawing === 'Drawing1') {
-      return (
-        <Drawing1
-          name={selectedMarker.details.name}
-          notes={selectedMarker.details.notes}
-          mediaFiles={selectedMarker.details.mediaFiles}
-          music={selectedMarker.details.music}
-          onViewMore={viewMoreHandler}
-          onDelete={() => deleteMarker(selectedMarker._id)}
-        />
-      ) 
-    } else if (selectedDrawing === 'Drawing2') {
-      return (
-        <Drawing2
-          onBack={backToDrawing1Handler}
-          // Pass additional props as needed
-          name={selectedMarker.details.name}
-          notes={selectedMarker.details.notes}
-          mediaFiles={selectedMarker.details.mediaFiles}
-          music={selectedMarker.details.music}
-        />
-      );
-    } else {
-      return (
-        <Form 
-          onSubmit={handleFormSubmit} 
-          _id={selectedMarker._id}
-          onDelete={() => deleteMarker(selectedMarker._id)} 
-          initialName={selectedMarker.details?.name || ''} 
-          initialNotes={selectedMarker.details?.notes || ''} 
-          initialMusic={selectedMarker.details?.music || ''} 
-          initialMediaFiles={selectedMarker.details?.mediaFiles || []}
-          onSubmissionSuccess={() => handleFormSubmissionSuccess()}
-          onFormSubmitSuccess={handleFormSubmitSuccess}
-        />
-        );
-    }
-  };
+  if (selectedDrawing === 'Drawing1' && selectedMarker) {
+    return (
+      <Drawing1
+        name={selectedMarker.details.name}
+        notes={selectedMarker.details.notes}
+        mediaFiles={selectedMarker.details.mediaFiles}
+        music={selectedMarker.details.music} // Assuming this is the song URI
+        songDetails={{
+          title: selectedMarker.details.songTitle, // These fields should match how you store them
+          previewUrl: selectedMarker.details.songPreviewUrl,
+          albumArtUrl: selectedMarker.details.songAlbumArtUrl,
+        }}
+        onViewMore={viewMoreHandler}
+        onDelete={() => deleteMarker(selectedMarker._id)}
+      />
+    ); 
+  } else if (selectedDrawing === 'Drawing2') {
+    return (
+      <Drawing2
+        onBack={backToDrawing1Handler}
+        name={selectedMarker.details.name}
+        notes={selectedMarker.details.notes}
+        mediaFiles={selectedMarker.details.mediaFiles}
+        music={selectedMarker.details.music}
+      />
+    );
+  } else {
+    return (
+      <Form 
+      onSubmit={handleFormSubmit} 
+      _id={selectedMarker._id}
+      onDelete={() => deleteMarker(selectedMarker._id)} 
+      initialName={selectedMarker.details?.name || ''} 
+      initialNotes={selectedMarker.details?.notes || ''} 
+      initialMusic={selectedMarker.details?.music || ''} 
+      initialMediaFiles={selectedMarker.details?.mediaFiles || []}
+      onSubmissionSuccess={() => handleFormSubmissionSuccess()}
+      onFormSubmitSuccess={handleFormSubmitSuccess}
+      
+    />
+    );
+  }
+};
 
   function LocationMarker() {
 
