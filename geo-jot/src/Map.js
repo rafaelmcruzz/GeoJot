@@ -3,7 +3,6 @@ import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from 'react-leaf
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import Form from './Form';
-import Home from './Home';
 import Drawing1 from './Drawing1';
 import Drawing2 from './Drawing2';
 import markerIconPng from './Pin.png';
@@ -287,29 +286,35 @@ const handleFormSubmitSuccess = (updatedMarker) => {
     const handleMapClick = async (newMarker) => {
       // Assuming your backend expects an object with position and name
 
-      const markerWithUser = { ...newMarker, username, details: {} };
-
-      try {
-        const response = await fetch('http://localhost:3000/api/pins', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(markerWithUser),
-        });
-
-        if (response.ok) {
-          const data = await response.json();
-          console.log('Pin saved successfully:', data);
-          // Update the state with the new marker, including the _id returned from the server
-          setMarkers((currentMarkers) => [...currentMarkers, { ...markerWithUser, _id: data._id }]);
-        } else {
-          // Handle server errors or unsuccessful responses
-          console.error('Failed to save pin:', await response.text());
-        }
-      } catch (error) {
+      if (!selectedUser || selectedUser.username === currentUsername) {
+        // Assuming your backend expects an object with position and name
+        const markerWithUser = { ...newMarker, username: currentUsername, details: {} };
+    
+        try {
+          const response = await fetch('http://localhost:3000/api/pins', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(markerWithUser),
+          });
+    
+          if (response.ok) {
+            const data = await response.json();
+            console.log('Pin saved successfully:', data);
+            // Update the state with the new marker, including the _id returned from the server
+            setMarkers((currentMarkers) => [...currentMarkers, { ...markerWithUser, _id: data._id }]);
+          } else {
+            // Handle server errors or unsuccessful responses
+            console.error('Failed to save pin:', await response.text());
+          }
+        } catch (error) {
           console.error('Error creating pin:', error);
           // Handle any errors, such as by showing an error message to the user.
+        }
+      } else {
+        // Optionally, provide feedback to the user that they can't add pins on someone else's map
+        console.log("You can't add pins while viewing another user's map.");
       }
   };
 
