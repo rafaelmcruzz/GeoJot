@@ -1,9 +1,12 @@
 import React, { useState, useEffect} from 'react';
 import './Home.css'; // Ensure this path matches your CSS file's location
+import { useUser } from './UserContext';
 
-const Drawing1 = ({ name, notes, mediaFiles = [], music, songDetails, onViewMore, pinId, currentUser }) => {
+const Drawing1 = ({ name, notes, mediaFiles = [], music, songDetails, onViewMore, pinId }) => {
   const [likes, setLikes] = useState([]);
   const [liked, setLiked] = useState(false);
+
+  const { username } = useUser();
 
   useEffect(() => {
     const fetchLikes = async () => {
@@ -12,36 +15,38 @@ const Drawing1 = ({ name, notes, mediaFiles = [], music, songDetails, onViewMore
         if (!response.ok) throw new Error('Failed to fetch likes');
         const data = await response.json();
         setLikes(data.likes || []);
-        setLiked(data.likes.includes(currentUser)); // Update liked state based on the fetched likes
+        setLiked(data.likes.includes(username)); // Update liked state based on the fetched likes
       } catch (error) {
         console.error("Error fetching likes:", error.message);
       }
     };
 
     fetchLikes();
-  }, [pinId, currentUser]);
+  }, [pinId, username]);
 
   useEffect(() => {
-    setLiked(likes.includes(currentUser)); // Update liked state whenever likes array changes
-  }, [likes, currentUser]);
+    setLiked(likes.includes(username)); // Update liked state whenever likes array changes
+  }, [likes, username]);
 
   const toggleLike = async () => {
     try {
+      console.log("currentUser", username);
       const response = await fetch(`http://localhost:3000/api/pins/${pinId}/toggle-like`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ userId: currentUser }),
+        
+        body: JSON.stringify({ userId: username }),
       });
       if (!response.ok) throw new Error('Failed to toggle like');
 
       // Optimistically update the UI
       setLiked(!liked);
       if (liked) {
-        setLikes(likes.filter(userId => userId !== currentUser));
+        setLikes(likes.filter(userId => userId !== username));
       } else {
-        setLikes([...likes, currentUser]);
+        setLikes([...likes, username]);
       }
     } catch (error) {
       console.error("Error toggling like:", error.message);
