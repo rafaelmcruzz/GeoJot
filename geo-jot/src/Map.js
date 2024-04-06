@@ -237,6 +237,7 @@ const handleFormSubmitSuccess = (updatedMarker) => {
       <>
       <Drawing1
         name={selectedMarker.details.name}
+        pinId={selectedMarker?._id}
         notes={selectedMarker.details.notes}
         mediaFiles={selectedMarker.details.mediaFiles}
         music={selectedMarker.details.music} // Assuming this is the song URI
