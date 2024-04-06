@@ -11,13 +11,13 @@ const Drawing2 = ({ name, notes, music, mediaFiles, onBack }) => {
     <div className="drawing2">
       <div className="left-side">
         <div className="form-group">
-          <label htmlFor="name">Name:</label>
-          <input
+        <label htmlFor="name" className="pin-name-label">{name}</label>
+          {/* <input
             id="name"
             type="text"
             value={name} // Use name prop
             readOnly
-          />
+          /> */}
         </div>
         <div className="form-group">
           <label htmlFor="notes">Notes:</label>

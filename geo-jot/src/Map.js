@@ -250,7 +250,7 @@ const handleFormSubmitSuccess = (updatedMarker) => {
         onDelete={() => deleteMarker(selectedMarker._id)}
       />
       {isViewingOwnMap && (
-        <button onClick={() => deleteMarker(selectedMarker._id)}>Delete PINNNNN</button>
+        <button onClick={() => deleteMarker(selectedMarker._id)}>Delete pin</button>
       )}
     </>
     ); 

@@ -57,13 +57,13 @@ const Drawing1 = ({ name, notes, mediaFiles = [], music, songDetails, onViewMore
     <div className="drawing1">
       <div className="left-section">
         <div className="form-group">
-          <label htmlFor="name">Name:</label>
-          <input
+        <label htmlFor="name" className="pin-name-label">{name}</label>
+          {/* <input
             id="name"
             type="text"
             value={name}
             readOnly
-          />
+          /> */}
         </div>
         <div className="form-group">
           <label htmlFor="notes">Notes:</label>

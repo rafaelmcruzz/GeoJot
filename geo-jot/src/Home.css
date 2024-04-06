@@ -94,6 +94,7 @@
   width: 250px;
   transform: scale(1.3);
 }
+
 /* Search Component Styles */
 .search-container {
   position: relative;
@@ -153,6 +154,47 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+}
+
+/* Styles for Name of Pin */
+.pin-name-label {
+  font-family: 'oswald', sans-serif; /* Change 'Your Font' to your desired font */
+  font-size: 25px; /* Change the font size as desired */
+  font-weight: bold;
+}
+
+.drawing1 textarea {
+  height: calc(30vh - 150px); 
+  resize: none;
+}
+
+/* Add this to remove the 'box' appearance from inputs and textareas */
+.drawing1 .form-group input,
+.drawing1 .form-group textarea {
+  border: none; /* Removes the border */
+  outline: none; /* Removes the focus outline */
+  background-color: #c6cfdf; /* Makes the background transparent */
+  color: inherit; /* Inherits text color from the parent */
+  font-size: inherit; /* Inherits font size from the parent */
+  width: auto; /* Adjust width as needed, or set to auto */
+  max-width: 100%; /* Ensures it doesn't overflow its container */
+}
+
+.drawing1 .form-group input[readonly],
+.drawing1 .form-group textarea[readonly] {
+  pointer-events: none; /* Prevents interaction */
+}
+
+/* Ensure labels are styled appropriately */
+.drawing1 .form-group label {
+  font-weight: bold; /* Makes labels bold */
+  display: block; /* Makes label appear above the input/textarea */
+  margin-bottom: 10px; /* Adjust space between label and input/textarea */
+}
+
+/* Adjust spacing between form groups */
+.drawing1 .form-group {
+  margin-bottom: 1px; /* Increases space between form groups */
 }
 
 .left-section,
@@ -216,6 +258,10 @@
 .thumbnails {
   display: flex;
   gap: 10px;
+  max-width: 150px; /* Set a maximum width */
+  max-height: 150px; /* Set a maximum height */
+  width: auto; /* Maintain aspect ratio */
+  height: auto; /* Maintain aspect ratio */
 }
 
 .thumbnail {
