@@ -331,3 +331,28 @@
   border-bottom: 1px solid #eee;
 }
 
+.action-buttons {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  bottom: 10px;
+  right: 10px;
+}
+
+.like-button, .invite-collaborators {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.like-icon {
+  margin-right: 5px;
+  color: #000;
+  cursor: pointer;
+}
+
+.like-icon.liked {
+  color: #007bff;
+}

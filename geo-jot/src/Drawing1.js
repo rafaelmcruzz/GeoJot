@@ -1,6 +1,9 @@
 import React, { useState, useEffect} from 'react';
 import './Home.css'; // Ensure this path matches your CSS file's location
 import { useUser } from './UserContext';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faThumbsUp, faUserPlus } from '@fortawesome/free-solid-svg-icons';
+// npm install --save @fortawesome/react-fontawesome @fortawesome/free-solid-svg-icons
 
 const Drawing1 = ({ name, notes, mediaFiles = [], music, songDetails, onViewMore, pinId }) => {
   const [likes, setLikes] = useState([]);
@@ -50,6 +53,35 @@ const Drawing1 = ({ name, notes, mediaFiles = [], music, songDetails, onViewMore
       }
     } catch (error) {
       console.error("Error toggling like:", error.message);
+    }
+  };
+
+  /**
+   * Invite a collaborator to a pin
+   * Asks for the username of the person to invite in a prompt
+   * Makes a POST request to the collaborators endpoint of the pin with the username
+   * Shows a success/error message based on the response from the server
+   */
+  const inviteCollaborator = async () => {
+    const collaboratorUsername = prompt("Enter the username of the person you want to invite:");
+    if (!collaboratorUsername) return;
+
+    console.log("Inviting collaborator", collaboratorUsername, "for pin", pinId);
+    try {
+      const response = await fetch(`http://localhost:3000/api/pins/${pinId}/collaborators`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ collaboratorUsername }),
+      });
+      console.log("Response received from server:", response);
+      if (!response.ok) throw new Error('Failed to invite collaborator');
+      console.log("Collaborator invited successfully");
+      alert('Collaborator invited successfully');
+    } catch (error) {
+      console.error("Error inviting collaborator:", error, error.message);
+      alert('Failed to invite collaborator');
     }
   };
 
@@ -106,10 +138,17 @@ const Drawing1 = ({ name, notes, mediaFiles = [], music, songDetails, onViewMore
           )}
         </div>
       </div>
-      <button onClick={toggleLike}>
+      <div className="action-buttons">
+        <div onClick={toggleLike} className="like-button">
+          <FontAwesomeIcon icon={faThumbsUp} className={`like-icon ${liked ? 'liked' : ''}`} />
+          <div>{likes.length}</div>
+        </div>
+        {/* <button onClick={toggleLike}>
         {liked ? 'Unlike' : 'Like'}
       </button>
-      <div>{likes.length} like{likes.length !== 1 ? 's' : ''}</div>
+      <div>{likes.length} like{likes.length !== 1 ? 's' : ''}</div> */}
+        <FontAwesomeIcon icon={faUserPlus} className="invite-collaborators" onClick={inviteCollaborator} />
+      </div>
     </div>
   );
 };
