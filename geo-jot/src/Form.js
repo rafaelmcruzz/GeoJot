@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import './styles.css';
 
-const Form = ({ onSubmit, onDelete, _id, initialName = '', initialNotes = '', initialMusic = '', initialMediaFiles = [] }) => {
+const Form = ({ onSubmit, onDelete, _id, initialName = '', initialNotes = '', initialMusic = '', initialMediaFiles = [], onSubmissionSuccess }) => {
   const [name, setName] = useState(initialName);
   const [notes, setNotes] = useState(initialNotes);
   const [music, setMusic] = useState(initialMusic);
@@ -22,8 +22,6 @@ const Form = ({ onSubmit, onDelete, _id, initialName = '', initialNotes = '', in
     const files = Array.from(e.target.files);
     setMediaFiles(files);
   };
-
-
 
   const handleMusicChange = async (e) => {
     const query = e.target.value;
@@ -63,22 +61,19 @@ const Form = ({ onSubmit, onDelete, _id, initialName = '', initialNotes = '', in
 
       if (response.ok) {
         console.log(`${_id ? 'Update' : 'Create'} request successful`);
-        // If it's an update operation, no need to reset form fields
-        // if (!_id) {
         setName('');
         setNotes('');
         setMusic('');
         setMediaFiles([]);
-        setSelectedSongDetails({}); 
-        if(mediaInputRef.current) {
+        setSelectedSongDetails({});
+        if (mediaInputRef.current) {
           mediaInputRef.current.value = '';
         }
 
-        if (typeof onSubmit === 'function') {
-          onSubmit();
+        // Call the onSubmissionSuccess callback provided by the parent component
+        if (typeof onSubmissionSuccess === 'function') {
+          onSubmissionSuccess();
         }
-
-
       } else {
         console.error('Failed to submit form:', response.statusText);
       }
@@ -130,22 +125,22 @@ const Form = ({ onSubmit, onDelete, _id, initialName = '', initialNotes = '', in
             onChange={handleMusicChange}
             placeholder="Search music..."
           />
-            {musicSearchResults.length > 0 && (
-              <ul className="music-search-results">
-                {musicSearchResults.map((track) => (
-                  <li key={track.id} onClick={() => {
-                      setMusic(track.name); // Keep storing the song name as before
-                      setSelectedSongDetails({ // Store additional song details
-                        previewUrl: track.preview_url,
-                        albumArtUrl: track.album.images[0].url, // Assuming you want the first (largest) image
-                        title: track.name
-                      });
-                    }}>
-                    {track.name} by {track.artists.map(artist => artist.name).join(", ")}
-                  </li>
-                ))}
-              </ul>
-            )}
+          {musicSearchResults.length > 0 && (
+            <ul className="music-search-results">
+              {musicSearchResults.map((track) => (
+                <li key={track.id} onClick={() => {
+                  setMusic(track.name); // Keep storing the song name as before
+                  setSelectedSongDetails({ // Store additional song details
+                    previewUrl: track.preview_url,
+                    albumArtUrl: track.album.images[0].url, // Assuming you want the first (largest) image
+                    title: track.name
+                  });
+                }}>
+                  {track.name} by {track.artists.map(artist => artist.name).join(", ")}
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
         <button type="submit">Submit</button>
         {onDelete && <button type="button" onClick={onDelete}>Delete</button>}
@@ -155,3 +150,4 @@ const Form = ({ onSubmit, onDelete, _id, initialName = '', initialNotes = '', in
 };
 
 export default Form;
+

@@ -351,6 +351,29 @@ const handleFormSubmitSuccess = (updatedMarker) => {
   //   setShowForm(true);
   // }
 
+  const handleFormSuccesss = () => {
+    setShowForm(false); 
+  };
+  
+  {showForm && selectedMarker && (
+    <div className="modal-backdrop">
+      <div className="form-modal">
+        <button className="close-button" onClick={() => setShowForm(false)}>X</button>
+        {/* Pass the marker details to the drawings forms */}
+        <Form
+          onSubmit={handleFormSubmit}
+          _id={selectedMarker._id}
+          onDelete={() => deleteMarker(selectedMarker._id)}
+          initialName={selectedMarker.details?.name || ''}
+          initialNotes={selectedMarker.details?.notes || ''}
+          initialMusic={selectedMarker.details?.music || ''}
+          initialMediaFiles={selectedMarker.details?.mediaFiles || []}
+          onSubmissionSuccess={handleFormSuccesss} 
+        />
+      </div>
+    </div>
+  )}
+
   return (
     <div className="map">
       <MapContainer center={[53.411730, -2.982645]} zoom={13} style={{ height: '955px' }}>
