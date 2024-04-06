@@ -251,4 +251,37 @@
   margin-bottom: 10px; /* Space between album art and audio controls */
 }
 
+.profile-picture{
+  position: relative;
+  cursor: pointer;
+}
+
+.profile-dropdown {
+  position: absolute;
+  left: 1;
+  top: 70px;
+  background-color: #ffffff;
+  min-width: 160px;
+  box-shadow: 0px 2px 5px rgba(0,0,0,0.2);
+  z-index: 2;
+  border-radius: 4px;
+}
+
+.profile-dropdown p {
+  color: #333;
+  padding: 8px 16px;
+  display: block;
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-weight: normal;
+}
+
+.profile-dropdown p:hover {
+  background-color: #f5f5f5;
+}
+
+/* Adding a separator for a clearer distinction */
+.profile-dropdown p:not(:last-child) {
+  border-bottom: 1px solid #eee;
+}
 

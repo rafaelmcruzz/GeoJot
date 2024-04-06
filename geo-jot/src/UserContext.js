@@ -14,8 +14,13 @@ export const UserProvider = ({ children }) => {
         }
     }, []);
 
+    const logout = () => {
+        sessionStorage.removeItem('username');
+        setUsername('');
+    }
+
     return (
-        <UserContext.Provider value={{ username, setUsername }}>
+        <UserContext.Provider value={{ username, setUsername, logout }}>
             {children}
         </UserContext.Provider>
     );

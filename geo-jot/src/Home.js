@@ -3,6 +3,7 @@ import './Home.css'; // Make sure your CSS is correctly linked
 import Map from './Map';
 import Search from './Search';
 import { useUser } from './UserContext';
+import { useNavigate } from 'react-router-dom';
 
 
 function MiniPlayer() {
@@ -10,7 +11,6 @@ function MiniPlayer() {
   const songPreviewUrl = "https://p.scdn.co/mp3-preview/4b0178cf6991f59db18e12e2219ff11e27474b0a?cid=65638501aff3406cab6af040e5ce8b87"; // Replace this with your static song's preview URL
   const albumArtUrl = "https://i.scdn.co/image/ab67616d0000b2739162764a6017634fb155498d"; // Replace with your album art URL
   const songTitle = "FE!N (feat. Playboi Carti)"; // Replace with your song title
-
 
   return (
     <div className="mini-player">
@@ -27,15 +27,33 @@ function MiniPlayer() {
   );
 }
 function LeftSidebar() {
-  const { username } = useUser();
+  const { username, logout } = useUser();
   const avatarUrl = 'user-avatar.jpg';
+  const [showDropdown, setShowDropdown] = useState(false);
+  const navigate = useNavigate();
+
+  const toggleDropdown = () => {
+    setShowDropdown(!showDropdown);
+  }
+
+  const handleLogout = () => {
+    logout();
+    navigate('/', { replace: true });
+  }
 
   return (
     <div className="left-sidebar">
       <div className="user-profile">
-        <img src={avatarUrl} alt="User Avatar" />
+        <div className="profile-picture">
+          <img src={avatarUrl} alt="User Avatar" onClick={toggleDropdown} />
+        </div>
         <p>{username}</p>
       </div>
+      {showDropdown && (
+        <div className="profile-dropdown">
+          <p onClick={handleLogout}>Logout</p>
+        </div>
+      )}
       <MiniPlayer /> {/* MiniPlayer added here inside the left sidebar */}
     </div>
   );
