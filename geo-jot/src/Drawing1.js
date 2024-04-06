@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faThumbsUp, faUserPlus } from '@fortawesome/free-solid-svg-icons';
 // npm install --save @fortawesome/react-fontawesome @fortawesome/free-solid-svg-icons
 
-const Drawing1 = ({ name, notes, mediaFiles = [], music, songDetails, onViewMore, pinId }) => {
+const Drawing1 = ({ name, notes, mediaFiles = [], music, songDetails, onViewMore, onEdit, pinId }) => {
   const [likes, setLikes] = useState([]);
   const [liked, setLiked] = useState(false);
 
@@ -115,6 +115,7 @@ const Drawing1 = ({ name, notes, mediaFiles = [], music, songDetails, onViewMore
           />
         </div>
         <button type="button" onClick={onViewMore}>View More</button>
+        <button type="button" onClick={onEdit}>Edit</button>
       </div>
       <div className="right-section">
         <div className="thumbnails">
