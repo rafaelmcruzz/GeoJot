@@ -13,6 +13,48 @@
   border-radius: 10px; /* Add border radius */
 }
 
+.recent-pin {
+  display: flex;
+  align-items: center; /* Aligns the text and the pin icon vertically */
+  padding: 10px; /* Adds some padding inside each list item */
+  background: #fff; /* Sets the background color to white */
+  border-bottom: 1px solid #eaeaea; /* Adds a bottom border to each list item for the separator */
+}
+
+.recent-pin:last-child {
+  border-bottom: none; /* Removes the border from the last item */
+}
+
+.recent-pins-header {
+  font-size: 1.5em; /* Sets the size of the font */
+  color: #333; /* Sets the color of the font */
+  font-weight: bold; /* Makes the text bold */
+  padding-left: 10px; /* Adds padding to the left of the header */
+  margin-top: 0; /* Removes any default top margin */
+  margin-bottom: 12px; /* Adds some space below the header */
+  border-left: 4px solid #555; /* Adds a left border for stylistic flair */
+}
+
+.recent-pin .pin-icon {
+  width: 30px; /* Width of the icon */
+  height: 30px; /* Height of the icon */
+  background-image: url('Pin.png'); /* The URL to your pin icon */
+  background-size: cover; /* Ensures the icon covers the area */
+  margin-right: 8px; /* Adds some space between the icon and the text */
+}
+
+.recent-pin .pin-name {
+  margin: 0;
+  margin-bottom: 4px; /* Adjust the space between the pin name and location */
+  font-weight: bold; /* Makes the pin name bold */
+}
+
+.recent-pin .location-info {
+  
+  flex: 1; /* Allows the text to fill the remaining space */
+  margin: 0; /* Resets any default margins */
+}
+
 .main-content {
   flex: 1; /* Take up remaining space */
   position: relative;

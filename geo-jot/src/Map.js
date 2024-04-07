@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, useMapEvents } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import Form from './Form';
@@ -17,8 +17,6 @@ const customIcon = new L.Icon({
 });
 
 
-
-
 function Map({ selectedUser }) {
   console.log("Selected user map", selectedUser);
   const [markers, setMarkers] = useState([]);
@@ -30,8 +28,7 @@ function Map({ selectedUser }) {
 
   const isViewingOwnMap = currentUsername === (selectedUser ? selectedUser.username : currentUsername);
 
-  // In progress 
-  // handle updating pins after submitting form data. (Currently need to refresh webpage)
+  // handle updating pins after submitting form data
   const handleFormSubmissionSuccess = () => {
     setShowForm(false);
     fetchPins();
@@ -46,6 +43,7 @@ function Map({ selectedUser }) {
   const backToDrawing1Handler = () => {
     setSelectedDrawing('Drawing1');
   };
+
 
   const handleMarkerClick = (marker) => {
     // Check if the current user is the owner of the pin
@@ -62,7 +60,6 @@ function Map({ selectedUser }) {
       // Optionally, set state to show pin details without showing edit/delete options
     }
   };
-
 
   // Function to fetch pins
   const fetchPins = async () => {
@@ -88,35 +85,34 @@ function Map({ selectedUser }) {
     }
   };
 
-
   // Function to fetch pins, now with optional username parameter
-const fetchPinsDiffUser = async (usernameParam) => {
-  try {
-    const usernameToFetch = usernameParam || username; // Use provided username or fall back to the current user
-    console.log('Fetching pins for user:', usernameToFetch);
-    const response = await fetch(`http://localhost:3000/api/pins?username=${usernameToFetch}`);
-    if (response.ok) {
-      let pins = await response.json();
-      pins = pins.filter(pin => pin.position && pin.position.lat && pin.position.lng);
+  const fetchPinsDiffUser = async (usernameParam) => {
+    try {
+      const usernameToFetch = usernameParam || username; // Use provided username or fall back to the current user
+      console.log('Fetching pins for user:', usernameToFetch);
+      const response = await fetch(`http://localhost:3000/api/pins?username=${usernameToFetch}`);
+      if (response.ok) {
+        let pins = await response.json();
+        pins = pins.filter(pin => pin.position && pin.position.lat && pin.position.lng);
 
-      // Fetch details for each pin and filter out those without a 'name'
-      const pinsWithDetails = (await Promise.all(pins.map(async (pin) => {
-        const details = await fetchPinDetails(pin._id);
-        // Only include pins where 'details' has a 'name' property that is not empty
-        if (details && details.name) {
-          return { ...pin, details };
-        }
-        return null; // Return null for pins without a name in details
-      }))).filter(pin => pin !== null); // Filter out the nulls
+        // Fetch details for each pin and filter out those without a 'name'
+        const pinsWithDetails = (await Promise.all(pins.map(async (pin) => {
+          const details = await fetchPinDetails(pin._id);
+          // Only include pins where 'details' has a 'name' property that is not empty
+          if (details && details.name) {
+            return { ...pin, details };
+          }
+          return null; // Return null for pins without a name in details
+        }))).filter(pin => pin !== null); // Filter out the nulls
 
-      setMarkers(pinsWithDetails);
-    } else {
-      console.error('Failed to fetch pins:', response.statusText);
+        setMarkers(pinsWithDetails);
+      } else {
+        console.error('Failed to fetch pins:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error fetching pins:', error);
     }
-  } catch (error) {
-    console.error('Error fetching pins:', error);
-  }
-};
+  };
 
   
   // Since fetchPinDetails might be used here before its definition, ensure it's defined appropriately
@@ -169,19 +165,19 @@ const fetchPinsDiffUser = async (usernameParam) => {
     }
   };
 
-const handleFormSubmitSuccess = (updatedMarker) => {
-  const newMarkers = markers.map((marker) => {
-    if (marker._id === updatedMarker._id) {
-      // Ensure you're accessing a 'details' property on an object that's defined in this scope
-      return { ...marker, details: updatedMarker.details };
-    }
-    return marker;
-  });
-  setMarkers(newMarkers);
-  // Assuming updatedMarker contains the updated details you want to select
-  setSelectedMarker(updatedMarker); // Correct usage if updatedMarker is the correct object
-  setShowForm(false);
-};
+  const handleFormSubmitSuccess = (updatedMarker) => {
+    const newMarkers = markers.map((marker) => {
+      if (marker._id === updatedMarker._id) {
+        // Ensure you're accessing a 'details' property on an object that's defined in this scope
+        return { ...marker, details: updatedMarker.details };
+      }
+      return marker;
+    });
+    setMarkers(newMarkers);
+    // Assuming updatedMarker contains the updated details you want to select
+    setSelectedMarker(updatedMarker); // Correct usage if updatedMarker is the correct object
+    setShowForm(false);
+  };
 
 
   // useEffect to fetch pins when the component mounts

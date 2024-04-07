@@ -43,7 +43,7 @@ const Drawing2 = ({ name, notes, music, mediaFiles, onBack }) => {
       <div className="image-container"> 
         {imagesToDisplay ? (
             imagesToDisplay.map((url, index) => (
-            <img key={index} src={url} alt={`Picture ${index + 1}`} />
+            <img key={index} src={url} alt={`Image ${index + 1}`} />
             ))
         ) : (
             <p>Loading images...</p>

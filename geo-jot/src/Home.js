@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Home.css'; // Make sure your CSS is correctly linked
 import Map from './Map';
 import Search from './Search';
 import { useUser } from './UserContext';
 import { useNavigate } from 'react-router-dom';
+
 
 
 function MiniPlayer() {
@@ -31,6 +32,49 @@ function LeftSidebar() {
   const avatarUrl = 'user-avatar.jpg';
   const [showDropdown, setShowDropdown] = useState(false);
   const navigate = useNavigate();
+  const [recentPins, setRecentPins] = useState([]);
+  const [locationDetails, setLocationDetails] = useState({});
+
+  useEffect(() => {
+    // Fetch recent pins when the component mounts
+    const fetchRecentPins = async () => {
+      const response = await fetch(`http://localhost:3000/api/pins/recent?username=${username}`);
+      const data = await response.json();
+      setRecentPins(data);
+    };
+  
+    fetchRecentPins();
+  }, [username]);
+
+  const fetchLocationDetails = async (pin) => {
+    const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${pin.position.lat}&lon=${pin.position.lng}&zoom=18&addressdetails=1`;
+  
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
+      const road = data?.address?.road || "Unknown Road";
+      const city = data?.address?.city || data?.address?.town || data?.address?.village || "Unknown City"; // Fallbacks cover various levels of locality
+      return { road, city }; // Return both road and city
+    } catch (error) {
+      console.error('Error fetching location details:', error);
+      return { road: "Unknown Road", city: "Unknown City" };
+    }
+  };
+  
+  useEffect(() => {
+    const fetchAllLocationDetails = async () => {
+      const details = {};
+      for (let pin of recentPins) {
+        const locationDetail = await fetchLocationDetails(pin);
+        details[pin._id] = locationDetail;
+      }
+      setLocationDetails(details);
+    };
+  
+    if (recentPins.length > 0) {
+      fetchAllLocationDetails();
+    }
+  }, [recentPins]);
 
   const toggleDropdown = () => {
     setShowDropdown(!showDropdown);
@@ -55,6 +99,20 @@ function LeftSidebar() {
         </div>
       )}
       <MiniPlayer /> {/* MiniPlayer added here inside the left sidebar */}
+      <div className="recent-pins">
+        <h3 className="recent-pins-header">Recent Pins</h3>
+        {recentPins.map(pin => (
+          <div key={pin._id} className="recent-pin">
+          <div className="pin-icon"></div>
+          <div className="pin-details">
+            <p className="pin-name">{pin.name}</p> {/* Display pin name */}
+            <p className="location-info">
+              {locationDetails[pin._id] ? `${locationDetails[pin._id].road}, ${locationDetails[pin._id].city}` : 'Loading location...'}
+            </p> {/* Display location info */}
+          </div>
+        </div>
+        ))}
+      </div>
     </div>
   );
 }
