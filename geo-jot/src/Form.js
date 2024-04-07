@@ -133,7 +133,8 @@ const Form = ({ onSubmit, onDelete, _id, initialName = '', initialNotes = '', in
                   setSelectedSongDetails({ // Store additional song details
                     previewUrl: track.preview_url,
                     albumArtUrl: track.album.images[0].url, // Assuming you want the first (largest) image
-                    title: track.name
+                    title: track.name,
+                    artists: track.artists.map(artist => artist.name).join(", ") // Join multiple artists with a comma
                   });
                 }}>
                   {track.name} by {track.artists.map(artist => artist.name).join(", ")}

@@ -6,27 +6,6 @@ import { useUser } from './UserContext';
 import { useNavigate } from 'react-router-dom';
 
 
-
-function MiniPlayer() {
-  // Static song preview URL from Spotify
-  const songPreviewUrl = "https://p.scdn.co/mp3-preview/4b0178cf6991f59db18e12e2219ff11e27474b0a?cid=65638501aff3406cab6af040e5ce8b87"; // Replace this with your static song's preview URL
-  const albumArtUrl = "https://i.scdn.co/image/ab67616d0000b2739162764a6017634fb155498d"; // Replace with your album art URL
-  const songTitle = "FE!N (feat. Playboi Carti)"; // Replace with your song title
-
-  return (
-    <div className="mini-player">
-      <div className="album-art">
-        <img src={albumArtUrl} alt="Album Art" style={{ width: 100, height: 100 }} />
-      </div>
-      <div className="song-info">
-        <p>{songTitle}</p>
-      </div>
-      <audio controls src={songPreviewUrl}>
-        Your browser does not support the audio element.
-      </audio>
-    </div>
-  );
-}
 function LeftSidebar() {
   const { username, logout } = useUser();
   const avatarUrl = 'user-avatar.jpg';
@@ -98,7 +77,6 @@ function LeftSidebar() {
           <p onClick={handleLogout}>Logout</p>
         </div>
       )}
-      <MiniPlayer /> {/* MiniPlayer added here inside the left sidebar */}
       <div className="recent-pins">
         <h3 className="recent-pins-header">Recent Pins</h3>
         {recentPins.map(pin => (

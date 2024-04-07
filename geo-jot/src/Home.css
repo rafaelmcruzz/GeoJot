@@ -320,18 +320,42 @@
   height: 100%; /* Ensure the sidebar takes full height */
 }
 
-.mini-player {
-  padding: 10px;
-  /* Adjustments to fit within the sidebar */
-}
-
-
-.mini-player {
+.music-details {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  align-items: flex-start; /* Align items at the start */
+  gap: 20px; /* Space between elements */
+  background-color: #f3f4f6;
   padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 270px;
+  height: 125px;
 }
+
+.music-details .song-info {
+  display: flex;
+  font-weight: bold;
+  flex-direction: column; /* Stack title and audio player vertically */
+  justify-content: center;
+  gap: 10px; /* Space between title and player */
+}
+
+.music-details img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.music-details audio {
+  width: 250px; /* Adjust as necessary */
+  margin-left: -70px;
+  border: none; /* Removes the border */
+  outline: none; /* Removes the focus outline */
+  background-color: transparent;
+  height: 40px;
+}
+
 
 .album-art img {
   max-width: 100%; /* Ensure the image fits within the container */

@@ -45,8 +45,9 @@ function Map({ selectedUser }) {
   };
 
 
-  const handleMarkerClick = (marker) => {
+  const handleMarkerClick = async (marker) => {
     // Check if the current user is the owner of the pin
+
     if (marker.username === currentUsername) {
       // Logic to handle marker click for the owner of the pin
       // This could include setting state to show edit/delete options
@@ -57,6 +58,7 @@ function Map({ selectedUser }) {
       // If the user is not the owner, maybe just show the pin details without edit/delete options
       console.log("This pin belongs to another user.");
       setSelectedMarker(marker);
+  
       // Optionally, set state to show pin details without showing edit/delete options
     }
   };
@@ -122,7 +124,7 @@ function Map({ selectedUser }) {
       const response = await fetch(`http://localhost:3000/api/pins/details/${pinId}`);
       if (response.ok) {
         const pinDetails = await response.json();
-        console.log('Fetched pin details:', pinDetails); // Debugging
+        console.log('Fetched pin details:1111111', pinDetails);
         return pinDetails;
       } else {
         console.error('Failed to fetch pin details:', response.statusText);
@@ -227,6 +229,7 @@ function Map({ selectedUser }) {
     }
   };
 
+  console.log("songDetails::", selectedMarker?.details?.selectedSongDetails);
   const renderContent = () => {
   if (selectedDrawing === 'Drawing1' && selectedMarker) {
     return (
@@ -236,11 +239,12 @@ function Map({ selectedUser }) {
         pinId={selectedMarker?._id}
         notes={selectedMarker.details.notes}
         mediaFiles={selectedMarker.details.mediaFiles}
-        music={selectedMarker.details.music} // Assuming this is the song URI
+        music={selectedMarker.details.music} // Assuming this is the song URI    
         songDetails={{
-          title: selectedMarker.details.songTitle, // These fields should match how you store them
-          previewUrl: selectedMarker.details.songPreviewUrl,
-          albumArtUrl: selectedMarker.details.songAlbumArtUrl,
+          title: selectedMarker.details.selectedSongDetails?.title, // These fields should match how you store them
+          previewUrl: selectedMarker.details.selectedSongDetails?.previewUrl,
+          albumArtUrl: selectedMarker.details.selectedSongDetails?.albumArtUrl,
+          artists: selectedMarker.details.selectedSongDetails?.artists,
         }}
         onViewMore={viewMoreHandler}
         onDelete={() => deleteMarker(selectedMarker._id)}
@@ -255,9 +259,16 @@ function Map({ selectedUser }) {
       <Drawing2
         onBack={backToDrawing1Handler}
         name={selectedMarker.details.name}
+        pinId={selectedMarker?._id}
         notes={selectedMarker.details.notes}
         mediaFiles={selectedMarker.details.mediaFiles}
         music={selectedMarker.details.music}
+        songDetails={{
+          title: selectedMarker.details.selectedSongDetails?.title, // These fields should match how you store them
+          previewUrl: selectedMarker.details.selectedSongDetails?.previewUrl,
+          albumArtUrl: selectedMarker.details.selectedSongDetails?.albumArtUrl,
+          artists: selectedMarker.details.selectedSongDetails?.artists,
+        }}
       />
     );
   } else {

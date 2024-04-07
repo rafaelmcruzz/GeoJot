@@ -10,7 +10,8 @@ const Drawing1 = ({ name, notes, mediaFiles = [], music, songDetails, onViewMore
   const [liked, setLiked] = useState(false);
 
   const { username } = useUser();
-
+  console.log("songDetails::", songDetails);
+ 
   useEffect(() => {
     const fetchLikes = async () => {
       try {
@@ -107,12 +108,21 @@ const Drawing1 = ({ name, notes, mediaFiles = [], music, songDetails, onViewMore
         </div>
         <div className="form-group">
           <label htmlFor="music">Music:</label>
-          <input
-            id="music"
-            type="text"
-            value={music} // Use music prop
-            readOnly
-          />
+          {songDetails && songDetails.albumArtUrl ? (
+              <div className="music-details">
+              <img src={songDetails.albumArtUrl} alt="Album Art" className="album-art" />
+              <div className="song-info">
+                <div className="song-title">{songDetails.title}</div>
+                <div className="song-author">By {songDetails.artists}</div>
+                <audio controls src={songDetails.previewUrl}>
+                  Your browser does not support the audio element.
+                </audio>
+              </div>
+            </div>
+          ) : (
+            // Display this message if songDetails are missing or incomplete
+            <div className="song-not-chosen">Song not chosen</div>
+          )}
         </div>
         <button type="button" onClick={onViewMore}>View More</button>
         <button type="button" onClick={onEdit}>Edit</button>
@@ -127,17 +137,7 @@ const Drawing1 = ({ name, notes, mediaFiles = [], music, songDetails, onViewMore
             <p>No images available</p>
           )}
         </div>
-        <div className="music">
-          {songDetails && songDetails.previewUrl && (
-            <div className="music-player">
-              <img src={songDetails.albumArtUrl} alt="Album Art" className="album-art" />
-              <p>{songDetails.title}</p>
-              <audio controls src={songDetails.previewUrl}>
-                Your browser does not support the audio element.
-              </audio>
-            </div>
-          )}
-        </div>
+        
       </div>
       <div className="action-buttons">
         <div onClick={toggleLike} className="like-button">
