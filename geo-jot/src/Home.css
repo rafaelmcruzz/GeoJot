@@ -498,3 +498,26 @@
   margin-bottom: 10px; 
   text-align: center; 
 }
+
+
+.ProfilePicture-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1050; /* Ensure this is above other content */
+}
+
+.ProfilePicture-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  max-width: 500px; /* Adjust based on your preference */
+  z-index: 1051; /* Above the backdrop */
+}
