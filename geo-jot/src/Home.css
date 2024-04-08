@@ -4,12 +4,12 @@
 
 .left-sidebar {
   width: 300px;
-  height: 100vh; /* Set height to 100% of viewport height */
-  background-color: #f0f0f0;
+  height:100%; /* Set height to 100% of viewport height */
+  background-color: #8cd2ed;
   padding: 20px;
   box-sizing: border-box;
-  border-right: 2px solid #ccc; /* Add right border */
-  border-bottom: 2px solid #ccc; /* Add bottom border */
+  border-right: 2px solid #c3a3e0; /* Add right border */
+  border-bottom: 2px solid #c3a3e0; /* Add bottom border */
   border-radius: 10px; /* Add border radius */
 }
 
@@ -19,6 +19,8 @@
   padding: 10px; /* Adds some padding inside each list item */
   background: #fff; /* Sets the background color to white */
   border-bottom: 1px solid #eaeaea; /* Adds a bottom border to each list item for the separator */
+  height:138px;
+  border-radius: 5px;
 }
 
 .recent-pin:last-child {
