@@ -5,17 +5,20 @@ import Search from './Search';
 import { useUser } from './UserContext';
 import { useNavigate } from 'react-router-dom';
 import UserProfile from './UserProfile';
+import ProfilePicture from './ProfilePicture';
 
 
 
 function LeftSidebar() {
   const { username, logout } = useUser();
-  const avatarUrl = 'user-avatar.jpg';
+  const exampleProfilePic = 'https://geojot.s3.eu-west-1.amazonaws.com/profile-pictures/default-profile-pic.jpg';
   const [showDropdown, setShowDropdown] = useState(false);
   const navigate = useNavigate();
   const [recentPins, setRecentPins] = useState([]);
   const [locationDetails, setLocationDetails] = useState({});
   const [followersCount, setFollowersCount] = useState(0);
+  const [showProfilePicture, setShowProfilePicture] = useState(false);
+  const [profilePicUrl, setProfilePicUrl] = useState('');
 
 
   useEffect(() => {
@@ -81,11 +84,15 @@ function LeftSidebar() {
     navigate('/', { replace: true });
   }
 
+  const handleChangeProfilePicture = () => {
+    setShowProfilePicture(true);
+  }
+
   return (
     <div className="left-sidebar">
       <div className="user-profile">
         <div className="profile-picture">
-          <img src={avatarUrl} alt="User Avatar" onClick={toggleDropdown} />
+          <img src={exampleProfilePic} alt="User Avatar" onClick={toggleDropdown} />
         </div>
         <p><strong>{username}</strong></p>
         <p>Followers: {followersCount}</p>
@@ -93,7 +100,15 @@ function LeftSidebar() {
       </div>
       {showDropdown && (
         <div className="profile-dropdown">
+          <p onClick={handleChangeProfilePicture}>Change Profile Picture</p>
           <p onClick={handleLogout}>Logout</p>
+        </div>
+      )}
+      {showProfilePicture && (
+        <div className="ProfilePicture-backdrop" onClick={() => setShowProfilePicture(false)}>
+          <div className="ProfilePicture-content" onClick={(e) => e.stopPropagation()}>
+            <ProfilePicture username={username} onClose={() => setShowProfilePicture(false)} />
+          </div>
         </div>
       )}
       <div className="recent-pins">
