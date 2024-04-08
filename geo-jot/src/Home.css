@@ -19,12 +19,20 @@
   padding: 10px; /* Adds some padding inside each list item */
   background: #fff; /* Sets the background color to white */
   border-bottom: 1px solid #eaeaea; /* Adds a bottom border to each list item for the separator */
-  height:auto;
-  border-radius: 5px;
+  height: auto;
+  width: auto;
+  border-radius: 0;
+}
+
+.first-pin {
+  border-top-left-radius: 5px; /* Adds border-radius to the top left corner of the first pin */
+  border-top-right-radius: 5px; /* Adds border-radius to the top right corner of the first pin */
 }
 
 .recent-pin:last-child {
   border-bottom: none; /* Removes the border from the last item */
+  border-bottom-left-radius: 5px; /* Adds border-radius to the bottom left corner of the last pin */
+  border-bottom-right-radius: 5px; /* Adds border-radius to the bottom right corner of the last pin */
 }
 
 .recent-pins-header {
@@ -32,7 +40,7 @@
   color: #333; /* Sets the color of the font */
   font-weight: bold; /* Makes the text bold */
   padding-left: 10px; /* Adds padding to the left of the header */
-  margin-top: 0; /* Removes any default top margin */
+  margin-top: 10px; /* Removes any default top margin */
   margin-bottom: 12px; /* Adds some space below the header */
   border-left: 4px solid #555; /* Adds a left border for stylistic flair */
 }
@@ -72,7 +80,7 @@
 }
 
 .user-profile {
-  border-bottom: 2px solid #ccc; 
+  border-bottom: 2px solid #ffffff; 
   padding-bottom: 20px; 
 }
 
@@ -170,7 +178,7 @@
 
 .search-result-item {
   padding: 10px;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid #8cd2ed;
   cursor: pointer;
 }
 
@@ -494,7 +502,7 @@
   text-align: center; 
 }
 
-
+/* styles for the profile picture*/
 .ProfilePicture-backdrop {
   position: fixed;
   top: 0;
@@ -517,15 +525,59 @@
   z-index: 1051; /* Above the backdrop */
 }
 
-.search-result-item {
-  transition: transform 0.3s ease; 
+/* styles for the weather widget*/
+
+.weather-header {
+  font-size: 1.5em; /* Sets the size of the font */
+  color: #333; /* Sets the color of the font */
+  font-weight: bold; /* Makes the text bold */
+  padding-left: 10px; /* Adds padding to the left of the header */
+  margin-top: 10px; /* Removes any default top margin */
+  margin-bottom: 10px; /* Adds some space below the header */
+  border-left: 4px solid #555; /* Adds a left border for stylistic flair */
 }
 
-.search-result-item:hover {
-  transform: scale(1.1); 
+.weather-widget {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 10px 20px;
+  margin: 20px 1;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  font-family: 'poppins', sans-serif;
+  color: #333;
 }
 
-.search-result-item {
-  transition: transform 0.3s ease;
-  margin: 15px; 
+.weather-info {
+  display: flex;
+  align-items: center;
+}
+
+.weather-info img {
+  width: 50px;
+  height: 50px;
+  margin-right: 15px;
+}
+
+.weather-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.weather-city {
+  font-size: 1.2em;
+  color: #000;
+}
+
+.weather-temperature,
+.weather-condition {
+  margin: 0;
+  padding-right: 15px;
+  border-right: 1px solid #ddd;
+}
+
+.weather-widget p:last-child {
+  border-right: none;
 }

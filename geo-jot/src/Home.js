@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import './Home.css'; // Make sure your CSS is correctly linked
 import Map from './Map';
+import WeatherWidget from './WeatherWidget';
 import Search from './Search';
 import { useUser } from './UserContext';
 import { useNavigate } from 'react-router-dom';
 import UserProfile from './UserProfile';
 import ProfilePicture from './ProfilePicture';
-
 
 
 function LeftSidebar() {
@@ -111,20 +111,22 @@ function LeftSidebar() {
           </div>
         </div>
       )}
+      <div class="weather-header">Meteorology</div>
+      <WeatherWidget />
       <div className="recent-pins">
         <h3 className="recent-pins-header">Recent Pins</h3>
-        {recentPins.map(pin => (
-          <div key={pin._id} className="recent-pin">
-          <div className="pin-icon"></div>
-          <div className="pin-details">
-            <p className="pin-name">{pin.name}</p> {/* Display pin name */}
-            <p className="location-info">
-              {locationDetails[pin._id] ? `${locationDetails[pin._id].road}, ${locationDetails[pin._id].city}` : 'Loading location...'}
-            </p> {/* Display location info */}
-          </div>
-        </div>
+        {recentPins.map((pin, index) => (
+            <div key={pin._id} className={`recent-pin ${index === 0 ? 'first-pin' : ''}`}>
+                <div className="pin-icon"></div>
+                <div className="pin-details">
+                    <p className="pin-name">{pin.name}</p>
+                    <p className="location-info">
+                        {locationDetails[pin._id] ? `${locationDetails[pin._id].road}, ${locationDetails[pin._id].city}` : 'Loading location...'}
+                    </p> 
+                </div>
+            </div>
         ))}
-      </div>
+    </div>
     </div>
   );
 }
