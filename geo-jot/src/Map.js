@@ -383,7 +383,7 @@ function Map({ selectedUser }) {
 
   return (
     <div className="map">
-      <MapContainer center={[53.411730, -2.982645]} zoom={13} style={{ height: '955px' }}>
+      <MapContainer center={[53.411730, -2.982645]} zoom={13} style={{ height: '100vh' }}>
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

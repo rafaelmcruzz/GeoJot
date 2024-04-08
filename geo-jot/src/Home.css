@@ -4,13 +4,13 @@
 
 .left-sidebar {
   width: 300px;
-  height:100%; /* Set height to 100% of viewport height */
+  height: 100vh; /* Set height to 100% of viewport height */
   background-color: #8cd2ed;
   padding: 20px;
   box-sizing: border-box;
   border-right: 2px solid #c3a3e0; /* Add right border */
   border-bottom: 2px solid #c3a3e0; /* Add bottom border */
-  border-radius: 10px; /* Add border radius */
+  
 }
 
 .recent-pin {
@@ -67,7 +67,7 @@
   top: 0;
   left: 0;
   width: 100%; /* Adjust width as needed */
-  height: 100%; /* Adjust height as needed */
+   /* Adjust height as needed */
   z-index: 0; /* Lower z-index to ensure it's below search bar */
 }
 
@@ -318,12 +318,6 @@
 }
 
 
-.left-sidebar {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between; /* This will help push the player to the bottom */
-  height: 100%; /* Ensure the sidebar takes full height */
-}
 
 .music-details {
   display: flex;
