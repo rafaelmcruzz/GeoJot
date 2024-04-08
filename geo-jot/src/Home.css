@@ -8,8 +8,8 @@
   background-color: #8cd2ed;
   padding: 20px;
   box-sizing: border-box;
-  border-right: 2px solid #c3a3e0; /* Add right border */
-  border-bottom: 2px solid #c3a3e0; /* Add bottom border */
+  border-right: 2px solid #ffffff; /* Add right border */
+  border-bottom: 2px solid #ffffff; /* Add bottom border */
   
 }
 
@@ -19,7 +19,7 @@
   padding: 10px; /* Adds some padding inside each list item */
   background: #fff; /* Sets the background color to white */
   border-bottom: 1px solid #eaeaea; /* Adds a bottom border to each list item for the separator */
-  height:138px;
+  height:auto;
   border-radius: 5px;
 }
 
@@ -142,6 +142,7 @@
 /* Search Component Styles */
 .search-container {
   position: relative;
+  border-radius: 5px;
 }
 
 .search-input {
@@ -156,12 +157,15 @@
   list-style: none;
   padding: 0;
   margin: 0;
-  background-color: #fff;
+  background-color: #ffffff;
   border: 1px solid #ddd;
   border-radius: 4px;
   position: absolute;
   width: 100%;
   z-index: 1000; /* Ensure the list appears above other content */
+  max-height: 300px; 
+  overflow-y: auto; 
+  border-radius: 20px;
 }
 
 .search-result-item {
@@ -317,8 +321,6 @@
  
 }
 
-
-
 .music-details {
   display: flex;
   align-items: flex-start; /* Align items at the start */
@@ -354,7 +356,6 @@
   background-color: transparent;
   height: 40px;
 }
-
 
 .album-art img {
   max-width: 100%; /* Ensure the image fits within the container */
@@ -514,4 +515,17 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   max-width: 500px; /* Adjust based on your preference */
   z-index: 1051; /* Above the backdrop */
+}
+
+.search-result-item {
+  transition: transform 0.3s ease; 
+}
+
+.search-result-item:hover {
+  transform: scale(1.1); 
+}
+
+.search-result-item {
+  transition: transform 0.3s ease;
+  margin: 15px; 
 }

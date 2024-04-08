@@ -5,14 +5,33 @@ const Search = ({ onSelectUser }) => {
   const [query, setQuery] = useState('');
   const [users, setUsers] = useState([]);
 
+
+const searchResultItems = document.querySelectorAll('.search-result-item');
+
+
+searchResultItems.forEach(item => {
+  
+  item.addEventListener('mouseenter', () => {
+    
+    item.style.transform = 'scale(1.1)';
+  });
+
+ 
+  item.addEventListener('mouseleave', () => {
+    
+    item.style.transform = 'scale(1)';
+  });
+});
+
+
   // Fetch users based on the search query
   useEffect(() => {
-    if (query.length > 1) { // Only search if query is 2 or more characters
+    if (query.length >= 1) { // Only search if query is 2 or more characters
       fetch(`http://localhost:3000/api/users/search?query=${query}`)
         .then(response => response.json())
         .then(data => {
           setUsers(data); // Assuming the data is an array of user objects
-        })
+      })
         .catch(error => console.error('Error fetching user search results:', error));
     } else {
       setUsers([]); // Clear search results if query is too short
