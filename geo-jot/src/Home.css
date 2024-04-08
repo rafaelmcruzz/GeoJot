@@ -70,8 +70,8 @@
 }
 
 .user-profile {
-  border-bottom: 2px solid #ccc; /* 添加用户头像区域的底部边框 */
-  padding-bottom: 20px; /* 添加底部边距 */
+  border-bottom: 2px solid #ccc; 
+  padding-bottom: 20px; 
 }
 
 .user-profile img {
@@ -100,14 +100,14 @@
 
 .address-block li {
   margin-bottom: 10px;
-  border-bottom: 1px solid #ccc; /* 添加地址项之间的底部边框 */
-  padding-bottom: 10px; /* 添加底部边距 */
+  border-bottom: 1px solid #ccc; 
+  padding-bottom: 10px; 
 }
 
 .selected-address-details {
   margin-top: 20px;
-  border-top: 2px solid #ccc; /* 添加顶部边框 */
-  padding-top: 20px; /* 添加顶部边距 */
+  border-top: 2px solid #ccc; 
+  padding-top: 20px; 
 }
 
 .selected-address-details h2 {
@@ -218,7 +218,7 @@
   background-color: #c6cfdf; /* Makes the background transparent */
   color: inherit; /* Inherits text color from the parent */
   font-size: inherit; /* Inherits font size from the parent */
-  width: auto; /* Adjust width as needed, or set to auto */
+  width: 100%; /* Adjust width as needed, or set to auto */
   max-width: 100%; /* Ensures it doesn't overflow its container */
 }
 
@@ -304,12 +304,15 @@
   max-height: 150px; /* Set a maximum height */
   width: auto; /* Maintain aspect ratio */
   height: auto; /* Maintain aspect ratio */
+  justify-content: center; 
+  align-items: center; 
 }
 
 .thumbnail {
   flex: 0 1 auto;
   max-width: 100px;
   height: auto;
+ 
 }
 
 
@@ -349,7 +352,7 @@
 
 .music-details audio {
   width: 250px; /* Adjust as necessary */
-  margin-left: -70px;
+  margin-left: -20px;
   border: none; /* Removes the border */
   outline: none; /* Removes the focus outline */
   background-color: transparent;
@@ -421,4 +424,75 @@
 
 .like-icon.liked {
   color: #007bff;
+}
+
+.view-more-button {
+  background-color: #007bff; 
+  color: white; 
+  padding: 8px 16px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.view-more-button:hover {
+  background-color: #007bff;
+}
+
+/* Ensure only one name is displayed by specifically targeting the first name label */
+/* Since no changes to the JSX are requested, we'll achieve this through CSS */
+.drawing1 .form-group .pin-name-label:first-of-type {
+  display: none; /* Hide the first occurrence */
+}
+
+/* Fix music details box size and use ellipsis for overflow */
+.song-info {
+  width: 200px; /* Adjust width as needed */
+  white-space: nowrap; /* Prevent text from wrapping */
+  overflow: hidden; /* Hide overflow */
+  text-overflow: ellipsis; /* Add ellipsis to overflow text */
+}
+
+/* Improve aesthetics for images within .thumbnails container */
+.thumbnails {
+  display: flex;
+  flex-wrap: wrap; /* Allow thumbnails to wrap */
+  gap: 10px; /* Space between thumbnails */
+}
+
+.thumbnail {
+  flex: 0 1 auto;
+  width: 100px; /* Fixed width */
+  height: 100px; /* Fixed height */
+  object-fit: cover; /* Cover fit to avoid distortion */
+}
+
+/* Additional adjustments for a consistent layout */
+.music-details {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  gap: 30px;
+  width: 100%; /* Ensure music details box doesn't exceed its container */
+}
+
+.album-art {
+  width: 50px; /* Adjust album art size */
+  height: 50px; /* Adjust album art size */
+  object-fit: cover;
+}
+
+
+.bottom-section {
+  display: flex;
+  justify-content: center; 
+  margin-top: 20px;
+}
+
+
+.view-more-button, .edit-button {
+  width: 100%; 
+  margin-bottom: 10px; 
+  text-align: center; 
 }

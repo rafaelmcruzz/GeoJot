@@ -196,6 +196,7 @@ textarea:focus {
   margin-top: 10px; 
   padding: 5px; 
   border-radius: 4px; 
+  cursor: pointer;
 }
 
 .music-search-results {
@@ -205,6 +206,10 @@ textarea:focus {
   box-sizing: border-box;
 }
 
+.music-search-results:hover {
+  /* Additional styles for hover state */
+  background-color: #f0f0f0; /* Change background color on hover */
+}
 
 .media-label {
   display: inline-block;

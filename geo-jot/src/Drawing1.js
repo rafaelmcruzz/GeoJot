@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import './Home.css'; // Ensure this path matches your CSS file's location
 import { useUser } from './UserContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -40,7 +40,7 @@ const Drawing1 = ({ name, notes, mediaFiles = [], music, songDetails, onViewMore
         headers: {
           'Content-Type': 'application/json',
         },
-        
+
         body: JSON.stringify({ userId: username }),
       });
       if (!response.ok) throw new Error('Failed to toggle like');
@@ -63,6 +63,7 @@ const Drawing1 = ({ name, notes, mediaFiles = [], music, songDetails, onViewMore
    * Makes a POST request to the collaborators endpoint of the pin with the username
    * Shows a success/error message based on the response from the server
    */
+
   const inviteCollaborator = async () => {
     const collaboratorUsername = prompt("Enter the username of the person you want to invite:");
     if (!collaboratorUsername) return;
@@ -97,6 +98,9 @@ const Drawing1 = ({ name, notes, mediaFiles = [], music, songDetails, onViewMore
             value={name}
             readOnly
           /> */}
+
+          <label htmlFor="name" className="pin-name-label">{name}</label>
+        
         </div>
         <div className="form-group">
           <label htmlFor="notes">Notes:</label>
@@ -109,7 +113,7 @@ const Drawing1 = ({ name, notes, mediaFiles = [], music, songDetails, onViewMore
         <div className="form-group">
           <label htmlFor="music">Music:</label>
           {songDetails && songDetails.albumArtUrl ? (
-              <div className="music-details">
+            <div className="music-details">
               <img src={songDetails.albumArtUrl} alt="Album Art" className="album-art" />
               <div className="song-info">
                 <div className="song-title">{songDetails.title}</div>
@@ -120,12 +124,13 @@ const Drawing1 = ({ name, notes, mediaFiles = [], music, songDetails, onViewMore
               </div>
             </div>
           ) : (
-            // Display this message if songDetails are missing or incomplete
+                        // Display this message if songDetails are missing or incomplete
+
             <div className="song-not-chosen">Song not chosen</div>
           )}
         </div>
-        <button type="button" onClick={onViewMore}>View More</button>
-        <button type="button" onClick={onEdit}>Edit</button>
+        <button type="button" onClick={onViewMore} className="view-more-button">View More</button>
+        <button type="button" onClick={onEdit} className="view-more-button">Edit</button>
       </div>
       <div className="right-section">
         <div className="thumbnails">
@@ -137,14 +142,14 @@ const Drawing1 = ({ name, notes, mediaFiles = [], music, songDetails, onViewMore
             <p>No images available</p>
           )}
         </div>
-        
+
       </div>
       <div className="action-buttons">
         <div onClick={toggleLike} className="like-button">
           <FontAwesomeIcon icon={faThumbsUp} className={`like-icon ${liked ? 'liked' : ''}`} />
           <div>{likes.length}</div>
         </div>
-        {/* <button onClick={toggleLike}>
+                {/* <button onClick={toggleLike}>
         {liked ? 'Unlike' : 'Like'}
       </button>
       <div>{likes.length} like{likes.length !== 1 ? 's' : ''}</div> */}
