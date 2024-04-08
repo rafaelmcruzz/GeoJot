@@ -250,7 +250,7 @@ function Map({ selectedUser }) {
         onDelete={() => deleteMarker(selectedMarker._id)}
       />
       {isViewingOwnMap && (
-        <button onClick={() => deleteMarker(selectedMarker._id)}>Delete pin</button>
+        <button class="delete-button" onClick={() => deleteMarker(selectedMarker._id)}>Delete pin</button>
       )}
     </>
     ); 

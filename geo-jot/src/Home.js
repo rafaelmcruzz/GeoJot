@@ -7,6 +7,7 @@ import { useUser } from './UserContext';
 import { useNavigate } from 'react-router-dom';
 import UserProfile from './UserProfile';
 import ProfilePicture from './ProfilePicture';
+import SettingsModal from './SettingsModal';
 
 
 function LeftSidebar() {
@@ -16,6 +17,7 @@ function LeftSidebar() {
   const navigate = useNavigate();
   const [recentPins, setRecentPins] = useState([]);
   const [locationDetails, setLocationDetails] = useState({});
+  const [showSettingsModal, setShowSettingsModal] = useState(false);
   const [followersCount, setFollowersCount] = useState(0);
   const [showProfilePicture, setShowProfilePicture] = useState(false);
   const [profilePicUrl, setProfilePicUrl] = useState('');
@@ -84,6 +86,10 @@ function LeftSidebar() {
     navigate('/', { replace: true });
   }
 
+  const toggleSettingsModal = () => {
+    setShowSettingsModal(!showSettingsModal);
+  };
+
   const handleChangeProfilePicture = () => {
     setShowProfilePicture(true);
   }
@@ -101,6 +107,7 @@ function LeftSidebar() {
       {showDropdown && (
         <div className="profile-dropdown">
           <p onClick={handleChangeProfilePicture}>Change Profile Picture</p>
+          <p onClick={toggleSettingsModal}>Settings</p>
           <p onClick={handleLogout}>Logout</p>
         </div>
       )}
@@ -110,6 +117,9 @@ function LeftSidebar() {
             <ProfilePicture username={username} onClose={() => setShowProfilePicture(false)} />
           </div>
         </div>
+      )}
+      {showSettingsModal && (
+        <SettingsModal username={username} onClose={() => setShowSettingsModal(false)} />
       )}
       <div class="weather-header">Meteorology</div>
       <WeatherWidget />

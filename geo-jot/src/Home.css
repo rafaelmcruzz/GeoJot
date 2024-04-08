@@ -442,7 +442,20 @@
 }
 
 .view-more-button:hover {
-  background-color: #007bff;
+  background-color: #0056b3;
+}
+
+.delete-button {
+  background-color: #e12c10;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-weight: bold;
+}
+
+.delete-button:hover {
+  background-color: #d60606;
 }
 
 /* Ensure only one name is displayed by specifically targeting the first name label */
@@ -580,4 +593,63 @@
 
 .weather-widget p:last-child {
   border-right: none;
+}
+
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999; /* Ensure modal is on top of other content */
+  animation: fadeIn 0.3s ease; /* Add a fade-in animation */
+}
+
+.modal-content {
+  background: linear-gradient(135deg, #ffffff, #f2f6fa); /* Add a subtle gradient background */
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  max-width: 400px; /* Limit width for better readability */
+  text-align: center; /* Center-align content */
+}
+
+.modal-content h2 {
+  font-family: 'Helvetica', sans-serif; /* Change font family */
+  color: #333; /* Darken heading color */
+  margin-bottom: 20px; /* Add some space below heading */
+}
+
+.modal-content p {
+  font-size: 16px;
+  margin-bottom: 15px;
+  color: #666; /* Adjust text color */
+}
+
+.modal-content button {
+  background-color: #007bff; /* Change button color */
+  color: #fff; /* Change button text color */
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease; /* Add smooth transition */
+}
+
+.modal-content button:hover {
+  background-color: #0056b3; /* Darken button color on hover */
+}
+
+/* Animation keyframes */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
