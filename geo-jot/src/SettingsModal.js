@@ -7,6 +7,7 @@ function SettingsModal({ username, onClose }) {
   const [userDetails, setUserDetails] = useState({});
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [statusMessage, setStatusMessage] = useState('');
+  const [additionalInfo, setAdditionalInfo] = useState('');
   const [statusMessageType, setStatusMessageType] = useState('');
   const navigate = useNavigate();
 
@@ -34,6 +35,7 @@ function SettingsModal({ username, onClose }) {
     const confirmPassword = event.target.confirmPassword.value;
 
     setStatusMessage('');
+    setAdditionalInfo('');
     setStatusMessageType('');
 
     if (newPassword !== confirmPassword) {
@@ -50,7 +52,11 @@ function SettingsModal({ username, onClose }) {
       });
 
       if (!response.ok) {
-        throw new Error('Failed to change password.');
+        const data = await response.json();
+        setStatusMessage(data.error);
+        setAdditionalInfo(data.additionalInfo); // Assuming the server sends additional info under this key
+        setStatusMessageType('error');
+        return;
       }
 
       const data = await response.json();
@@ -98,8 +104,13 @@ function SettingsModal({ username, onClose }) {
           <input type="password" name="confirmPassword" placeholder="Confirm New Password" required />
           <button type="submit">Change Password</button>
           {statusMessage && (
-            <div style={{ color: statusMessageType === 'error' ? 'red' : 'green', marginTop: '10px' }}>
+            <div style={{ color: statusMessageType === 'error' ? 'red' : 'green', marginTop: '2px', fontSize: '14px' }}>
               {statusMessage}
+            </div>
+          )}
+          {additionalInfo && (
+            <div style={{ color: 'red', marginTop: '5px', fontSize: '14px' }}>
+              {additionalInfo}
             </div>
           )}
         </form>
