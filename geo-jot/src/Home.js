@@ -12,7 +12,6 @@ import SettingsModal from './SettingsModal';
 
 function LeftSidebar() {
   const { username, logout } = useUser();
-  const exampleProfilePic = 'https://geojot.s3.eu-west-1.amazonaws.com/profile-pictures/default-profile-pic.jpg';
   const [showDropdown, setShowDropdown] = useState(false);
   const navigate = useNavigate();
   const [recentPins, setRecentPins] = useState([]);
@@ -20,7 +19,7 @@ function LeftSidebar() {
   const [showSettingsModal, setShowSettingsModal] = useState(false);
   const [followersCount, setFollowersCount] = useState(0);
   const [showProfilePicture, setShowProfilePicture] = useState(false);
-  const [profilePicUrl, setProfilePicUrl] = useState('');
+  const [profilePicUrl, setProfilePicUrl] = useState('https://geojot.s3.eu-west-1.amazonaws.com/profile-pictures/default-profile-pic.jpg');
 
 
   useEffect(() => {
@@ -32,6 +31,7 @@ function LeftSidebar() {
       .then(data => {
         // Assuming 'data' includes the followers array
         setFollowersCount(data.followers?.length || 0);
+        setProfilePicUrl(data.profilePic || 'https://geojot.s3.eu-west-1.amazonaws.com/profile-pictures/default-profile-pic.jpg');
       })
       .catch(error => console.error('Error fetching user details:', error));
   }, [username]); 
@@ -94,11 +94,15 @@ function LeftSidebar() {
     setShowProfilePicture(true);
   }
 
+  const handleProfilePicUpdate = (newProfilePicUrl) => {
+    setProfilePicUrl(newProfilePicUrl);
+  };
+
   return (
     <div className="left-sidebar">
       <div className="user-profile">
         <div className="profile-picture">
-          <img src={exampleProfilePic} alt="User Avatar" onClick={toggleDropdown} />
+          <img src={profilePicUrl} alt="User Profile Picture" onClick={toggleDropdown} />
         </div>
         <p><strong>{username}</strong></p>
         <p>Followers: {followersCount}</p>
@@ -114,7 +118,7 @@ function LeftSidebar() {
       {showProfilePicture && (
         <div className="ProfilePicture-backdrop" onClick={() => setShowProfilePicture(false)}>
           <div className="ProfilePicture-content" onClick={(e) => e.stopPropagation()}>
-            <ProfilePicture username={username} onClose={() => setShowProfilePicture(false)} />
+            <ProfilePicture username={username} onClose={() => setShowProfilePicture(false)} currentProfilePic={{profilePicUrl}} onProfilePicUpdate={handleProfilePicUpdate} />
           </div>
         </div>
       )}

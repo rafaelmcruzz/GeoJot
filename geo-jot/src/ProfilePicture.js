@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const ProfilePicture = ({ username, onClose }) => {
+const ProfilePicture = ({ username, onClose, currentProfilePic, onProfilePicUpdate }) => {
     const [selectedPicture, setSelectedPicture] = useState(null);
     const [file, setFile] = useState(null);
+    const [feedbackMessage, setFeedbackMessage] = useState({ message: '', type: '' });
 
     // Function to handle file input change and update the state
     const handlePictureChange = (event) => {
@@ -21,14 +22,9 @@ const ProfilePicture = ({ username, onClose }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log('handleSubmit called');
-
-        console.log('File selected:', file);
-        console.log('Username:', username);
 
         if (!file) {
-            console.log('No file selected');
-            alert('Please select a file before submitting.');
+            setFeedbackMessage({ message: 'Please select a file before submitting.', type: 'error' });
             return;
         }
 
@@ -36,33 +32,46 @@ const ProfilePicture = ({ username, onClose }) => {
         formData.append('profilePic', file);
 
         try {
-            console.log('Sending request to backend...');
-            for (let [key, value] of formData.entries()) {
-                console.log(`${key}: ${value}`);
-            }
             const response = await axios.put(`http://localhost:3000/api/users/${username}/profile-picture`, formData, {
                 method: 'PUT',
             });
-            console.log('Response from backend:', response); // For debugging
 
             // Handle success
-            console.log('Successfully uploaded profile picture!', response.data);
-            alert('Profile picture updated successfully!');
+            const newProfilePicUrl = response.data.profilePic;
+            setFeedbackMessage({ message: 'Error uploading profile picture.', type: 'error' });
+            onProfilePicUpdate(newProfilePicUrl);
             onClose();
         } catch (error) {
             // Handle error
-            console.error('Error uploading profile picture:', error);
-            console.log('Error:', error); // For debugging
-            alert('Error uploading profile picture.');
+            setFeedbackMessage({ message: 'Error uploading profile picture.', type: 'error' });
         }
     };
 
     return (
         <form onSubmit={handleSubmit} className="profile-picture">
-            {selectedPicture ? (
-                <img src={selectedPicture} alt="Profile" />
-            ) : (
-                <p>No profile picture selected.</p>
+            <div className='profile-pictures-container'>
+                <div className="current-profile-picture">
+                    <p>Current Profile Picture:</p>
+                    {/* Display the current profile picture if it exists */}
+                    {currentProfilePic && currentProfilePic.profilePicUrl ? (
+                        <img src={currentProfilePic.profilePicUrl} alt="Current Profile" style={{ width: '100px', height: '100px' }} />
+                    ) : (
+                        <p>No current profile picture.</p>
+                    )}
+                </div>
+                <div className="new-profile-picture">
+                    <p>New Profile Picture:</p>
+                    {selectedPicture ? (
+                        <img src={selectedPicture} alt="Profile" />
+                    ) : (
+                        <p>No picture selected.</p>
+                    )}
+                </div>
+            </div>
+            {feedbackMessage.message && (
+                <div className={`feedback-message ${feedbackMessage.type}`}>
+                    {feedbackMessage.message}
+                </div>
             )}
             <input type="file" accept="image/*" onChange={handlePictureChange} />
             <button type="submit">Upload</button>
