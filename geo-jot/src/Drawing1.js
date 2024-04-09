@@ -3,14 +3,28 @@ import './Home.css'; // Ensure this path matches your CSS file's location
 import { useUser } from './UserContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faThumbsUp, faUserPlus } from '@fortawesome/free-solid-svg-icons';
+import Form from './Form'
 // npm install --save @fortawesome/react-fontawesome @fortawesome/free-solid-svg-icons
 
 const Drawing1 = ({ name, notes, mediaFiles = [], music, songDetails, onViewMore, onEdit, onDelete, pinId }) => {
   const [likes, setLikes] = useState([]);
   const [liked, setLiked] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+
 
   const { username } = useUser();
   console.log("songDetails::", songDetails);
+
+
+  const handleEdit = () => {
+    // If managing directly in Drawing1, toggle isEditing state
+    setIsEditing(true);
+
+    // If managed by a parent component, call the onEdit prop with pin details
+    // onEdit({ pinId, name, notes, music, songDetails });
+
+    // You might also need to manage the display of Form.js at a higher level depending on your app's structure
+  };
  
   useEffect(() => {
     const fetchLikes = async () => {
@@ -87,6 +101,20 @@ const Drawing1 = ({ name, notes, mediaFiles = [], music, songDetails, onViewMore
     }
   };
 
+  if (isEditing) {
+    // Directly return Form if managing the edit form here
+    // Assuming Form component accepts props for initial values and a callback for successful submission
+    return (
+      <Form
+        _id={pinId}
+        initialName={name}
+        initialNotes={notes}
+        initialMusic={music}
+        // Pass other initial values as needed
+        onSubmissionSuccess={() => setIsEditing(false)} // Reset editing state on successful submission
+      />
+    );
+  }
   return (
     <div className="drawing1">
       <div className="left-section">
@@ -129,7 +157,7 @@ const Drawing1 = ({ name, notes, mediaFiles = [], music, songDetails, onViewMore
           )}
         </div>
         <button type="button" onClick={onViewMore} className="view-more-button">View More</button>
-        <button type="button" onClick={onEdit} className="view-more-button">Edit</button>
+        <button type="button" onClick={handleEdit} className="view-more-button">Edit</button>
         <button class="delete-button" onClick={onDelete}>Delete Pin</button>
       </div>
       <div className="right-section">

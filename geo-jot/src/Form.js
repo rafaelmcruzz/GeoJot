@@ -1,10 +1,10 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import './styles.css';
 
-const Form = ({ onSubmit, onDelete, _id, initialName = '', initialNotes = '', initialMusic = '', initialMediaFiles = [], onSubmissionSuccess }) => {
-  const [name, setName] = useState(initialName);
-  const [notes, setNotes] = useState(initialNotes);
-  const [music, setMusic] = useState(initialMusic);
+const Form = ({ onSubmit, onDelete, _id, initialMediaFiles = [], onSubmissionSuccess }) => {
+  const [name, setName] = useState('');
+  const [notes, setNotes] = useState('');
+  const [music, setMusic] = useState('');
   const [musicSearchResults, setMusicSearchResults] = useState([]);
   const [mediaFiles, setMediaFiles] = useState(initialMediaFiles);
   const [selectedSongDetails, setSelectedSongDetails] = useState({});
@@ -37,12 +37,34 @@ const Form = ({ onSubmit, onDelete, _id, initialName = '', initialNotes = '', in
       console.log(`Making request to: ${url}`); // Log for debugging
       const response = await fetch(url);
       const data = await response.json();
-      console.log(data); // Log the response data for debugging
       setMusicSearchResults(data.tracks.items); // This assumes your Spotify search response structure
     } catch (error) {
       console.error('Error fetching music search results:', error);
     }
   };
+
+
+    // Effect for fetching and setting pin details if editing an existing pin
+    useEffect(() => {
+      const fetchPinDetails = async () => {
+        if (_id) {
+          try {
+            const response = await fetch(`http://localhost:3000/api/pins/details/${_id}`);
+            if (!response.ok) throw new Error('Failed to fetch pin details');
+            const data = await response.json();
+            setName(data.name || '');
+            setNotes(data.notes || '');
+            setMusic(data.music || '');
+            // Populate other fields as necessary
+          } catch (error) {
+            console.error('Error fetching pin details:', error);
+            // Optionally handle error (e.g., displaying a message to the user)
+          }
+        }
+      };
+  
+      fetchPinDetails();
+    }, [_id]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
