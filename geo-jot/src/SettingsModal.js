@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import ConfirmationModal from './ConfirmationModal';
 import './Home.css'; // Make sure your CSS is correctly linked
 
 function SettingsModal({ username, onClose }) {
   const [userDetails, setUserDetails] = useState({});
+  const [showConfirmation, setShowConfirmation] = useState(false);
   const [statusMessage, setStatusMessage] = useState('');
   const [statusMessageType, setStatusMessageType] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (username) { // Ensure username is not undefined
@@ -58,7 +62,32 @@ function SettingsModal({ username, onClose }) {
     }
   };
 
+  const handleDeleteAccount = async () => {
+    setShowConfirmation(true);
+
+      try {
+        const response = await fetch(`http://localhost:3000/api/users/${username}`, {
+          method: 'DELETE',
+        });
+  
+        if (!response.ok) {
+          throw new Error('Failed to delete account.');
+        }
+  
+        setStatusMessage('Account deleted successfully. Redirecting to home page...');
+        setStatusMessageType('success');
+        sessionStorage.clear();
+        // Log the user out or redirect them to a goodbye or login page
+        navigate('/');
+      } catch (error) {
+        setStatusMessage(error.message);
+        setStatusMessageType('error');
+      }
+    
+  };
+
   return (
+    
     <div className="modal-backdrop" onClick={onClose}>
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         <h2>Account</h2>
@@ -74,7 +103,19 @@ function SettingsModal({ username, onClose }) {
             </div>
           )}
         </form>
+        <button onClick={() => setShowConfirmation(true)} style={{ marginTop: '20px', backgroundColor: 'red', color: 'white' }}>
+          Delete Account
+        </button>
         <button onClick={onClose}>Close</button>
+        {showConfirmation && (
+        <ConfirmationModal
+          isOpen={showConfirmation}
+          message={<span>Are you sure you want to delete your account? <b><i>This cannot be undone.</i></b></span>}
+          
+          onConfirm={handleDeleteAccount}
+          onCancel={() => setShowConfirmation(false)}
+        />
+      )}
       </div>
     </div>
   );
