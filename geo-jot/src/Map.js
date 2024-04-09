@@ -28,6 +28,9 @@ function Map({ selectedUser }) {
 
   const isViewingOwnMap = currentUsername === (selectedUser ? selectedUser.username : currentUsername);
 
+  console.log("currentUsername", isViewingOwnMap);
+  console.log("username", username);
+
   // handle updating pins after submitting form data
   const handleFormSubmissionSuccess = () => {
     setShowForm(false);
@@ -231,6 +234,8 @@ function Map({ selectedUser }) {
 
   console.log("songDetails::", selectedMarker?.details?.selectedSongDetails);
   const renderContent = () => {
+
+
   if (selectedDrawing === 'Drawing1' && selectedMarker) {
     return (
       <>
@@ -248,6 +253,7 @@ function Map({ selectedUser }) {
         }}
         onViewMore={viewMoreHandler}
         onDelete={() => deleteMarker(selectedMarker._id)}
+        canEdit={isViewingOwnMap}
       />
       
     </>
