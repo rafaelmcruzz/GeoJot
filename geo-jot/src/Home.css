@@ -269,17 +269,10 @@
 
 .drawing2 {
   display: flex;
-  padding-left: 20px;
-  padding-right: 20px; /* Add padding to the right side as well */
 }
 
-.left-side,
-.right-side {
-  flex: 1; /* Both sides take up equal space */
-}
-
-.left-side {
-  padding-right: 10px; /* Adjust padding between sides if needed */
+.left-side, .right-side {
+  flex: 1;
 }
 
 .right-side {
@@ -298,21 +291,24 @@
 
 .image-container {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 3 columns */
-  gap: 10px; /* Add gap between images */
-  padding: 5px; /* Add padding between images */
-  max-height: 100%; /* Ensure the container doesn't exceed the height of the right side */
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  max-width: 1000px;
+  max-height: 1000px;
+  overflow: hidden; /* Ensure images are cropped */
 }
 
 .image-container img {
-  max-width: 100%; /* Limit image width */
-  max-height: 100%; /* Limit image height */
-  width: auto; /* Maintain aspect ratio */
-  height: auto; /* Maintain aspect ratio */
+  width: 100%; /* Ensure each image takes up the full width of its container */
+  height: 100%; /* Ensure each image takes up the full height of its container */
+  object-fit: cover; /* Crop the image to cover the specified dimensions */
+  max-width: 250px; /* Set a fixed width for the image */
+  max-height: 150px; /* Set a fixed height for the image */
 }
 
 .thumbnails {
   display: flex;
+  grid-template-columns: repeat(3, 1fr);
   gap: 10px;
   max-width: 150px; /* Set a maximum width */
   max-height: 150px; /* Set a maximum height */
@@ -320,13 +316,34 @@
   height: auto; /* Maintain aspect ratio */
   justify-content: center; 
   align-items: center; 
+  max-width: 79%;
+  max-height: 100%;
+  overflow: hidden; /* Ensure images are cropped */
+  display: flex;
+  max-width: 200px; /* Adjust this value to fit your design */
 }
 
 .thumbnail {
-  flex: 0 1 auto;
-  max-width: 100px;
-  height: auto;
- 
+  width: 100%; /* Ensure each thumbnail takes up the full width of its container */
+  height: 100%; /* Ensure each thumbnail takes up the full height of its container */
+  object-fit: cover; /* Crop the image to cover the thumbnail dimensions */
+  max-width: 150px; /* Set a fixed width for the thumbnail */
+  max-height: 150px; /* Set a fixed height for the thumbnail */
+}
+
+.thumbnail:nth-child(1) {
+  width: 150px;
+  height: 150px;
+}
+
+.thumbnail:nth-child(2) {
+  width: 150px;
+  height: 150px;
+}
+
+.thumbnail:nth-child(3) {
+  width: 150px;
+  height: 150px;
 }
 
 .music-details {

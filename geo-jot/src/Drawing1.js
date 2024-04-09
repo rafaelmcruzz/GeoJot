@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faThumbsUp, faUserPlus } from '@fortawesome/free-solid-svg-icons';
 // npm install --save @fortawesome/react-fontawesome @fortawesome/free-solid-svg-icons
 
-const Drawing1 = ({ name, notes, mediaFiles = [], music, songDetails, onViewMore, onEdit, pinId }) => {
+const Drawing1 = ({ name, notes, mediaFiles = [], music, songDetails, onViewMore, onEdit, onDelete, pinId }) => {
   const [likes, setLikes] = useState([]);
   const [liked, setLiked] = useState(false);
 
@@ -124,25 +124,24 @@ const Drawing1 = ({ name, notes, mediaFiles = [], music, songDetails, onViewMore
               </div>
             </div>
           ) : (
-                        // Display this message if songDetails are missing or incomplete
-
+            // Display this message if songDetails are missing or incomplete
             <div className="song-not-chosen">Song not chosen</div>
           )}
         </div>
         <button type="button" onClick={onViewMore} className="view-more-button">View More</button>
         <button type="button" onClick={onEdit} className="view-more-button">Edit</button>
+        <button class="delete-button" onClick={onDelete}>Delete Pin</button>
       </div>
       <div className="right-section">
         <div className="thumbnails">
           {mediaFiles && mediaFiles.length > 0 ? (
-            mediaFiles.map((fileUrl, index) => (
+            mediaFiles.slice(0, 3).map((fileUrl, index) => (
               <img key={index} src={fileUrl} alt={`Media ${index + 1}`} className="thumbnail" />
             ))
           ) : (
             <p>No images available</p>
           )}
         </div>
-
       </div>
       <div className="action-buttons">
         <div onClick={toggleLike} className="like-button">
@@ -160,3 +159,4 @@ const Drawing1 = ({ name, notes, mediaFiles = [], music, songDetails, onViewMore
 };
 
 export default Drawing1;
+

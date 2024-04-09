@@ -249,9 +249,7 @@ function Map({ selectedUser }) {
         onViewMore={viewMoreHandler}
         onDelete={() => deleteMarker(selectedMarker._id)}
       />
-      {isViewingOwnMap && (
-        <button class="delete-button" onClick={() => deleteMarker(selectedMarker._id)}>Delete pin</button>
-      )}
+      
     </>
     ); 
   } else if (selectedDrawing === 'Drawing2') {
