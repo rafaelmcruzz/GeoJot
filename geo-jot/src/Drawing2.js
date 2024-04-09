@@ -38,7 +38,7 @@ const Drawing2 = ({ name, notes, music, mediaFiles, onBack, songDetails }) => {
             <div className="song-not-chosen">Song not chosen</div>
           )}
         </div>
-        <button type="button" onClick={onBack}>Back</button>
+        <button className='back-button' type="button" onClick={onBack}>Back</button>
       </div>
       <div className="right-side">
         <div className="image-container"> 
