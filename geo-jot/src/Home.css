@@ -695,6 +695,12 @@
   background-color: #0056b3; /* Darken button color on hover */
 }
 
+.error {
+  color: red;
+  font-size: 13px;
+  margin-top: 0px;
+}
+
 /* Animation keyframes */
 @keyframes fadeIn {
   from {
