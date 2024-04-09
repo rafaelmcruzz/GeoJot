@@ -618,6 +618,40 @@
   text-align: center; /* Center-align content */
 }
 
+.account-title {
+  font-family: 'Roboto', sans-serif;
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 20px;
+  font-weight: bold;
+  border-left: 4px solid #555;
+  text-align: left;
+  padding-left: 10px;
+}
+
+.change-password-title {
+  font-family: 'Roboto', sans-serif;
+  font-size: 24px;
+  color: #333;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  font-weight: bold;
+  border-left: 4px solid #555;
+  text-align: left;
+  padding-left: 10px;
+}
+
+.modal-content button.delete-account-button {
+  margin-top: 30px;
+  background-color: red;
+  color: white;
+  transition: background-color 0.3s ease; /* Add smooth transition */
+}
+
+.modal-content button.delete-account-button:hover {
+  background-color: darkred; /* Change to darker red color on hover */
+}
+
 .modal-content h2 {
   font-family: 'Helvetica', sans-serif; /* Change font family */
   color: #333; /* Darken heading color */

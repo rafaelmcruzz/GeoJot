@@ -87,12 +87,12 @@ function SettingsModal({ username, onClose }) {
   };
 
   return (
-    
     <div className="modal-backdrop" onClick={onClose}>
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-        <h2>Account</h2>
+      <h1 className="account-title">Account</h1>
         <p><strong>Username: </strong>{userDetails.username}</p>
         <p><strong>Email: </strong>{userDetails.email}</p>
+        <h2 className="change-password-title">Change Password</h2>
         <form onSubmit={handleChangePassword}>
           <input type="password" name="newPassword" placeholder="New Password" required />
           <input type="password" name="confirmPassword" placeholder="Confirm New Password" required />
@@ -103,7 +103,7 @@ function SettingsModal({ username, onClose }) {
             </div>
           )}
         </form>
-        <button onClick={() => setShowConfirmation(true)} style={{ marginTop: '20px', backgroundColor: 'red', color: 'white' }}>
+        <button onClick={() => setShowConfirmation(true)} className="delete-account-button">
           Delete Account
         </button>
         <button onClick={onClose}>Close</button>
