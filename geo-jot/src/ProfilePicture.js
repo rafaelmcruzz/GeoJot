@@ -38,7 +38,7 @@ const ProfilePicture = ({ username, onClose, currentProfilePic, onProfilePicUpda
 
             // Handle success
             const newProfilePicUrl = response.data.profilePic;
-            setFeedbackMessage({ message: 'Error uploading profile picture.', type: 'error' });
+            setFeedbackMessage({ message: 'Profile picture updated successfully!', type: 'success' });
             onProfilePicUpdate(newProfilePicUrl);
             onClose();
         } catch (error) {

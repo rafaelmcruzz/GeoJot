@@ -5,11 +5,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faThumbsUp, faUserPlus } from '@fortawesome/free-solid-svg-icons';
 import Form from './Form'
 // npm install --save @fortawesome/react-fontawesome @fortawesome/free-solid-svg-icons
+import CollaboratorInvite from './CollaboratorInvite';
 
 const Drawing1 = ({ name, notes, mediaFiles = [], music, songDetails, onViewMore, onEdit, onDelete, pinId }) => {
   const [likes, setLikes] = useState([]);
   const [liked, setLiked] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
+  const [showInvite, setShowInvite] = useState(false);
 
 
   const { username } = useUser();
@@ -46,6 +48,8 @@ const Drawing1 = ({ name, notes, mediaFiles = [], music, songDetails, onViewMore
     setLiked(likes.includes(username)); // Update liked state whenever likes array changes
   }, [likes, username]);
 
+  const toggleInviteForm = () => setShowInvite(!showInvite);
+
   const toggleLike = async () => {
     try {
       console.log("currentUser", username);
@@ -68,36 +72,6 @@ const Drawing1 = ({ name, notes, mediaFiles = [], music, songDetails, onViewMore
       }
     } catch (error) {
       console.error("Error toggling like:", error.message);
-    }
-  };
-
-  /**
-   * Invite a collaborator to a pin
-   * Asks for the username of the person to invite in a prompt
-   * Makes a POST request to the collaborators endpoint of the pin with the username
-   * Shows a success/error message based on the response from the server
-   */
-
-  const inviteCollaborator = async () => {
-    const collaboratorUsername = prompt("Enter the username of the person you want to invite:");
-    if (!collaboratorUsername) return;
-
-    console.log("Inviting collaborator", collaboratorUsername, "for pin", pinId);
-    try {
-      const response = await fetch(`http://localhost:3000/api/pins/${pinId}/collaborators`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ collaboratorUsername }),
-      });
-      console.log("Response received from server:", response);
-      if (!response.ok) throw new Error('Failed to invite collaborator');
-      console.log("Collaborator invited successfully");
-      alert('Collaborator invited successfully');
-    } catch (error) {
-      console.error("Error inviting collaborator:", error, error.message);
-      alert('Failed to invite collaborator');
     }
   };
 
@@ -180,7 +154,17 @@ const Drawing1 = ({ name, notes, mediaFiles = [], music, songDetails, onViewMore
         {liked ? 'Unlike' : 'Like'}
       </button>
       <div>{likes.length} like{likes.length !== 1 ? 's' : ''}</div> */}
-        <FontAwesomeIcon icon={faUserPlus} className="invite-collaborators" onClick={inviteCollaborator} />
+        <FontAwesomeIcon icon={faUserPlus} className="invite-collaborators" onClick={toggleInviteForm} />
+        {showInvite && (
+          <div className="modal-backdrop">
+            <div className="modal-content">
+              <CollaboratorInvite
+                pinId={pinId}
+                onClose={() => setShowInvite(false)}
+              />
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
