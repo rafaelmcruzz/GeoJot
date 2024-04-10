@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import './styles.css';
+import './Home.css';
 
 const Form = ({ onSubmit, onDelete, _id, initialMediaFiles = [], onSubmissionSuccess }) => {
   const [name, setName] = useState('');
@@ -9,9 +10,10 @@ const Form = ({ onSubmit, onDelete, _id, initialMediaFiles = [], onSubmissionSuc
   const [mediaFiles, setMediaFiles] = useState(initialMediaFiles);
   const [selectedSongDetails, setSelectedSongDetails] = useState({});
   const mediaInputRef = useRef(null);
+  const [nameError, setNameError] = useState('');
 
   const handleNameChange = (e) => {
-    setName(e.target.value);
+    setName(e.target.value.trim());
   };
 
   const handleNotesChange = (e) => {
@@ -75,6 +77,15 @@ const Form = ({ onSubmit, onDelete, _id, initialMediaFiles = [], onSubmissionSuc
     formData.append('selectedSongDetails', JSON.stringify(selectedSongDetails));
     mediaFiles.forEach(file => formData.append('mediaFiles', file));
 
+    const trimmedName = name.trim();
+    const isNameValid = trimmedName.length > 2 && trimmedName.length < 21;
+
+    if (!isNameValid) {
+      setNameError('Name must be between 3 and 21 characters');
+      return;
+    }
+
+
     try {
       const response = await fetch(`http://localhost:3000/api/pins${_id ? `/${_id}` : ''}`, {
         method: _id ? 'PUT' : 'POST',
@@ -104,6 +115,7 @@ const Form = ({ onSubmit, onDelete, _id, initialMediaFiles = [], onSubmissionSuc
     }
   };
 
+
   return (
     <div className="form">
       <form onSubmit={handleSubmit}>
@@ -116,6 +128,7 @@ const Form = ({ onSubmit, onDelete, _id, initialMediaFiles = [], onSubmissionSuc
             onChange={handleNameChange}
             placeholder="Enter name..."
           />
+          {nameError && <span className="error">{nameError}</span>}
         </div>
         <div className="form-group">
           <label htmlFor="notes">Notes:</label>
@@ -124,7 +137,7 @@ const Form = ({ onSubmit, onDelete, _id, initialMediaFiles = [], onSubmissionSuc
             value={notes}
             onChange={handleNotesChange}
             placeholder="Enter notes..."
-            style={{ height: '100px' }}
+            style={{ height: '100px', maxHeight: '300px', minHeight: '100px'}}
           />
         </div>
         <div className="form-group">

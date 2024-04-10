@@ -215,7 +215,7 @@
 /* Styles for Name of Pin */
 .pin-name-label {
   font-family: 'oswald', sans-serif; /* Change 'Your Font' to your desired font */
-  font-size: 25px; /* Change the font size as desired */
+  font-size: 22px; /* Change the font size as desired */
   font-weight: bold;
 }
 

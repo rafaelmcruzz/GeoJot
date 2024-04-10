@@ -363,8 +363,13 @@ function Map({ selectedUser }) {
   // }
 
   const handleFormSuccesss = () => {
+    if (!selectedMarker.details?.name) {
+      deleteMarker(selectedMarker._id);
+    }
     setShowForm(false); 
   };
+
+
   
   {showForm && selectedMarker && (
     <div className="modal-backdrop">
@@ -420,8 +425,10 @@ function Map({ selectedUser }) {
       {showForm && selectedMarker && (
         <div className="modal-backdrop">
           <div className="form-modal">
-            <button className="close-button" onClick={() => setShowForm(false)}>X</button>
-            {/* Pass the marker details to the drawings forms */}
+          <button className="close-button" onClick={() => {
+            handleFormSuccesss();
+            setShowForm(false);
+          }}>X</button>
             {renderContent()}
           </div>
         </div>
