@@ -7,7 +7,7 @@ import Form from './Form'
 // npm install --save @fortawesome/react-fontawesome @fortawesome/free-solid-svg-icons
 import CollaboratorInvite from './CollaboratorInvite';
 
-const Drawing1 = ({ name, notes, mediaFiles = [], music, songDetails, onViewMore, canEdit, onDelete, pinId }) => {
+const Drawing1 = ({ name, notes, mediaFiles = [], music, songDetails, onViewMore, canEdit, onDelete, pinId, canInvite }) => {
   const [likes, setLikes] = useState([]);
   const [liked, setLiked] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
@@ -27,7 +27,7 @@ const Drawing1 = ({ name, notes, mediaFiles = [], music, songDetails, onViewMore
 
     // You might also need to manage the display of Form.js at a higher level depending on your app's structure
   };
- 
+  
   useEffect(() => {
     const fetchLikes = async () => {
       try {
@@ -93,9 +93,9 @@ const Drawing1 = ({ name, notes, mediaFiles = [], music, songDetails, onViewMore
     <div className="drawing1">
       <div className="left-section">
         <div className="form-group">
-        <label htmlFor="name" className="pin-name-label">{name}</label>
           <label htmlFor="name" className="pin-name-label">{name}</label>
-        
+          <label htmlFor="name" className="pin-name-label">{name}</label>
+
         </div>
         <div className="form-group">
           <label htmlFor="notes">Notes:</label>
@@ -125,11 +125,11 @@ const Drawing1 = ({ name, notes, mediaFiles = [], music, songDetails, onViewMore
         </div>
         <button type="button" onClick={onViewMore} className="view-more-button">View More</button>
         {canEdit && (
-        <>
-          <button type="button" onClick={() => setIsEditing(true)} className="view-more-button">Edit</button>
-          <button className="delete-button" onClick={onDelete}>Delete Pin</button>
-        </>
-      )}
+          <>
+            <button type="button" onClick={() => setIsEditing(true)} className="view-more-button">Edit</button>
+            <button className="delete-button" onClick={onDelete}>Delete Pin</button>
+          </>
+        )}
       </div>
       <div className="right-section">
         <div className="thumbnails">
@@ -147,11 +147,9 @@ const Drawing1 = ({ name, notes, mediaFiles = [], music, songDetails, onViewMore
           <FontAwesomeIcon icon={faThumbsUp} className={`like-icon ${liked ? 'liked' : ''}`} />
           <div>{likes.length}</div>
         </div>
-                {/* <button onClick={toggleLike}>
-        {liked ? 'Unlike' : 'Like'}
-      </button>
-      <div>{likes.length} like{likes.length !== 1 ? 's' : ''}</div> */}
-        <FontAwesomeIcon icon={faUserPlus} className="invite-collaborators" onClick={toggleInviteForm} />
+        {canInvite && (
+          <FontAwesomeIcon icon={faUserPlus} className="invite-collaborators" onClick={toggleInviteForm} />
+        )}
         {showInvite && (
           <div className="modal-backdrop">
             <div className="modal-content">

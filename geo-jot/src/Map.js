@@ -27,6 +27,7 @@ function Map({ selectedUser }) {
   const { username: currentUsername } = useUser();
 
   const isViewingOwnMap = currentUsername === (selectedUser ? selectedUser.username : currentUsername);
+  const canEdit = isViewingOwnMap ||(selectedMarker?.collaborators?.includes(username) ?? false);
 
   console.log("currentUsername", isViewingOwnMap);
   console.log("username", username);
@@ -253,7 +254,8 @@ function Map({ selectedUser }) {
         }}
         onViewMore={viewMoreHandler}
         onDelete={() => deleteMarker(selectedMarker._id)}
-        canEdit={isViewingOwnMap}
+        canEdit={canEdit}
+        canInvite={isViewingOwnMap}
       />
       
     </>

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import './Home.css';
 
 const CollaboratorInvite = ({ pinId, onClose }) => {
     const [collaboratorUsername, setCollaboratorUsername] = useState('');
@@ -24,11 +25,12 @@ const CollaboratorInvite = ({ pinId, onClose }) => {
     };
 
     return (
-        <>
+        <div className="collaborator-invite-wrapper">
             <form onSubmit={inviteCollaborator} className="invite-form">
+                <p>Invite a Collaborator</p>
                 <input
                     type="text"
-                    placeholder="Enter collaborator's username"
+                    placeholder="Collaborator's Username"
                     value={collaboratorUsername}
                     onChange={(e) => setCollaboratorUsername(e.target.value)}
                     required
@@ -41,7 +43,7 @@ const CollaboratorInvite = ({ pinId, onClose }) => {
                     {feedbackMessage.message}
                 </div>
             )}
-        </>
+        </div>
     );
 };
 
