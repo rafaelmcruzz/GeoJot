@@ -44,9 +44,10 @@ const Form = ({ onSubmit, onDelete, _id, initialMediaFiles = [], onSubmissionSuc
   };
 
   const handleMediaChange = (e) => {
-    const files = Array.from(e.target.files);
-    setMediaFiles(files);
+    const newFiles = Array.from(e.target.files);
+    setMediaFiles(prevFiles => [...prevFiles, ...newFiles]);
   };
+  
 
   const handleMusicChange = async (e) => {
     const query = e.target.value;
