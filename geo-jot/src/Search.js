@@ -13,7 +13,7 @@ searchResultItems.forEach(item => {
   
   item.addEventListener('mouseenter', () => {
     
-    item.style.transform = 'scale(1.1)';
+    item.style.transform = 'scale(1.02)';
   });
 
  

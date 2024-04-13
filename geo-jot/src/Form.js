@@ -1,6 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
 import './styles.css';
 import './Home.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlay, faStop } from '@fortawesome/free-solid-svg-icons';
+
 // import { FileUploader } from "react-drag-drop-files";
 
 
@@ -13,10 +16,28 @@ const Form = ({ onSubmit, onDelete, _id, initialMediaFiles = [], onSubmissionSuc
   const [selectedSongDetails, setSelectedSongDetails] = useState({});
   const mediaInputRef = useRef(null);
   const [nameError, setNameError] = useState('');
+  const [currentPreviewUrl, setCurrentPreviewUrl] = useState('');
+  const [audioPlayer, setAudioPlayer] = useState(null);
+  const [currentlyPlaying, setCurrentlyPlaying] = useState(null);
+  
+
 
   const handleNameChange = (e) => {
     setName(e.target.value.trim());
   };
+
+
+  const selectSong = (track) => {
+    setMusic(track.name);
+    setSelectedSongDetails({
+      previewUrl: track.preview_url,
+      albumArtUrl: track.album.images[0].url,
+      title: track.name,
+      artists: track.artists.map((artist) => artist.name).join(", ")
+    });
+
+  };
+  
 
   const handleNotesChange = (e) => {
     setNotes(e.target.value);
@@ -47,6 +68,37 @@ const Form = ({ onSubmit, onDelete, _id, initialMediaFiles = [], onSubmissionSuc
     }
   };
 
+
+  // This function will be called when the play button next to a search result is clicked
+  const handlePlayPreview = (previewUrl, trackId) => {
+    // If there's an audio playing, stop it regardless of which track it is
+    if (audioPlayer) {
+      audioPlayer.pause();
+      setAudioPlayer(null);
+      setCurrentlyPlaying(null);
+    }
+  
+    // If the clicked track is not the one that's currently playing, start it
+    if (currentlyPlaying !== trackId) {
+      const newAudioPlayer = new Audio(previewUrl);
+      newAudioPlayer.play()
+        .then(() => {
+          setCurrentlyPlaying(trackId);
+          setAudioPlayer(newAudioPlayer);
+        })
+        .catch((e) => console.error("Playback failed", e));
+    }
+  };
+
+
+  useEffect(() => {
+    // This function will be called when the component is unmounted
+    return () => {
+      if (audioPlayer) {
+        audioPlayer.pause();
+      }
+    };
+  }, [audioPlayer]);
 
     // Effect for fetching and setting pin details if editing an existing pin
     useEffect(() => {
@@ -164,21 +216,26 @@ const Form = ({ onSubmit, onDelete, _id, initialMediaFiles = [], onSubmissionSuc
             placeholder="Search music..."
           />
           {musicSearchResults.length > 0 && (
-            <ul className="music-search-results">
+            <div className="music-search-container">
               {musicSearchResults.map((track) => (
-                <li key={track.id} onClick={() => {
-                  setMusic(track.name); // Keep storing the song name as before
-                  setSelectedSongDetails({ // Store additional song details
-                    previewUrl: track.preview_url,
-                    albumArtUrl: track.album.images[0].url, // Assuming you want the first (largest) image
-                    title: track.name,
-                    artists: track.artists.map(artist => artist.name).join(", ") // Join multiple artists with a comma
-                  });
-                }}>
-                  {track.name} by {track.artists.map(artist => artist.name).join(", ")}
-                </li>
+                <div key={track.id} className="track-container" onClick={() => selectSong(track)}>
+                  <img className="track-album-art" src={track.album.images[0].url} alt={track.name} />
+                  <div className="track-info">
+                    <div className="track-name">{track.name}</div>
+                    <div className="track-artists">{track.artists.map((artist) => artist.name).join(', ')}</div>
+                  </div>
+                  <button
+                    className="play-button"
+                    onClick={(e) => {
+                      e.stopPropagation(); // Prevent click from bubbling up to the track container
+                      handlePlayPreview(track.preview_url, track.id);
+                    }}
+                  >
+                    <FontAwesomeIcon icon={currentlyPlaying === track.id ? faStop : faPlay} />
+                  </button>
+                </div>
               ))}
-            </ul>
+            </div>
           )}
         </div>
         <button type="submit">Submit</button>
