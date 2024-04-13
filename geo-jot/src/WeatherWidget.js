@@ -3,7 +3,7 @@ import './Home.css';
 
 const WeatherWidget = () => {
     const [weather, setWeather] = useState(null);
-    const apiKey = '0440b62823551fb4d002bf53debd8027'; // Replace with your API Key
+    const apiKey = '0440b62823551fb4d002bf53debd8027';
     
     // Coordinates for Liverpool, England
     const defaultLocation = { lat: 53.4084, lon: -2.9916 };
@@ -14,10 +14,10 @@ const WeatherWidget = () => {
         return today.toLocaleDateString("en-US", options); // Adjust "en-US" as needed for your locale
       };
 
-      const dateString = getCurrentDate();
+    const dateString = getCurrentDate();
 
+    // useEffect to fetch weather data
     useEffect(() => {
-        // Function to fetch weather data
         const fetchWeather = async (lat, lon) => {
             try {
                 const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
@@ -27,7 +27,6 @@ const WeatherWidget = () => {
                 if (data && data.main && data.weather) {
                     setWeather(data);
                 } else {
-                    // Handle cases where the data structure is not as expected
                     console.error('Unexpected response structure:', data);
                 }
             } catch (error) {

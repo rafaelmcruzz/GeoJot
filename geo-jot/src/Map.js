@@ -1,28 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, useMapEvents } from 'react-leaflet';
-import 'leaflet/dist/leaflet.css';
+import { v4 as uuidv4 } from 'uuid';
+import { useUser } from './UserContext';
 import L from 'leaflet';
 import Form from './Form';
 import Drawing1 from './Drawing1';
 import Drawing2 from './Drawing2';
 import markerIconPng from './Pin.png';
-import { v4 as uuidv4 } from 'uuid';
-import { useUser } from './UserContext';
+import 'leaflet/dist/leaflet.css';
 import 'animate.css';
 
-
+//Custom animated icon for pins
 const animatedIcon = new L.DivIcon({
   html: `<div class="custom-icon animate__animated animate__bounce" style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;"><img src="${markerIconPng}" style="width: 100%; height: auto;"/></div>`,
-  className: '', // Make sure this eliminates all default padding/margin
+  className: '',
   iconSize: [40, 40],
   iconAnchor: [20, 40],
   popupAnchor: [1, -34]
 });
 
-
-
+//Main map component
 function Map({ selectedUser }) {
-  console.log("Selected user map", selectedUser);
+ 
   const [markers, setMarkers] = useState([]);
   const [showForm, setShowForm] = useState(false);
   const [selectedMarker, setSelectedMarker] = useState(null);
@@ -30,20 +29,18 @@ function Map({ selectedUser }) {
   const { username } = useUser();
   const { username: currentUsername } = useUser();
 
+  //Checks if user is viewing their own map
   const isViewingOwnMap = currentUsername === (selectedUser ? selectedUser.username : currentUsername);
   const canEdit = isViewingOwnMap ||(selectedMarker?.collaborators?.includes(username) ?? false);
 
-  console.log("currentUsername", isViewingOwnMap);
-  console.log("username", username);
-
-  // handle updating pins after submitting form data
+  //Function to handle form successfull submission
   const handleFormSubmissionSuccess = () => {
     setShowForm(false);
     fetchPins();
   }
 
+  // Handler for transitioning from Drawing1 to Drawing2
   const viewMoreHandler = () => {
-    // Logic to transition from Drawing1 to Drawing2 with the same data
     setSelectedDrawing('Drawing2');
   };
 
@@ -52,29 +49,22 @@ function Map({ selectedUser }) {
     setSelectedDrawing('Drawing1');
   };
 
-
+  // Function to handle marker click
   const handleMarkerClick = async (marker) => {
-    // Check if the current user is the owner of the pin
 
     if (marker.username === currentUsername) {
       // Logic to handle marker click for the owner of the pin
-      // This could include setting state to show edit/delete options
-      console.log("This is the user's own pin.");
       setSelectedMarker(marker);
-      setShowForm(true); // Assuming you have a state to show form/modal for editing
+      setShowForm(true);
     } else {
-      // If the user is not the owner, maybe just show the pin details without edit/delete options
-      console.log("This pin belongs to another user.");
+      // If the user is not the owner, just show the pin details without edit/delete options
       setSelectedMarker(marker);
-  
-      // Optionally, set state to show pin details without showing edit/delete options
     }
   };
 
-  // Function to fetch pins
+  // Function to fetch pins to the current user
   const fetchPins = async () => {
     try {
-      console.log('Fetching pins for user:', username);
       const response = await fetch(`http://localhost:3000/api/pins?username=${username}`);
       if (response.ok) {
         let pins = await response.json();
@@ -83,7 +73,7 @@ function Map({ selectedUser }) {
         const pinsWithDetails = await Promise.all(pins.map(async (pin) => {
           // Attempt to fetch details and use an empty object as fallback
           const details = await fetchPinDetails(pin._id) || {};
-          return { ...pin, details }; // Safely append details, ensuring it's never undefined
+          return { ...pin, details };
         }));
   
         setMarkers(pinsWithDetails);
@@ -95,25 +85,24 @@ function Map({ selectedUser }) {
     }
   };
 
-  // Function to fetch pins, now with optional username parameter
+  //Function to fetch pins, now for a different user
   const fetchPinsDiffUser = async (usernameParam) => {
     try {
-      const usernameToFetch = usernameParam || username; // Use provided username or fall back to the current user
-      console.log('Fetching pins for user:', usernameToFetch);
+      const usernameToFetch = usernameParam || username;
       const response = await fetch(`http://localhost:3000/api/pins?username=${usernameToFetch}`);
       if (response.ok) {
         let pins = await response.json();
         pins = pins.filter(pin => pin.position && pin.position.lat && pin.position.lng);
 
-        // Fetch details for each pin and filter out those without a 'name'
+        //Fetch details for each pin and filter out those without a name
         const pinsWithDetails = (await Promise.all(pins.map(async (pin) => {
           const details = await fetchPinDetails(pin._id);
-          // Only include pins where 'details' has a 'name' property that is not empty
+          //Only include pins where 'details' has a 'name' property that is not empty
           if (details && details.name) {
             return { ...pin, details };
           }
-          return null; // Return null for pins without a name in details
-        }))).filter(pin => pin !== null); // Filter out the nulls
+          return null; //Return null for pins without a name in details
+        }))).filter(pin => pin !== null); //filter out the nulls
 
         setMarkers(pinsWithDetails);
       } else {
@@ -125,14 +114,12 @@ function Map({ selectedUser }) {
   };
 
   
-  // Since fetchPinDetails might be used here before its definition, ensure it's defined appropriately
+  //Fetches details for a pin
   const fetchPinDetails = async (pinId) => {
     try {
-      console.log(`Fetching details for pin with ID: ${pinId}`); // Debugging
       const response = await fetch(`http://localhost:3000/api/pins/details/${pinId}`);
       if (response.ok) {
         const pinDetails = await response.json();
-        console.log('Fetched pin details:1111111', pinDetails);
         return pinDetails;
       } else {
         console.error('Failed to fetch pin details:', response.statusText);
@@ -158,14 +145,13 @@ function Map({ selectedUser }) {
       console.log("formdata", formData)
   
       if (response.ok) {
-        // Logic to update the local state with the new details of the pin
+        //Logic to update the local state with the new details of the pin
         const updatedMarkers = markers.map(marker =>
           marker._id === formData._id ? { ...marker, ...formData } : marker
         );
         setMarkers(updatedMarkers);
         setShowForm(false);
         setSelectedMarker(null);
-        console.log("9uhverjuiegnwf")
 
       } else {
         console.error('Failed to update pin:', response.statusText);
@@ -175,31 +161,29 @@ function Map({ selectedUser }) {
     }
   };
 
+  //Function to handle form submission success
   const handleFormSubmitSuccess = (updatedMarker) => {
     const newMarkers = markers.map((marker) => {
       if (marker._id === updatedMarker._id) {
-        // Ensure you're accessing a 'details' property on an object that's defined in this scope
         return { ...marker, details: updatedMarker.details };
       }
       return marker;
     });
     setMarkers(newMarkers);
-    // Assuming updatedMarker contains the updated details you want to select
-    setSelectedMarker(updatedMarker); // Correct usage if updatedMarker is the correct object
+    setSelectedMarker(updatedMarker);
     setShowForm(false);
   };
 
 
-  // useEffect to fetch pins when the component mounts
+  //Fetch pins when the component mounts
   useEffect(() => {
     if (username) {
-      fetchPins(); // Only fetch pins if the username exists
+      fetchPins(); //Only fetch pins if the username exists
     }
-  }, [username]); // Depend on username
+  }, [username]);
 
+  // Determine which drawing component to display based on selectedMarker
   useEffect(() => {
-    console.log(selectedMarker);
-    // Determine which drawing component to display based on selectedMarker
     if (selectedMarker && selectedMarker.details && (selectedMarker.details.name || selectedMarker.details.notes)) {
       setSelectedDrawing('Drawing1');
     } else {
@@ -207,11 +191,9 @@ function Map({ selectedUser }) {
     }
   }, [selectedMarker]);
 
-
-  useEffect(() => {
-    
+  // Fetch pins for a different user when selectedUser changes
+  useEffect(() => {  
     if (selectedUser) {
-      console.log('Fetching pins for:', selectedUser.username); // Add this line
       fetchPinsDiffUser(selectedUser.username);
     }
   }, [selectedUser])
@@ -224,12 +206,10 @@ function Map({ selectedUser }) {
       });
 
       if (response.ok) {
-        // If the deletion was successful, update the state or UI accordingly
         console.log('Pin successfully deleted');
         setMarkers(currentMarkers => currentMarkers.filter(marker => marker._id !== markerId));
         setSelectedMarker(null); // Reset selected marker after deletion
       } else {
-        // Handle cases where the backend responds with an error (e.g., pin not found)
         console.error('Failed to delete pin:', await response.text());
       }
     } catch (error) {
@@ -237,10 +217,9 @@ function Map({ selectedUser }) {
     }
   };
 
-  console.log("songDetails::", selectedMarker?.details?.selectedSongDetails);
+
+  // Function to render the content based on the selectedDrawing
   const renderContent = () => {
-
-
   if (selectedDrawing === 'Drawing1' && selectedMarker) {
     return (
       <>
@@ -249,9 +228,9 @@ function Map({ selectedUser }) {
         pinId={selectedMarker?._id}
         notes={selectedMarker.details.notes}
         mediaFiles={selectedMarker.details.mediaFiles}
-        music={selectedMarker.details.music} // Assuming this is the song URI    
+        music={selectedMarker.details.music}   
         songDetails={{
-          title: selectedMarker.details.selectedSongDetails?.title, // These fields should match how you store them
+          title: selectedMarker.details.selectedSongDetails?.title,
           previewUrl: selectedMarker.details.selectedSongDetails?.previewUrl,
           albumArtUrl: selectedMarker.details.selectedSongDetails?.albumArtUrl,
           artists: selectedMarker.details.selectedSongDetails?.artists,
@@ -274,7 +253,7 @@ function Map({ selectedUser }) {
         mediaFiles={selectedMarker.details.mediaFiles}
         music={selectedMarker.details.music}
         songDetails={{
-          title: selectedMarker.details.selectedSongDetails?.title, // These fields should match how you store them
+          title: selectedMarker.details.selectedSongDetails?.title,
           previewUrl: selectedMarker.details.selectedSongDetails?.previewUrl,
           albumArtUrl: selectedMarker.details.selectedSongDetails?.albumArtUrl,
           artists: selectedMarker.details.selectedSongDetails?.artists,
@@ -299,13 +278,12 @@ function Map({ selectedUser }) {
   }
 };
 
+  // LocationMarker component for handling map events
   function LocationMarker() {
 
     const handleMapClick = async (newMarker) => {
-      // Assuming your backend expects an object with position and name
 
       if (!selectedUser || selectedUser.username === currentUsername) {
-        // Assuming your backend expects an object with position and name
         const markerWithUser = { ...newMarker, username: currentUsername, details: {} };
     
         try {
@@ -320,36 +298,29 @@ function Map({ selectedUser }) {
           if (response.ok) {
             const data = await response.json();
             console.log('Pin saved successfully:', data);
-            // Update the state with the new marker, including the _id returned from the server
             setMarkers((currentMarkers) => [...currentMarkers, { ...markerWithUser, _id: data._id }]);
           } else {
-            // Handle server errors or unsuccessful responses
             console.error('Failed to save pin:', await response.text());
           }
         } catch (error) {
           console.error('Error creating pin:', error);
-          // Handle any errors, such as by showing an error message to the user.
         }
       } else {
-        // Optionally, provide feedback to the user that they can't add pins on someone else's map
         console.log("You can't add pins while viewing another user's map.");
       }
   };
-
 
     useMapEvents({
       contextmenu(e) {
         const newMarker = {
           _id: uuidv4(),
           position: e.latlng,
-          name: '', // Initial name is empty
-          notes: '', // Initial notes is empty
-          music: '', // Initial music is empty
-          media: null, // Initial media is null
+          name: '',
+          notes: '',
+          music: '',
+          media: null,
           username,
-        };
-        //setMarkers((currentMarkers) => [...currentMarkers, newMarker]);
-        // Call handleMapClick to send the marker to the backend
+        };d
         handleMapClick(newMarker);
       },
       popupopen() {
@@ -363,11 +334,8 @@ function Map({ selectedUser }) {
     return null;
   }
 
-  // const handleSelectMarker = (marker) => {
-  //   setSelectedMarker(marker);
-  //   setShowForm(true);
-  // }
 
+  //Function to handle form submission success
   const handleFormSuccesss = () => {
     if (!selectedMarker.details?.name) {
       deleteMarker(selectedMarker._id);
@@ -375,13 +343,11 @@ function Map({ selectedUser }) {
     setShowForm(false); 
   };
 
-
   
   {showForm && selectedMarker && (
     <div className="modal-backdrop">
       <div className="form-modal">
         <button className="close-button" onClick={() => setShowForm(false)}>X</button>
-        {/* Pass the marker details to the drawings forms */}
         <Form
           onSubmit={handleFormSubmit}
           _id={selectedMarker._id}
@@ -403,7 +369,7 @@ function Map({ selectedUser }) {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        <LocationMarker /> {/* Add LocationMarker here */}
+        <LocationMarker />
         {markers.map((marker, idx) => (
           <Marker
   key={idx}

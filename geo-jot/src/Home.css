@@ -1,82 +1,13 @@
-.app {
-  display: flex;
-}
-
+/* Styling for the left side bar + components*/
 .left-sidebar {
   width: 300px;
-  height: 100vh; /* Set height to 100% of viewport height */
+  height: 100vh;
   background: linear-gradient(to bottom, #069be6, #f0caa2, #f1c58f, #AFD2A0, #CAECCF);
   padding: 20px;
   box-sizing: border-box;
-  border-right: 2px solid #ffffff; /* Add right border */
-  border-bottom: 2px solid #ffffff; /* Add bottom border */
+  border-right: 2px solid #ffffff; 
+  border-bottom: 2px solid #ffffff; 
   
-}
-
-.recent-pin {
-  display: flex;
-  align-items: center; /* Aligns the text and the pin icon vertically */
-  padding: 10px; /* Adds some padding inside each list item */
-  background: #fff; /* Sets the background color to white */
-  border-bottom: 1px solid #eaeaea; /* Adds a bottom border to each list item for the separator */
-  height: auto;
-  width: auto;
-  border-radius: 0;
-}
-
-.first-pin {
-  border-top-left-radius: 5px; /* Adds border-radius to the top left corner of the first pin */
-  border-top-right-radius: 5px; /* Adds border-radius to the top right corner of the first pin */
-}
-
-.recent-pin:last-child {
-  border-bottom: none; /* Removes the border from the last item */
-  border-bottom-left-radius: 5px; /* Adds border-radius to the bottom left corner of the last pin */
-  border-bottom-right-radius: 5px; /* Adds border-radius to the bottom right corner of the last pin */
-}
-
-.recent-pins-header {
-  font-size: 1.5em; /* Sets the size of the font */
-  color: #333; /* Sets the color of the font */
-  font-weight: bold; /* Makes the text bold */
-  padding-left: 10px; /* Adds padding to the left of the header */
-  margin-top: 10px; /* Removes any default top margin */
-  margin-bottom: 12px; /* Adds some space below the header */
-  border-left: 4px solid #555; /* Adds a left border for stylistic flair */
-}
-
-.recent-pin .pin-icon {
-  width: 30px; /* Width of the icon */
-  height: 30px; /* Height of the icon */
-  background-image: url('Pin.png'); /* The URL to your pin icon */
-  background-size: cover; /* Ensures the icon covers the area */
-  margin-right: 8px; /* Adds some space between the icon and the text */
-}
-
-.recent-pin .pin-name {
-  margin: 0;
-  margin-bottom: 4px; /* Adjust the space between the pin name and location */
-  font-weight: bold; /* Makes the pin name bold */
-}
-
-.recent-pin .location-info {
-  
-  flex: 1; /* Allows the text to fill the remaining space */
-  margin: 0; /* Resets any default margins */
-}
-
-.main-content {
-  flex: 1; /* Take up remaining space */
-  position: relative;
-}
-
-.map {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%; /* Adjust width as needed */
-   /* Adjust height as needed */
-  z-index: 0; /* Lower z-index to ensure it's below search bar */
 }
 
 .user-profile {
@@ -95,312 +26,62 @@
   font-weight: bold;
 }
 
-.address-block {
-  margin-top: 20px;
-}
-
-.address-block h2 {
-  font-size: 24px;
-}
-
-.address-block ul {
-  list-style: none;
-  padding: 0;
-}
-
-.address-block li {
-  margin-bottom: 10px;
-  border-bottom: 1px solid #ccc; 
-  padding-bottom: 10px; 
-}
-
-.selected-address-details {
-  margin-top: 20px;
-  border-top: 2px solid #ccc; 
-  padding-top: 20px; 
-}
-
-.selected-address-details h2 {
-  font-size: 24px;
-}
-
-.selected-address-details p {
-  font-size: 18px;
-}
-
-.home {
+.recent-pin {
   display: flex;
-  position: relative; /* Ensure relative positioning for absolute children */
+  align-items: center; 
+  padding: 10px;
+  background: #fff; 
+  border-bottom: 1px solid #eaeaea; 
+  height: auto;
+  width: auto;
+  border-radius: 0;
 }
 
+.first-pin {
+  border-top-left-radius: 5px; 
+  border-top-right-radius: 5px;
+}
+
+.recent-pin:last-child {
+  border-bottom: none; 
+  border-bottom-left-radius: 5px; 
+  border-bottom-right-radius: 5px; 
+}
+
+.recent-pins-header {
+  font-size: 1.5em; 
+  color: #333;
+  font-weight: bold;
+  padding-left: 10px; 
+  margin-top: 10px;
+  margin-bottom: 12px;
+  border-left: 4px solid #555;
+}
+
+.recent-pin .pin-icon {
+  width: 30px;
+  height: 30px;
+  background-image: url('Pin.png');
+  background-size: cover;
+  margin-right: 8px;
+}
+
+.recent-pin .pin-name {
+  margin: 0;
+  margin-bottom: 4px;
+  font-weight: bold;
+}
+
+.recent-pin .location-info {
+  
+  flex: 1;
+  margin: 0; 
+}
+
+/* Styling for content container*/
 .content-container {
   display: flex;
   flex: 1;
-}
-
-.search-bar {
-  position: absolute;
-  top: 20px;
-  right: 40px;
-  z-index: 1;
-  width: 250px;
-  transform: scale(1.3);
-}
-
-/* Search Component Styles */
-.search-container {
-  position: relative;
-  border-radius: 5px;
-}
-
-.search-input {
-  width: 100%;
-  padding: 8px;
-  margin: 10px 0;
-  border-radius: 4px;
-  border: 1px solid #ccc;
-}
-
-.search-results {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  background-color: #ffffff;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  position: absolute;
-  width: 100%;
-  z-index: 1000; /* Ensure the list appears above other content */
-  max-height: 300px; 
-  overflow-y: auto; 
-  border-radius: 20px;
-}
-
-.search-result-item {
-  padding: 10px;
-  border-bottom: 1px solid #8cd2ed;
-  cursor: pointer;
-}
-
-.search-result-item:last-child {
-  border-bottom: none;
-}
-
-.search-result-item:hover {
-  background-color: #f5f5f5;
-}
-
-.viewingMessage {
-  position: absolute;
-  top: 30px;
-  right: 1180px;
-  z-index: 1;
-  width: 276px;
-  transform: scale(1.3);
-  padding: 5px 10px;
-  background-color: #d1ecf1; /* Light blue background, adjust as needed */
-  border-color: #bee5eb;
-  color: #0c5460; /* Text color, adjust as needed */
-  border-radius: 4px;
-  font-size: 0.8rem;
-  font-weight: bold;
-}
-
-.drawing1 {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-}
-
-/* Styles for Name of Pin */
-.pin-name-label {
-  font-family: 'oswald', sans-serif; /* Change 'Your Font' to your desired font */
-  font-size: 22px; /* Change the font size as desired */
-  font-weight: bold;
-}
-
-.drawing1 textarea {
-  height: calc(30vh - 150px); 
-  resize: none;
-}
-
-/* Add this to remove the 'box' appearance from inputs and textareas */
-.drawing1 .form-group input,
-.drawing1 .form-group textarea {
-  border: none; /* Removes the border */
-  outline: none; /* Removes the focus outline */
-  background-color: #eaedf0; /* Makes the background transparent */
-  color: inherit; /* Inherits text color from the parent */
-  font-size: inherit; /* Inherits font size from the parent */
-  width: 100%; /* Adjust width as needed, or set to auto */
-  max-width: 100%; /* Ensures it doesn't overflow its container */
-}
-
-.drawing1 .form-group input[readonly],
-.drawing1 .form-group textarea[readonly] {
-  pointer-events: none; /* Prevents interaction */
-}
-
-/* Ensure labels are styled appropriately */
-.drawing1 .form-group label {
-  font-weight: bold; /* Makes labels bold */
-  display: block; /* Makes label appear above the input/textarea */
-  margin-bottom: 10px; /* Adjust space between label and input/textarea */
-}
-
-/* Adjust spacing between form groups */
-.drawing1 .form-group {
-  margin-bottom: 1px; /* Increases space between form groups */
-}
-
-.left-section,
-.right-section {
-  flex: 1;
-}
-
-.form-group {
-  margin-bottom: 10px;
-}
-
-.image img {
-  width: 100px;
-  height: auto;
-}
-
-.drawing2 {
-  display: flex;
-}
-
-.back-button {
-  background-color: #007bff; 
-  color: white; 
-  padding: 8px 16px;
-  border: none;
-  border-radius: 20px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.view-more-button:hover {
-  background-color: #0056b3;
-}
-
-.left-side, .right-side {
-  flex: 1;
-}
-
-.right-side {
-  padding-left: 10px; /* Adjust padding between sides if needed */
-  position: relative;
-  display: flex;
-  justify-content: center; /* Center images horizontally */
-  align-items: center; /* Center images vertically */
-  max-height: calc(85vh - 150px); /* Ensure the height doesn't exceed the left side */
-}
-
-.drawing2 textarea {
-  height: calc(88vh - 150px); 
-  resize: none;
-  background-color: #eaedf0;
-}
-
-.image-container {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-  max-width: 1000px;
-  max-height: 1000px;
-  overflow: hidden; /* Ensure images are cropped */
-}
-
-.image-container img {
-  width: 100%; /* Ensure each image takes up the full width of its container */
-  height: 100%; /* Ensure each image takes up the full height of its container */
-  object-fit: cover; /* Crop the image to cover the specified dimensions */
-  max-width: 250px; /* Set a fixed width for the image */
-  max-height: 150px; /* Set a fixed height for the image */
-}
-
-.thumbnails {
-  display: flex;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-  max-width: 150px; /* Set a maximum width */
-  max-height: 150px; /* Set a maximum height */
-  width: auto; /* Maintain aspect ratio */
-  height: auto; /* Maintain aspect ratio */
-  justify-content: center; 
-  align-items: center; 
-  max-width: 79%;
-  max-height: 100%;
-  overflow: hidden; /* Ensure images are cropped */
-  display: flex;
-  max-width: 200px; /* Adjust this value to fit your design */
-}
-
-.thumbnail {
-  width: 100%; /* Ensure each thumbnail takes up the full width of its container */
-  height: 100%; /* Ensure each thumbnail takes up the full height of its container */
-  object-fit: cover; /* Crop the image to cover the thumbnail dimensions */
-  max-width: 150px; /* Set a fixed width for the thumbnail */
-  max-height: 150px; /* Set a fixed height for the thumbnail */
-}
-
-.thumbnail:nth-child(1) {
-  width: 150px;
-  height: 150px;
-}
-
-.thumbnail:nth-child(2) {
-  width: 150px;
-  height: 150px;
-}
-
-.thumbnail:nth-child(3) {
-  width: 150px;
-  height: 150px;
-}
-
-.music-details {
-  display: flex;
-  align-items: flex-start; /* Align items at the start */
-  gap: 20px; /* Space between elements */
-  background-color: #f3f4f6;
-  padding: 10px;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  width: 270px;
-  height: 125px;
-}
-
-.music-details .song-info {
-  display: flex;
-  font-weight: bold;
-  flex-direction: column; /* Stack title and audio player vertically */
-  justify-content: center;
-  gap: 10px; /* Space between title and player */
-}
-
-.music-details img {
-  width: 60px;
-  height: 60px;
-  object-fit: cover;
-  border-radius: 8px;
-}
-
-.music-details audio {
-  width: 250px; /* Adjust as necessary */
-  margin-left: -20px;
-  border: none; /* Removes the border */
-  outline: none; /* Removes the focus outline */
-  background-color: transparent;
-  height: 40px;
-}
-
-.album-art img {
-  max-width: 100%; /* Ensure the image fits within the container */
-  border-radius: 8px; /* Optional: adds rounded corners to the album art */
-  margin-bottom: 10px; /* Space between album art and audio controls */
 }
 
 .profile-picture{
@@ -447,106 +128,6 @@
   right: 10px;
 }
 
-.like-button, .invite-collaborators {
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-}
-
-.like-icon {
-  margin-right: 5px;
-  color: #000;
-  cursor: pointer;
-}
-
-.like-icon.liked {
-  color: #007bff;
-}
-
-.view-more-button {
-  background-color: #007bff; 
-  color: white; 
-  padding: 8px 16px;
-  border: none;
-  border-radius: 20px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.view-more-button:hover {
-  background-color: #0056b3;
-}
-
-.delete-button {
-  background-color: #e12c10;
-  color: #fff;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 10px;
-  font-weight: bold;
-}
-
-.delete-button:hover {
-  background-color: #d60606;
-}
-
-/* Ensure only one name is displayed by specifically targeting the first name label */
-/* Since no changes to the JSX are requested, we'll achieve this through CSS */
-.drawing1 .form-group .pin-name-label:first-of-type {
-  display: none; /* Hide the first occurrence */
-}
-
-/* Fix music details box size and use ellipsis for overflow */
-.song-info {
-  width: 200px; /* Adjust width as needed */
-  white-space: nowrap; /* Prevent text from wrapping */
-  overflow: hidden; /* Hide overflow */
-  text-overflow: ellipsis; /* Add ellipsis to overflow text */
-}
-
-/* Improve aesthetics for images within .thumbnails container */
-.thumbnails {
-  display: flex;
-  flex-wrap: wrap; /* Allow thumbnails to wrap */
-  gap: 10px; /* Space between thumbnails */
-}
-
-.thumbnail {
-  flex: 0 1 auto;
-  width: 100px; /* Fixed width */
-  height: 100px; /* Fixed height */
-  object-fit: cover; /* Cover fit to avoid distortion */
-}
-
-/* Additional adjustments for a consistent layout */
-.music-details {
-  display: flex;
-  align-items: center;
-  justify-content: start;
-  gap: 30px;
-  width: 100%; /* Ensure music details box doesn't exceed its container */
-}
-
-.album-art {
-  width: 50px; /* Adjust album art size */
-  height: 50px; /* Adjust album art size */
-  object-fit: cover;
-}
-
-
-.bottom-section {
-  display: flex;
-  justify-content: center; 
-  margin-top: 20px;
-}
-
-
-.view-more-button, .edit-button {
-  width: 100%; 
-  margin-bottom: 10px; 
-  text-align: center; 
-}
-
 /* styles for the profile picture*/
 .ProfilePicture-backdrop {
   position: fixed;
@@ -558,7 +139,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1050; /* Ensure this is above other content */
+  z-index: 1050;
 }
 
 .ProfilePicture-content {
@@ -566,20 +147,20 @@
   padding: 20px;
   border-radius: 5px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  max-width: 500px; /* Adjust based on your preference */
-  z-index: 1051; /* Above the backdrop */
+  max-width: 500px;
+  z-index: 1051;
 }
 
 /* styles for the weather widget*/
 
 .weather-header {
-  font-size: 1.5em; /* Sets the size of the font */
-  color: #333; /* Sets the color of the font */
-  font-weight: bold; /* Makes the text bold */
-  padding-left: 10px; /* Adds padding to the left of the header */
-  margin-top: 10px; /* Removes any default top margin */
-  margin-bottom: 10px; /* Adds some space below the header */
-  border-left: 4px solid #555; /* Adds a left border for stylistic flair */
+  font-size: 1.5em; 
+  color: #333;
+  font-weight: bold;
+  padding-left: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px; 
+  border-left: 4px solid #555;
 }
 
 .weather-widget {
@@ -627,6 +208,372 @@
   border-right: none;
 }
 
+
+/* Map styling + components included in map*/
+
+
+.main-content {
+  flex: 1;
+  position: relative;
+}
+
+.map {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 0;
+}
+
+.home { /* Home includes search bar, etc*/
+  display: flex;
+  position: relative; 
+}
+
+.search-bar {
+  position: absolute;
+  top: 20px;
+  right: 40px;
+  z-index: 1;
+  width: 250px;
+  transform: scale(1.3);
+}
+
+.search-container {
+  position: relative;
+  border-radius: 5px;
+}
+
+.search-input {
+  width: 100%;
+  padding: 8px;
+  margin: 10px 0;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+.search-results {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  position: absolute;
+  width: 100%;
+  z-index: 1000;
+  max-height: 300px; 
+  overflow-y: auto; 
+  border-radius: 20px;
+}
+
+.search-result-item {
+  padding: 10px;
+  border-bottom: 1px solid #8cd2ed;
+  cursor: pointer;
+}
+
+.search-result-item:last-child {
+  border-bottom: none;
+}
+
+.search-result-item:hover {
+  background-color: #f5f5f5;
+}
+
+.viewingMessage { /* Styling for the viewing other users pins message*/
+  position: absolute;
+  top: 30px;
+  right: 1180px;
+  z-index: 1;
+  width: 276px;
+  transform: scale(1.3);
+  padding: 5px 10px;
+  background-color: #d1ecf1;
+  border-color: #bee5eb;
+  color: #0c5460;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+/* Styling for Drawing1*/
+
+.drawing1 {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.pin-name-label {/* Styles for Name of Pin */
+  font-family: 'oswald', sans-serif;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.drawing1 textarea {
+  height: calc(30vh - 150px); 
+  resize: none;
+}
+
+.drawing1 .form-group input,
+.drawing1 .form-group textarea {
+  border: none;
+  outline: none;
+  background-color: #eaedf0;
+  color: inherit; 
+  font-size: inherit; 
+  width: 100%; 
+  max-width: 100%;
+}
+
+.drawing1 .form-group input[readonly],
+.drawing1 .form-group textarea[readonly] {
+  pointer-events: none; 
+}
+
+.drawing1 .form-group label {
+  font-weight: bold;
+  display: block; 
+  margin-bottom: 10px; 
+}
+
+.drawing1 .form-group {
+  margin-bottom: 1px;
+}
+
+.left-section,
+.right-section {
+  flex: 1;
+}
+
+.form-group {
+  margin-bottom: 10px;
+}
+
+.image img {
+  width: 100px;
+  height: auto;
+}
+
+.view-more-button {
+  background-color: #007bff; 
+  color: white; 
+  padding: 8px 16px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.view-more-button:hover {
+  background-color: #0056b3;
+}
+
+.view-more-button, .edit-button {
+  width: 100%; 
+  margin-bottom: 10px; 
+  text-align: center; 
+}
+
+.thumbnails {
+  display: flex;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  max-width: 150px;
+  max-height: 150px;
+  width: auto;
+  height: auto;
+  justify-content: center; 
+  align-items: center; 
+  max-width: 79%;
+  max-height: 100%;
+  overflow: hidden;
+  display: flex;
+  max-width: 200px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.thumbnail {
+  width: 100%; 
+  height: 100%;
+  object-fit: cover;
+  max-width: 150px;
+  max-height: 150px;
+  flex: 0 1 auto;
+}
+
+
+.thumbnail:nth-child(1) {
+  width: 150px;
+  height: 150px;
+}
+
+.thumbnail:nth-child(2) {
+  width: 150px;
+  height: 150px;
+}
+
+.thumbnail:nth-child(3) {
+  width: 150px;
+  height: 150px;
+}
+
+.like-button, .invite-collaborators {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.like-icon {
+  margin-right: 5px;
+  color: #000;
+  cursor: pointer;
+}
+
+.like-icon.liked {
+  color: #007bff;
+}
+
+.delete-button {
+  background-color: #e12c10;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-weight: bold;
+}
+
+.delete-button:hover {
+  background-color: #d60606;
+}
+
+.drawing1 .form-group .pin-name-label:first-of-type {
+  display: none;
+}
+
+
+/* Drawing 2 Styling*/
+
+
+.drawing2 {
+  display: flex;
+}
+
+.back-button {
+  background-color: #007bff; 
+  color: white; 
+  padding: 8px 16px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.left-side, .right-side {
+  flex: 1;
+}
+
+.right-side {
+  padding-left: 10px;
+  position: relative;
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
+  max-height: calc(85vh - 150px);
+}
+
+.drawing2 textarea {
+  height: calc(88vh - 150px); 
+  resize: none;
+  background-color: #eaedf0;
+}
+
+.image-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  max-width: 1000px;
+  max-height: 1000px;
+  overflow: hidden; /* Ensures images are cropped */
+}
+
+.image-container img {
+  width: 100%;
+  height: 100%; 
+  object-fit: cover; 
+  max-width: 250px;
+  max-height: 150px;
+}
+
+
+.music-details {/* Styling for the music details for both Drawing1 and Drawing2*/
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  background-color: #f3f4f6;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 270px;
+  height: 125px;
+}
+
+.music-details .song-info {
+  display: flex;
+  font-weight: bold;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+}
+
+.music-details img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.music-details audio {
+  width: 250px;
+  margin-left: -20px;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  height: 40px;
+}
+
+.album-art img { /* Styling for the album art for both Drawing1 and Drawing2*/
+  max-width: 100%;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.song-info { /* Styling for the song info for both Drawing1 and Drawing2*/
+  width: 200px; 
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Styling for the music details for Drawing1 and Drawing2*/
+.music-details {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  gap: 30px;
+  width: 100%;
+}
+
+.album-art {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+}
+
+/* Styling for some of the modal components*/
+
 .modal-backdrop {
   position: fixed;
   top: 0;
@@ -637,17 +584,17 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 999; /* Ensure modal is on top of other content */
-  animation: fadeIn 0.3s ease; /* Add a fade-in animation */
+  z-index: 999;
+  animation: fadeIn 0.3s ease;
 }
 
 .modal-content {
-  background: linear-gradient(135deg, #ffffff, #f2f6fa); /* Add a subtle gradient background */
+  background: linear-gradient(135deg, #ffffff, #f2f6fa);
   padding: 30px;
   border-radius: 10px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-  max-width: 400px; /* Limit width for better readability */
-  text-align: center; /* Center-align content */
+  max-width: 400px;
+  text-align: center;
 }
 
 .account-title {
@@ -677,37 +624,37 @@
   margin-top: 30px;
   background-color: red;
   color: white;
-  transition: background-color 0.3s ease; /* Add smooth transition */
+  transition: background-color 0.3s ease;
 }
 
 .modal-content button.delete-account-button:hover {
-  background-color: darkred; /* Change to darker red color on hover */
+  background-color: darkred; 
 }
 
 .modal-content h2 {
-  font-family: 'Helvetica', sans-serif; /* Change font family */
-  color: #333; /* Darken heading color */
-  margin-bottom: 20px; /* Add some space below heading */
+  font-family: 'Helvetica', sans-serif; 
+  color: #333;
+  margin-bottom: 20px;
 }
 
 .modal-content p {
   font-size: 16px;
   margin-bottom: 15px;
-  color: #666; /* Adjust text color */
+  color: #666;
 }
 
 .modal-content button {
-  background-color: #007bff; /* Change button color */
-  color: #fff; /* Change button text color */
+  background-color: #007bff;
+  color: #fff;
   border: none;
   padding: 10px 20px;
   border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s ease; /* Add smooth transition */
+  transition: background-color 0.3s ease;
 }
 
 .modal-content button:hover {
-  background-color: #0056b3; /* Darken button color on hover */
+  background-color: #0056b3;
 }
 
 .error {
@@ -724,12 +671,6 @@
   to {
     opacity: 1;
   }
-}
-
-.profile-picture-form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 }
 
 .profile-pictures-container {
@@ -773,19 +714,22 @@
 }
 
 
+/* Form Styling */
+
+
 .music-search-container {
-  max-height: 200px; /* Set a maximum height for the search results */
-  overflow-y: auto; /* Add a scrollbar if content overflows */
-  margin-top: 10px; /* Optional: add some spacing above the search results */
-  border-radius: 8px; /* Optional: rounded corners for the container */
-  background-color: #2c2c2c; /* Optional: background color for the container */
+  max-height: 200px;
+  overflow-y: auto; 
+  margin-top: 10px; 
+  border-radius: 8px;
+  background-color: #2c2c2c; 
 }
 
 .track-container {
   display: flex;
   align-items: center;
   margin-bottom: 10px;
-  border-bottom: 1px solid #3a3a3a; /* Optional: add a separator between items */
+  border-bottom: 1px solid #3a3a3a;
   background: #1e1e1e;
   padding: 10px;
   border-radius: 8px;

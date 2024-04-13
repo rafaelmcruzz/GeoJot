@@ -1,33 +1,20 @@
+import './Home.css';
 import React, { useState, useEffect } from 'react';
-import './Home.css'; // Ensure this path matches your CSS file's location
-import { useUser } from './UserContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faThumbsUp, faUserPlus } from '@fortawesome/free-solid-svg-icons';
+import { useUser } from './UserContext';
 import Form from './Form'
-// npm install --save @fortawesome/react-fontawesome @fortawesome/free-solid-svg-icons
 import CollaboratorInvite from './CollaboratorInvite';
 
+//Component to display the first drawing, display some details and allow some actions
 const Drawing1 = ({ name, notes, mediaFiles = [], music, songDetails, onViewMore, canEdit, onDelete, pinId, canInvite }) => {
   const [likes, setLikes] = useState([]);
   const [liked, setLiked] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [showInvite, setShowInvite] = useState(false);
-
-
   const { username } = useUser();
-  console.log("songDetails::", songDetails);
-
-
-  const handleEdit = () => {
-    // If managing directly in Drawing1, toggle isEditing state
-    setIsEditing(true);
-
-    // If managed by a parent component, call the onEdit prop with pin details
-    // onEdit({ pinId, name, notes, music, songDetails });
-
-    // You might also need to manage the display of Form.js at a higher level depending on your app's structure
-  };
   
+  // Fetch likes for the current pin and update the state
   useEffect(() => {
     const fetchLikes = async () => {
       try {
@@ -44,12 +31,15 @@ const Drawing1 = ({ name, notes, mediaFiles = [], music, songDetails, onViewMore
     fetchLikes();
   }, [pinId, username]);
 
+  // Update liked state whenever likes array changes
   useEffect(() => {
-    setLiked(likes.includes(username)); // Update liked state whenever likes array changes
+    setLiked(likes.includes(username));
   }, [likes, username]);
 
+  //Simple function to toggle the invite form
   const toggleInviteForm = () => setShowInvite(!showInvite);
 
+  //Function to toggle the like of the current pin
   const toggleLike = async () => {
     try {
       console.log("currentUser", username);
@@ -75,20 +65,20 @@ const Drawing1 = ({ name, notes, mediaFiles = [], music, songDetails, onViewMore
     }
   };
 
+  //If editing mode is active, show the form to edit the pin
   if (isEditing) {
-    // Directly return Form if managing the edit form here
-    // Assuming Form component accepts props for initial values and a callback for successful submission
     return (
       <Form
         _id={pinId}
         initialName={name}
         initialNotes={notes}
         initialMusic={music}
-        // Pass other initial values as needed
         onSubmissionSuccess={() => setIsEditing(false)} // Reset editing state on successful submission
       />
     );
   }
+
+  // JSX for rendering the drawing details and actions
   return (
     <div className="drawing1">
       <div className="left-section">
@@ -119,7 +109,6 @@ const Drawing1 = ({ name, notes, mediaFiles = [], music, songDetails, onViewMore
               </div>
             </div>
           ) : (
-            // Display this message if songDetails are missing or incomplete
             <div className="song-not-chosen">Song not chosen</div>
           )}
         </div>
@@ -166,4 +155,3 @@ const Drawing1 = ({ name, notes, mediaFiles = [], music, songDetails, onViewMore
 };
 
 export default Drawing1;
-
