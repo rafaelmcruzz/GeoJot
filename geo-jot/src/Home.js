@@ -1,27 +1,27 @@
+import './Home.css';
 import React, { useState, useEffect } from 'react';
-import './Home.css'; // Make sure your CSS is correctly linked
+import { useUser } from './UserContext';
+import { useNavigate } from 'react-router-dom';
 import Map from './Map';
 import WeatherWidget from './WeatherWidget';
 import Search from './Search';
-import { useUser } from './UserContext';
-import { useNavigate } from 'react-router-dom';
 import UserProfile from './UserProfile';
 import ProfilePicture from './ProfilePicture';
 import SettingsModal from './SettingsModal';
 
-
+//LeftSidebar component includes the user profile, recent pins, and meteorology
 function LeftSidebar() {
   const { username, logout } = useUser();
   const [showDropdown, setShowDropdown] = useState(false);
-  const navigate = useNavigate();
   const [recentPins, setRecentPins] = useState([]);
   const [locationDetails, setLocationDetails] = useState({});
   const [showSettingsModal, setShowSettingsModal] = useState(false);
   const [followersCount, setFollowersCount] = useState(0);
   const [showProfilePicture, setShowProfilePicture] = useState(false);
   const [profilePicUrl, setProfilePicUrl] = useState('https://geojot.s3.eu-west-1.amazonaws.com/profile-pictures/default-profile-pic.jpg');
+  const navigate = useNavigate();
 
-
+  // Fetch user details and recent pins when username changes
   useEffect(() => {
     // Only proceed if username is available
     if (!username) return;
@@ -29,7 +29,6 @@ function LeftSidebar() {
     fetch(`http://localhost:3000/api/users/${username}/details`)
       .then(response => response.json())
       .then(data => {
-        // Assuming 'data' includes the followers array
         setFollowersCount(data.followers?.length || 0);
         setProfilePicUrl(data.profilePic || 'https://geojot.s3.eu-west-1.amazonaws.com/profile-pictures/default-profile-pic.jpg');
       })
@@ -37,7 +36,6 @@ function LeftSidebar() {
   }, [username]); 
 
   useEffect(() => {
-    // Fetch recent pins when the component mounts
     const fetchRecentPins = async () => {
       const response = await fetch(`http://localhost:3000/api/pins/recent?username=${username}`);
       const data = await response.json();
@@ -47,6 +45,7 @@ function LeftSidebar() {
     fetchRecentPins();
   }, [username]);
 
+  //Fetch locatuion details for recent pins
   const fetchLocationDetails = async (pin) => {
     const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${pin.position.lat}&lon=${pin.position.lng}&zoom=18&addressdetails=1`;
   
@@ -62,6 +61,7 @@ function LeftSidebar() {
     }
   };
   
+  //Fetch location details for all recent pins
   useEffect(() => {
     const fetchAllLocationDetails = async () => {
       const details = {};
@@ -77,19 +77,23 @@ function LeftSidebar() {
     }
   }, [recentPins]);
 
+  //Toggle the dropdown menu
   const toggleDropdown = () => {
     setShowDropdown(!showDropdown);
   }
 
+  //Handle user logout
   const handleLogout = () => {
     logout();
     navigate('/', { replace: true });
   }
 
+  //Toggle the settings modal
   const toggleSettingsModal = () => {
     setShowSettingsModal(!showSettingsModal);
   };
 
+  //Event Handles for changing profile picture
   const handleChangeProfilePicture = () => {
     setShowProfilePicture(true);
   }
@@ -98,6 +102,7 @@ function LeftSidebar() {
     setProfilePicUrl(newProfilePicUrl);
   };
 
+  //JSX for the left sidebar
   return (
     <div className="left-sidebar">
       <div className="user-profile">
@@ -145,10 +150,8 @@ function LeftSidebar() {
   );
 }
 
+//Component for the main content of the page, which includes the map
 function MainContent({ selectedUser }) {
-
-  
-  // Accept selectedUser as a prop and pass it to Map
   return (
     <div className="main-content">
       <Map selectedUser={selectedUser} />
@@ -156,26 +159,27 @@ function MainContent({ selectedUser }) {
   );
 }
 
+//Main App component that includes the search bar, left sidebar, and main content
 function App() {
   const [selectedUser, setSelectedUser] = useState(null);
-  const { username } = useUser(); // Get the current user's username
-  // Determine if the map being viewed is not the current user's
+  const { username } = useUser();
+
+  // Determines if the map being viewed is not the current user's
   const isViewingOwnMap = !selectedUser || username === selectedUser.username;
   const [isUserProfileVisible, setUserProfileVisible] = useState(false);
 
-
+  //Function to handle user selection
   const onSelectUser = (user) => {
     console.log('Selected user:', user);
     setSelectedUser(user);
-    // setUserProfileVisible(true); // Show the UserProfile as a modal
-
   };
 
-
+  //Function to close the user profile modal
   const closeUserProfile = () => {
     setUserProfileVisible(false);
   };
 
+  //JSX for the App component
   return (
     <div className="home">
       <div className="search-bar">
@@ -191,7 +195,6 @@ function App() {
       <div className="content-container">
         <LeftSidebar />
         <MainContent selectedUser={selectedUser} />
-        {/* Ensure other components that belong to the content-container are included */}
       </div>
       {isUserProfileVisible && (
         <div 

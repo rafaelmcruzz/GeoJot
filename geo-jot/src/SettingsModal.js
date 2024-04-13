@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ConfirmationModal from './ConfirmationModal';
-import './Home.css'; // Make sure your CSS is correctly linked
+import './Home.css';
 
 function SettingsModal({ username, onClose }) {
   const [userDetails, setUserDetails] = useState({});
@@ -11,8 +11,9 @@ function SettingsModal({ username, onClose }) {
   const [statusMessageType, setStatusMessageType] = useState('');
   const navigate = useNavigate();
 
+  //Fetch user details when the component mounts or username changes
   useEffect(() => {
-    if (username) { // Ensure username is not undefined
+    if (username) { 
       fetch(`http://localhost:3000/api/users/${username}/details`)
         .then(response => {
           if (!response.ok) {
@@ -29,6 +30,7 @@ function SettingsModal({ username, onClose }) {
     }
   }, [username]);
 
+  //Function to handle changing the user's password
   const handleChangePassword = async (event) => {
     event.preventDefault();
     const newPassword = event.target.newPassword.value;
@@ -54,7 +56,7 @@ function SettingsModal({ username, onClose }) {
       if (!response.ok) {
         const data = await response.json();
         setStatusMessage(data.error);
-        setAdditionalInfo(data.additionalInfo); // Assuming the server sends additional info under this key
+        setAdditionalInfo(data.additionalInfo);
         setStatusMessageType('error');
         return;
       }
@@ -68,6 +70,7 @@ function SettingsModal({ username, onClose }) {
     }
   };
 
+  //Function to handle deleting the user's account
   const handleDeleteAccount = async () => {
     setShowConfirmation(true);
 
@@ -83,7 +86,6 @@ function SettingsModal({ username, onClose }) {
         setStatusMessage('Account deleted successfully. Redirecting to home page...');
         setStatusMessageType('success');
         sessionStorage.clear();
-        // Log the user out or redirect them to a goodbye or login page
         navigate('/');
       } catch (error) {
         setStatusMessage(error.message);
@@ -92,6 +94,7 @@ function SettingsModal({ username, onClose }) {
     
   };
 
+  // JSX for rendering the settings modal
   return (
     <div className="modal-backdrop" onClick={onClose}>
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>

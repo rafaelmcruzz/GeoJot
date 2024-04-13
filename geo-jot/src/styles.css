@@ -1,4 +1,4 @@
-/* styles.css */
+/* Styling for Form, Login and Register */
 
 @tailwind base;
 @tailwind components;
@@ -6,21 +6,11 @@
 
 /* Ensure the background image covers the entire viewport */
 body {
-  /* background: url(./background.webp) no-repeat center center fixed; */
   background-size: cover;
   margin: 0;
   padding: 0;
 }
 
-/* Center the content vertically and horizontally */
-.container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
-
-/* Style for the login and register forms */
 .form {
   flex: 2;
   background-color: rgba(255, 255, 255, 0.9);
@@ -28,7 +18,6 @@ body {
   text-align: center;
 }
 
-/* Style for input fields and button */
 input[type="text"],
 input[type="password"],
 input[type="email"],
@@ -39,16 +28,15 @@ button {
   padding: 10px 20px;
   margin: 10px 0;
   border: 0.5px solid #c1c1c1;
-  width: 100%; /* Ensure full width */
-  box-sizing: border-box; /* Include padding and border in width */
+  width: 100%; 
+  box-sizing: border-box; 
 }
 
-/* Add focus style for input fields to prevent changing border width */
 input[type="text"]:focus,
 input[type="password"]:focus,
 input[type="email"]:focus {
-  border: 0.5px solid #0070f3; /* Use a consistent border width and color on focus */
-  outline: none; /* Remove default focus outline */
+  border: 0.5px solid #0070f3; 
+  outline: none; 
 }
 
 h2[type="title"] {
@@ -57,7 +45,6 @@ h2[type="title"] {
   font-weight: 900;
 }
 
-/* Additional styles for the register form */
 .form.register {
   background-color: rgba(255, 255, 255, 0.9);
   border-radius: 10px;
@@ -75,28 +62,24 @@ h2[type="title"] {
   padding: 10px 20px;
   margin: 10px 0;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  width: 100%; /* Ensure full width */
-  box-sizing: border-box; /* Include padding and border in width */
+  width: 100%; 
+  box-sizing: border-box; 
 }
 
-/* Pin form styling */
 .form-group {
-  margin-bottom: 15px; /* Add margin between form groups */
+  margin-bottom: 15px; 
 }
 
 label {
-  display: block; /* Display labels as block elements to place them above inputs */
-  margin-bottom: 5px; /* Add margin below labels for spacing */
+  display: block; 
+  margin-bottom: 5px;
 }
 
-/* Adjust label position for media input */
 .media-label {
-  display: inline-block; /* Display label as inline-block element */
-  margin-right: 10px; /* Add margin to separate label from input */
+  display: inline-block;
+  margin-right: 10px; 
 }
 
-
-/* Add to your styles.css */
 .modal-backdrop {
   position: fixed;
   top: 0;
@@ -107,7 +90,7 @@ label {
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000; /* Ensure this is appropriately set to be above other content */
+  z-index: 1000;
 }
 
 .form-modal {
@@ -116,32 +99,30 @@ label {
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  z-index: 1001; /* Above the backdrop */
+  z-index: 1001;
 }
 
 .close-button {
-  font-size: 14px; /* Adjust as necessary */
-  color: #000000; /* Text color */
-  background-color: rgb(255, 255, 255); /* Background color, e.g., Bootstrap primary button color */
-  border: 1px solid #000000; /* Border color */
-  padding: 1px 8px; /* Padding */
-  border-radius: 10px; /* Rounded corners */
-  cursor: pointer; /* Mouse cursor on hover */
+  font-size: 14px; 
+  color: #000000;
+  background-color: rgb(255, 255, 255); 
+  border: 1px solid #000000; 
+  padding: 1px 8px;
+  border-radius: 10px; 
+  cursor: pointer; 
   position: absolute;
   top: -3px;
   right: 9px;
   width: 30px;
-  z-index: 10; /* Ensure it's above other modal content */
+  z-index: 10;
 }
 
 .close-button:hover {
-  color: #ed1111; /* Change color on hover if desired */
+  color: #ed1111; 
 }
 
-
-/* styles.css */
 .form {
-  background-color: #ffffff; /* White background */
+  background-color: #ffffff; 
   padding: 20px;
 }
 
@@ -152,7 +133,7 @@ label {
 label {
   display: block;
   font-weight: bold;
-  color: #333333; /* Dark text color */
+  color: #333333; 
   margin-bottom: 8px;
 }
 
@@ -160,15 +141,15 @@ textarea,
 input[type="file"] {
   width: 100%;
   padding: 8px;
-  border: 1px solid #cccccc; /* Light gray border */
+  border: 1px solid #cccccc; 
   border-radius: 4px;
   box-sizing: border-box;
   font-size: 14px;
 }
 
 button[type="submit"] {
-  background-color: #0070f3; /* Anthropic blue color */
-  color: #ffffff; /* White text color */
+  background-color: #0070f3; 
+  color: #ffffff; 
   border: none;
   padding: 10px 16px;
   border-radius: 100px;
@@ -179,14 +160,13 @@ button[type="submit"] {
 }
 
 button[type="submit"]:hover {
-  background-color: #0054b3; /* Darker blue on hover */
+  background-color: #0054b3; 
 }
 
-/* Ensure input and textarea have consistent border width on focus */
 input[type="text"]:focus,
 textarea:focus {
-  border: 1px solid #0070f3; /* Consistent border color for focused state */
-  outline: none; /* Remove default focus outline */
+  border: 1px solid #0070f3;
+  outline: none;
 }
 
 .music-search-results {
@@ -207,8 +187,7 @@ textarea:focus {
 }
 
 .music-search-results:hover {
-  /* Additional styles for hover state */
-  background-color: #f0f0f0; /* Change background color on hover */
+  background-color: #f0f0f0; 
 }
 
 .media-label {

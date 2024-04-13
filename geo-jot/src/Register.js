@@ -1,16 +1,19 @@
 import React, { useState } from 'react';
+
 import axios from 'axios';
 import logo from './logo.jpg';
 import './Home.css';
 
 function Register() {
-  // Define state variables for email, username, and password
+  
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [usernameErrorMessage, setUsernameErrorMessage] = useState('');
   const [passwordErrorMessage, setPasswordErrorMessage] = useState('');
   const [emailErrorMessage, setEmailErrorMessage] = useState('');
+
+
   // Handle form submission
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -18,15 +21,15 @@ function Register() {
     setPasswordErrorMessage('');
     setEmailErrorMessage('');
 
+    // Validate the username length
     if (username.length < 4 || username.length > 20) {
       console.error('Username must be between 4 and 20 characters');
       setUsernameErrorMessage('Username must be between 4 and 20 characters');
-      return; // Stop the form submission
+      return;
     }
     
     try {
 
-      // Send the registration data to the backend
       const response = await axios.post('http://localhost:3000/api/register', {
         email,
         username,
@@ -35,9 +38,11 @@ function Register() {
 
       // Handle successful registration
       console.log('User registered successfully:', response.data);
-      // Optionally, redirect the user to a different page or display a success message
+      window.location.reload(); //Reload the page to show the login form
+
     } catch (error) {
       
+      //Handle registration errors from backend
       if (error.response) {
         const message = error.response.data.error;
         if (message.includes('Username')) {
@@ -48,7 +53,6 @@ function Register() {
           setEmailErrorMessage(message);
         }
       } else {
-        // Generic error handling
         console.error("An unexpected error occurred.", error);
       }
     }

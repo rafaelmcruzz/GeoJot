@@ -1,10 +1,14 @@
 import React, { useState } from "react";
 import './Home.css';
 
+//Allows user to invite collaborators to a pin
 const CollaboratorInvite = ({ pinId, onClose }) => {
+
+    //Manage state for collaborator username and feedback message
     const [collaboratorUsername, setCollaboratorUsername] = useState('');
     const [feedbackMessage, setFeedbackMessage] = useState({ message: '', type: '' });
 
+    //Function to invite a collaborator to the pin
     const inviteCollaborator = async (event) => {
         event.preventDefault();
         if (!collaboratorUsername) return;
@@ -15,15 +19,18 @@ const CollaboratorInvite = ({ pinId, onClose }) => {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ collaboratorUsername }),
             });
+            //Feedback message for successful or failed invitation
             if (!response.ok) throw new Error('Failed to invite collaborator');
             setFeedbackMessage({ message: 'Collaborator invited successfully', type: 'success' });
             onClose(); // Close the form upon successful invitation
         } catch (error) {
+            //Log error and set feedback message for failed invitation
             console.error("Error inviting collaborator:", error);
             setFeedbackMessage({ message: 'Failed to invite collaborator', type: 'error' });
         }
     };
 
+    //JSX for the CollaboratorInvite component
     return (
         <div className="collaborator-invite-wrapper">
             <form onSubmit={inviteCollaborator} className="invite-form">

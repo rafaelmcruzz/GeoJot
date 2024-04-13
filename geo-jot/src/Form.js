@@ -7,7 +7,9 @@ import { faPlay, faStop } from '@fortawesome/free-solid-svg-icons';
 // import { FileUploader } from "react-drag-drop-files";
 
 
+//Component to display the form for creating or editing a pin
 const Form = ({ onSubmit, onDelete, _id, initialMediaFiles = [], onSubmissionSuccess }) => {
+
   const [name, setName] = useState('');
   const [notes, setNotes] = useState('');
   const [music, setMusic] = useState('');
@@ -58,11 +60,12 @@ const Form = ({ onSubmit, onDelete, _id, initialMediaFiles = [], onSubmissionSuc
     }
 
     try {
+      //Fetches music search results from the spotify API
       const url = `http://localhost:3000/api/spotify/search?query=${encodeURIComponent(query)}`;
       console.log(`Making request to: ${url}`); // Log for debugging
       const response = await fetch(url);
       const data = await response.json();
-      setMusicSearchResults(data.tracks.items); // This assumes your Spotify search response structure
+      setMusicSearchResults(data.tracks.items);
     } catch (error) {
       console.error('Error fetching music search results:', error);
     }
@@ -115,14 +118,14 @@ const Form = ({ onSubmit, onDelete, _id, initialMediaFiles = [], onSubmissionSuc
             // Populate other fields as necessary
           } catch (error) {
             console.error('Error fetching pin details:', error);
-            // Optionally handle error (e.g., displaying a message to the user)
           }
         }
       };
   
       fetchPinDetails();
     }, [_id]);
-
+  
+  //Function to handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData();
@@ -132,6 +135,7 @@ const Form = ({ onSubmit, onDelete, _id, initialMediaFiles = [], onSubmissionSuc
     formData.append('selectedSongDetails', JSON.stringify(selectedSongDetails));
     mediaFiles.forEach(file => formData.append('mediaFiles', file));
 
+    //Check if name is valid before submitting
     const trimmedName = name.trim();
     const isNameValid = trimmedName.length > 2 && trimmedName.length < 21;
 
@@ -140,8 +144,7 @@ const Form = ({ onSubmit, onDelete, _id, initialMediaFiles = [], onSubmissionSuc
       return;
     }
 
-
-    try {
+    try { //Submit the form data to backend
       const response = await fetch(`http://localhost:3000/api/pins${_id ? `/${_id}` : ''}`, {
         method: _id ? 'PUT' : 'POST',
         body: formData,
@@ -149,6 +152,7 @@ const Form = ({ onSubmit, onDelete, _id, initialMediaFiles = [], onSubmissionSuc
 
       if (response.ok) {
         console.log(`${_id ? 'Update' : 'Create'} request successful`);
+        //Resets form fields and media input after successful submission
         setName('');
         setNotes('');
         setMusic('');
@@ -158,7 +162,6 @@ const Form = ({ onSubmit, onDelete, _id, initialMediaFiles = [], onSubmissionSuc
           mediaInputRef.current.value = '';
         }
 
-        // Call the onSubmissionSuccess callback provided by the parent component
         if (typeof onSubmissionSuccess === 'function') {
           onSubmissionSuccess();
         }
@@ -170,7 +173,7 @@ const Form = ({ onSubmit, onDelete, _id, initialMediaFiles = [], onSubmissionSuc
     }
   };
 
-
+  // JSX for rendering the form
   return (
     <div className="form">
       <form onSubmit={handleSubmit}>
@@ -246,4 +249,3 @@ const Form = ({ onSubmit, onDelete, _id, initialMediaFiles = [], onSubmissionSuc
 };
 
 export default Form;
-

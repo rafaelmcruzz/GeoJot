@@ -8,12 +8,14 @@ export const UserProvider = ({ children }) => {
     const [username, setUsername] = useState('');
 
     useEffect(() => {
+        //Retrieve the username from session storage
         const storedUsername = sessionStorage.getItem('username');
         if (storedUsername) {
             setUsername(storedUsername);
         }
     }, []);
 
+    // Function to log out the user
     const logout = () => {
         sessionStorage.removeItem('username');
         setUsername('');

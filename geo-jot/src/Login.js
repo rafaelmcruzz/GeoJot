@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios'; // Import Axios for making HTTP requests
+import axios from 'axios';
 import Register from './Register';
 import { Navigate } from "react-router-dom";
 import { useUser } from './UserContext';
@@ -7,16 +7,18 @@ import frombg from './frombg.jpeg';
 import logo from './logo.jpg';
 
 function Login({ }) {
-  const [showRegister, setShowRegister] = useState(false); // State to track whether to show the register form
-  const [usernameInput, setUsernameInput] = useState(''); // State to store username input
-  const [password, setPassword] = useState(''); // State to store password input
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // State to track login status
+  const [showRegister, setShowRegister] = useState(false);
+  const [usernameInput, setUsernameInput] = useState(''); 
+  const [password, setPassword] = useState('');
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const { setUsername } = useUser();
 
+  //Toggle between login and register forms
   const toggleRegisterForm = () => {
     setShowRegister(prevState => !prevState);
   };
 
+  //Handle login form submission
   const handleLoginSubmit = async (event) => {
     event.preventDefault();
 
@@ -28,17 +30,14 @@ function Login({ }) {
       });
 
       // Handle successful login
-      console.log('User logged in successfully:', response.data);
       setIsLoggedIn(true);
       setUsername(response.data.user.username); // Adjusted access path
-      // After successful login
+
+      // Store login status in session storage
       sessionStorage.setItem('isLoggedIn', 'true');
       sessionStorage.setItem('username', response.data.user.username);
-      console.log('Current user:', response.data.user.username);
-
  
     } catch (error) {
-      // Handle login error - e.g., display error message to the user
       console.error('Error logging in:', error);
     }
   };
@@ -48,6 +47,7 @@ function Login({ }) {
     return <Navigate to="/home" />;
   }
 
+  // JSX for rendering the login form
   return (
     <div className="background-image">
     <div className="login-page">
@@ -73,7 +73,6 @@ function Login({ }) {
           <Register />
         )}
         <form className="login-form">
-          {/* Button to toggle between login and register forms */}
           <button type="button" onClick={toggleRegisterForm}>
             {showRegister ? 'Already have an account? Login' : 'Don\'t have an account? Sign up'}
           </button>

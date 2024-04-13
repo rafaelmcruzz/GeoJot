@@ -1,10 +1,12 @@
 import React from 'react';
-import './Home.css'; // Import the Home.css file
+import './Home.css';
 
-const Drawing2 = ({ name, notes, music, mediaFiles, onBack, songDetails }) => {
-  // Assume mediaFiles is an array of URLs for images
+// Component to display the second drawing, display all details and allow to return to the first drawing
+const Drawing2 = ({ name, notes, mediaFiles, onBack, songDetails }) => {
+
   const imagesToDisplay = mediaFiles && mediaFiles.slice(0, 9); // Display only the first 9 images
 
+  // JSX for rendering the drawing details and back action
   return (
     <div className="drawing2">
       <div className="left-side">

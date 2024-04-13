@@ -20,6 +20,7 @@ const ProfilePicture = ({ username, onClose, currentProfilePic, onProfilePicUpda
         }
     };
 
+    //Handle form submission
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -27,7 +28,6 @@ const ProfilePicture = ({ username, onClose, currentProfilePic, onProfilePicUpda
             setFeedbackMessage({ message: 'Please select a file before submitting.', type: 'error' });
             return;
         }
-
         const formData = new FormData();
         formData.append('profilePic', file);
 
@@ -35,24 +35,21 @@ const ProfilePicture = ({ username, onClose, currentProfilePic, onProfilePicUpda
             const response = await axios.put(`http://localhost:3000/api/users/${username}/profile-picture`, formData, {
                 method: 'PUT',
             });
-
-            // Handle success
             const newProfilePicUrl = response.data.profilePic;
             setFeedbackMessage({ message: 'Profile picture updated successfully!', type: 'success' });
             onProfilePicUpdate(newProfilePicUrl);
             onClose();
         } catch (error) {
-            // Handle error
             setFeedbackMessage({ message: 'Error uploading profile picture.', type: 'error' });
         }
     };
 
+    // JSX for rendering the form
     return (
         <form onSubmit={handleSubmit} className="profile-picture">
             <div className='profile-pictures-container'>
                 <div className="current-profile-picture">
                     <p>Current Profile Picture:</p>
-                    {/* Display the current profile picture if it exists */}
                     {currentProfilePic && currentProfilePic.profilePicUrl ? (
                         <img src={currentProfilePic.profilePicUrl} alt="Current Profile" style={{ width: '100px', height: '100px' }} />
                     ) : (

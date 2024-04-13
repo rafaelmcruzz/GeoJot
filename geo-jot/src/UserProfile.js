@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { useUser } from './UserContext'; // Ensure this path is correct
+import { useUser } from './UserContext';
 
 const UserProfile = ({ userData }) => {
-  const { username } = useUser(); // Use the useUser hook to access the current user's username
+  const { username } = useUser();
   const [isFollowing, setIsFollowing] = useState(userData.followers?.includes(username));
   const [followersCount, setFollowersCount] = useState(userData.followers?.length || 0);
 
@@ -38,6 +38,8 @@ const UserProfile = ({ userData }) => {
     });
   };
 
+
+  // JSX for rendering the user profile
   return (
     <div style={{ border: '1px solid gray', borderRadius: '8px', padding: '16px', display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
       <img
