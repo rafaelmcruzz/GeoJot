@@ -8,13 +8,17 @@ import Drawing2 from './Drawing2';
 import markerIconPng from './Pin.png';
 import { v4 as uuidv4 } from 'uuid';
 import { useUser } from './UserContext';
+import 'animate.css';
 
-const customIcon = new L.Icon({
-  iconUrl: markerIconPng,
+
+const animatedIcon = new L.DivIcon({
+  html: `<div class="custom-icon animate__animated animate__bounce" style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;"><img src="${markerIconPng}" style="width: 100%; height: auto;"/></div>`,
+  className: '', // Make sure this eliminates all default padding/margin
   iconSize: [40, 40],
-  iconAnchor: [20, 41],
-  popupAnchor: [1, -34],
+  iconAnchor: [20, 40],
+  popupAnchor: [1, -34]
 });
+
 
 
 function Map({ selectedUser }) {
@@ -401,25 +405,23 @@ function Map({ selectedUser }) {
         />
         <LocationMarker /> {/* Add LocationMarker here */}
         {markers.map((marker, idx) => (
-          <Marker 
-          key={idx} 
-          position={marker.position} 
-          icon={customIcon} 
-          eventHandlers={{
-            click: () => {
-              if (isViewingOwnMap) {
-                // If viewing own map, allow editing/deleting
-                setSelectedMarker(marker);
-                setShowForm(true);
-                handleMarkerClick(marker); // This should handle the logic for showing editable details
-              } else {
-                // If viewing someone else's map, only show Drawing1
-                setSelectedMarker(marker);
-                setShowForm(true); // Show the form/modal that includes Drawing1
-                setSelectedDrawing('Drawing1'); // Directly set to show Drawing1 without edit/delete options
-              }
-            }
-          }}
+          <Marker
+  key={idx}
+  position={marker.position}
+  icon={animatedIcon}
+  eventHandlers={{
+    click: () => {
+      if (isViewingOwnMap) {
+        setSelectedMarker(marker);
+        setShowForm(true);
+        handleMarkerClick(marker);
+      } else {
+        setSelectedMarker(marker);
+        setShowForm(true);
+        setSelectedDrawing('Drawing1');
+      }
+    }
+  }}
         ></Marker>
       
         ))}

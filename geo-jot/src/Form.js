@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import './styles.css';
 import './Home.css';
-import { FileUploader } from "react-drag-drop-files";
+// import { FileUploader } from "react-drag-drop-files";
 
 
 const Form = ({ onSubmit, onDelete, _id, initialMediaFiles = [], onSubmissionSuccess }) => {
