@@ -17,7 +17,7 @@ const Drawing2 = ({ name, notes, mediaFiles, onBack, songDetails }) => {
           <label htmlFor="notes">Notes:</label>
           <textarea
             id="notes"
-            value={notes} // Use notes prop
+            value={notes}
             readOnly
             style={{ height: '100px' }}
           />
@@ -36,7 +36,6 @@ const Drawing2 = ({ name, notes, mediaFiles, onBack, songDetails }) => {
               </div>
             </div>
           ) : (
-            // Display this message if songDetails are missing or incomplete
             <div className="song-not-chosen">Song not chosen</div>
           )}
         </div>
@@ -49,7 +48,7 @@ const Drawing2 = ({ name, notes, mediaFiles, onBack, songDetails }) => {
               <img key={index} src={url} alt={`Image ${index + 1}`} />
             ))
           ) : (
-            <p>Loading images...</p>
+            <p>No images uploaded yet.</p>
           )}
         </div>
       </div>

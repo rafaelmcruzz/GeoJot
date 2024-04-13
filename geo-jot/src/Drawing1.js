@@ -127,7 +127,7 @@ const Drawing1 = ({ name, notes, mediaFiles = [], music, songDetails, onViewMore
               <img key={index} src={fileUrl} alt={`Media ${index + 1}`} className="thumbnail" />
             ))
           ) : (
-            <p>No images available</p>
+            <p>No images uploaded yet.</p>
           )}
         </div>
       </div>

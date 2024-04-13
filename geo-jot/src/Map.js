@@ -320,7 +320,7 @@ function Map({ selectedUser }) {
           music: '',
           media: null,
           username,
-        };d
+        };
         handleMapClick(newMarker);
       },
       popupopen() {
