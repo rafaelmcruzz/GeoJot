@@ -1,6 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import './styles.css';
 import './Home.css';
+import { FileUploader } from "react-drag-drop-files";
+
 
 const Form = ({ onSubmit, onDelete, _id, initialMediaFiles = [], onSubmissionSuccess }) => {
   const [name, setName] = useState('');
@@ -57,6 +59,7 @@ const Form = ({ onSubmit, onDelete, _id, initialMediaFiles = [], onSubmissionSuc
             setName(data.name || '');
             setNotes(data.notes || '');
             setMusic(data.music || '');
+            setSelectedSongDetails(data.selectedSongDetails || {}); // Ensure this is correctly set
             // Populate other fields as necessary
           } catch (error) {
             console.error('Error fetching pin details:', error);

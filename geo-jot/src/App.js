@@ -7,19 +7,7 @@ import Login from './Login';
 import Home from './Home';
 
 function App() {
-  // const [username, setUsername] = useState(''); // Add this line
-  // const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-
-  // useEffect(() => {
-  //   const loggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
-  //   const storedUsername = sessionStorage.getItem('username');
-
-  //   if (loggedIn && storedUsername) {
-  //     setIsLoggedIn(true);
-  //     setUsername(storedUsername);
-  //   }
-  // }, []);
 
 
   return (
