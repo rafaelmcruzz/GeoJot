@@ -10,7 +10,7 @@ import ProfilePicture from './ProfilePicture';
 import SettingsModal from './SettingsModal';
 
 //LeftSidebar component includes the user profile, recent pins, and meteorology
-function LeftSidebar() {
+function LeftSidebar( {onPinSelect} ) {
   const { username, logout } = useUser();
   const [showDropdown, setShowDropdown] = useState(false);
   const [recentPins, setRecentPins] = useState([]);
@@ -135,7 +135,7 @@ function LeftSidebar() {
       <div className="recent-pins">
         <h3 className="recent-pins-header">Recent Pins</h3>
         {recentPins.map((pin, index) => (
-            <div key={pin._id} className={`recent-pin ${index === 0 ? 'first-pin' : ''}`}>
+            <div key={pin._id} className={`recent-pin ${index === 0 ? 'first-pin' : ''}`} onClick={() => onPinSelect(pin)}>
                 <div className="pin-icon"></div>
                 <div className="pin-details">
                     <p className="pin-name">{pin.name}</p>
@@ -151,10 +151,10 @@ function LeftSidebar() {
 }
 
 //Component for the main content of the page, which includes the map
-function MainContent({ selectedUser }) {
+function MainContent({ selectedUser, selectedPin }) {
   return (
     <div className="main-content">
-      <Map selectedUser={selectedUser} />
+      <Map selectedUser={selectedUser} selectedPin={selectedPin}/>
     </div>
   );
 }
@@ -162,6 +162,7 @@ function MainContent({ selectedUser }) {
 //Main App component that includes the search bar, left sidebar, and main content
 function App() {
   const [selectedUser, setSelectedUser] = useState(null);
+  const [selectedPin, setSelectedPin] = useState(null);
   const { username } = useUser();
 
   // Determines if the map being viewed is not the current user's
@@ -193,8 +194,8 @@ function App() {
         )}
       </div>
       <div className="content-container">
-        <LeftSidebar />
-        <MainContent selectedUser={selectedUser} />
+        <LeftSidebar onPinSelect={setSelectedPin} />
+        <MainContent selectedUser={selectedUser} selectedPin={selectedPin} />
       </div>
       {isUserProfileVisible && (
         <div 

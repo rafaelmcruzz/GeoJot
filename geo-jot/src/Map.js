@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { MapContainer, TileLayer, Marker, useMapEvents } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, useMapEvents, useMap } from 'react-leaflet';
 import { v4 as uuidv4 } from 'uuid';
 import { useUser } from './UserContext';
 import L from 'leaflet';
@@ -20,7 +20,7 @@ const animatedIcon = new L.DivIcon({
 });
 
 //Main map component
-function Map({ selectedUser }) {
+function Map({ selectedUser, selectedPin }) {
  
   const [markers, setMarkers] = useState([]);
   const [showForm, setShowForm] = useState(false);
@@ -174,6 +174,18 @@ function Map({ selectedUser }) {
     setShowForm(false);
   };
 
+  //Zooms in on selected pin from recent pins
+  function FlyToMarker() {
+    const map = useMap(); // This hook is used here safely inside the MapContainer
+
+    useEffect(() => {
+      if (selectedPin) {
+        map.flyTo([selectedPin.position.lat, selectedPin.position.lng], 15); // Adjust zoom level as needed
+      }
+    }, [selectedPin, map]);
+
+    return null; // This component does not render anything
+  }
 
   //Fetch pins when the component mounts
   useEffect(() => {
@@ -369,6 +381,7 @@ function Map({ selectedUser }) {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
+        <FlyToMarker />
         <LocationMarker />
         {markers.map((marker, idx) => (
           <Marker

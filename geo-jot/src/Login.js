@@ -62,41 +62,50 @@ function Login({ }) {
             <h2 type="title">Welcome to GeoJot</h2>
             <form onSubmit={handleLoginSubmit}>
               <div className="form-group">
-                <input type="text" id="username" name="username" placeholder="Username" value={usernameInput} onChange={(e) => setUsernameInput(e.target.value)} required />
+              <input 
+                type="text" 
+                id="username" 
+                name="username" 
+                placeholder="Username" 
+                value={usernameInput} 
+                onChange={(e) => setUsernameInput(e.target.value)} 
+                required 
+                style={{ backgroundColor: 'white', borderRadius: '20px' }}
+              />
               </div>
               <div className="form-group">
                 <input type="password" id="password" name="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
               </div>
               <button style={{
-    backgroundColor: '#94c2e7', /* Earthy background color */
-    color: 'white',
-    padding: '12px 25px',
-    border: 'none',
-    borderRadius: '5px',
-    fontFamily: 'Quicksand, sans-serif',
-    boxShadow: '0 5px #775936', /* 3D button effect */
-    transition: 'all 0.3s ease', /* Smooth hover transition */
-    cursor: 'pointer', /* Indicate that the button is clickable */  
-    boxShadow: 'none'
-}} type="submit">Login</button>
+                backgroundColor: '#94c2e7',
+                color: 'white',
+                padding: '12px 25px',
+                border: 'none',
+                borderRadius: '5px',
+                fontFamily: 'Quicksand, sans-serif',
+                boxShadow: '0 5px #775936',
+                transition: 'all 0.3s ease',
+                cursor: 'pointer',
+                boxShadow: 'none'
+              }} type="submit">Login</button>
             </form>
           </div>
         ) : (
           <Register />
         )}
-        <form className="login-form">
-          <button type="button" onClick={toggleRegisterForm} style={{
-    backgroundColor: '#94c2e7', /* Earthy background color */
-    color: 'white',
-    padding: '12px 25px',
-    border: 'none',
-    borderRadius: '5px',
-    fontFamily: 'Quicksand, sans-serif',
-    boxShadow: '0 5px #775936', /* 3D button effect */
-    transition: 'all 0.3s ease', /* Smooth hover transition */
-    cursor: 'pointer', /* Indicate that the button is clickable */  
-    boxShadow: 'none'
-}}>
+          <form className="login-form">
+                <button type="button" onClick={toggleRegisterForm} style={{
+                backgroundColor: '#94c2e7',
+                color: 'white',
+                padding: '12px 25px',
+                border: 'none',
+                borderRadius: '5px',
+                fontFamily: 'Quicksand, sans-serif',
+                boxShadow: '0 5px #775936',
+                transition: 'all 0.3s ease',
+                cursor: 'pointer',   
+                boxShadow: 'none'
+            }}>
             {showRegister ? 'Already have an account? Login' : 'Don\'t have an account? Sign up'}
           </button>
         </form>
