@@ -2,6 +2,7 @@ import './Home.css';
 import React, { useState, useEffect } from 'react';
 import { useUser } from './UserContext';
 import { useNavigate } from 'react-router-dom';
+import { usePins } from './PinContext';
 import Map from './Map';
 import WeatherWidget from './WeatherWidget';
 import Search from './Search';
@@ -13,13 +14,14 @@ import SettingsModal from './SettingsModal';
 function LeftSidebar( {onPinSelect} ) {
   const { username, logout } = useUser();
   const [showDropdown, setShowDropdown] = useState(false);
-  const [recentPins, setRecentPins] = useState([]);
+  //const [recentPins, setRecentPins] = useState([]);
   const [locationDetails, setLocationDetails] = useState({});
   const [showSettingsModal, setShowSettingsModal] = useState(false);
   const [followersCount, setFollowersCount] = useState(0);
   const [showProfilePicture, setShowProfilePicture] = useState(false);
   const [profilePicUrl, setProfilePicUrl] = useState('https://geojot.s3.eu-west-1.amazonaws.com/profile-pictures/default-profile-pic.jpg');
   const navigate = useNavigate();
+  const { recentPins, fetchRecentPins } = usePins();
 
   // Fetch user details and recent pins when username changes
   useEffect(() => {
@@ -36,14 +38,8 @@ function LeftSidebar( {onPinSelect} ) {
   }, [username]); 
 
   useEffect(() => {
-    const fetchRecentPins = async () => {
-      const response = await fetch(`http://localhost:3000/api/pins/recent?username=${username}`);
-      const data = await response.json();
-      setRecentPins(data);
-    };
-  
     fetchRecentPins();
-  }, [username]);
+  }, [fetchRecentPins]);
 
   //Fetch locatuion details for recent pins
   const fetchLocationDetails = async (pin) => {
@@ -102,6 +98,10 @@ function LeftSidebar( {onPinSelect} ) {
     setProfilePicUrl(newProfilePicUrl);
   };
 
+  useEffect(() => {
+    console.log('Recent pins updated', recentPins);
+  }, [recentPins]);
+
   //JSX for the left sidebar
   return (
     <div className="left-sidebar">
@@ -151,10 +151,10 @@ function LeftSidebar( {onPinSelect} ) {
 }
 
 //Component for the main content of the page, which includes the map
-function MainContent({ selectedUser, selectedPin }) {
+function MainContent({ selectedUser, selectedPin, setSelectedPin }) {
   return (
     <div className="main-content">
-      <Map selectedUser={selectedUser} selectedPin={selectedPin}/>
+      <Map selectedUser={selectedUser} selectedPin={selectedPin} setSelectedPin={setSelectedPin} />
     </div>
   );
 }
@@ -195,7 +195,7 @@ function App() {
       </div>
       <div className="content-container">
         <LeftSidebar onPinSelect={setSelectedPin} />
-        <MainContent selectedUser={selectedUser} selectedPin={selectedPin} />
+        <MainContent selectedUser={selectedUser} selectedPin={selectedPin} setSelectedPin={setSelectedPin} />
       </div>
       {isUserProfileVisible && (
         <div 

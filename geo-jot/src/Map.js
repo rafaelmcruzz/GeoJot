@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, useMapEvents, useMap } from 'react-leaflet';
 import { v4 as uuidv4 } from 'uuid';
 import { useUser } from './UserContext';
+import { usePins } from './PinContext';
 import L from 'leaflet';
 import Form from './Form';
 import Drawing1 from './Drawing1';
@@ -20,12 +21,13 @@ const animatedIcon = new L.DivIcon({
 });
 
 //Main map component
-function Map({ selectedUser, selectedPin }) {
+function Map({ selectedUser, selectedPin, setSelectedPin}) {
  
   const [markers, setMarkers] = useState([]);
   const [showForm, setShowForm] = useState(false);
   const [selectedMarker, setSelectedMarker] = useState(null);
   const [selectedDrawing, setSelectedDrawing] = useState(null);
+  const { fetchRecentPins } = usePins();
   const { username } = useUser();
   const { username: currentUsername } = useUser();
 
@@ -37,6 +39,7 @@ function Map({ selectedUser, selectedPin }) {
   const handleFormSubmissionSuccess = () => {
     setShowForm(false);
     fetchPins();
+    fetchRecentPins();
   }
 
   // Handler for transitioning from Drawing1 to Drawing2
@@ -47,6 +50,10 @@ function Map({ selectedUser, selectedPin }) {
   // Handler for transitioning back from Drawing2 to Drawing1
   const backToDrawing1Handler = () => {
     setSelectedDrawing('Drawing1');
+  };
+
+  const handleBackToOwnPins = () => {
+    window.location.reload();
   };
 
   // Function to handle marker click
@@ -176,17 +183,21 @@ function Map({ selectedUser, selectedPin }) {
 
   //Zooms in on selected pin from recent pins
   function FlyToMarker() {
-    const map = useMap(); // This hook is used here safely inside the MapContainer
-  
+    const map = useMap(); 
+
+    if (isViewingOwnMap) {
+
     useEffect(() => {
-      if (isViewingOwnMap && selectedPin) {
-        map.flyTo([selectedPin.position.lat, selectedPin.position.lng], 15); // Adjust zoom level as needed
+      if (selectedPin) {
+        map.flyTo([selectedPin.position.lat, selectedPin.position.lng], 15);
+        setSelectedPin(null);
       }
-    }, [selectedPin, map, isViewingOwnMap]); // Include all dependencies
-  
-    return null; // This component does not render anything
+    }, [selectedPin, map, setSelectedPin]);
+
+    }
+
+    return null;
   }
-  
 
   //Fetch pins when the component mounts
   useEffect(() => {
@@ -211,8 +222,9 @@ function Map({ selectedUser, selectedPin }) {
     }
   }, [selectedUser])
 
-  // Function to handle marker deletion
-  const deleteMarker = async (markerId) => {
+  // Function to handle pin deletion
+  const deleteMarker = async (markerId) => {  
+
     try {
       const response = await fetch(`http://localhost:3000/api/pins/${markerId}`, {
         method: 'DELETE',
@@ -222,6 +234,8 @@ function Map({ selectedUser, selectedPin }) {
         console.log('Pin successfully deleted');
         setMarkers(currentMarkers => currentMarkers.filter(marker => marker._id !== markerId));
         setSelectedMarker(null); // Reset selected marker after deletion
+        fetchPins(); // Fetch pins to update the map
+        fetchRecentPins(); // Fetch recent pins to update the sidebar
       } else {
         console.error('Failed to delete pin:', await response.text());
       }
@@ -386,6 +400,11 @@ function Map({ selectedUser, selectedPin }) {
         />
         <FlyToMarker />
         <LocationMarker />
+        {!isViewingOwnMap && (
+          <button onClick={handleBackToOwnPins} style={{ position: 'absolute', top: 10, left: "45%", zIndex: 1000, width: "135px", whiteSpace: "nowrap" }}>
+            Back to My Pins
+          </button>
+        )}
         {markers.map((marker, idx) => (
           <Marker
           key={idx}

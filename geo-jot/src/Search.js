@@ -46,6 +46,7 @@ const Search = ({ onSelectUser }) => {
         onChange={(e) => setQuery(e.target.value)}
         placeholder="Search users..."
         className="search-input"
+        style= { {backgroundColor: 'white'} }
       />
         {users.length > 0 && (
           <ul className="search-results">

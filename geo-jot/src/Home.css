@@ -13,7 +13,7 @@
   box-sizing: border-box;
   border-right: 2px solid #ffffff; /* Add right border */
   border-bottom: 2px solid #ffffff; /* Add bottom border */
-  
+  font-family: 'Quicksand', sans-serif;
 }
 
 .recent-pin {
@@ -28,7 +28,7 @@
   box-shadow: 0 4px 8px rgba(0.15, 0.15, 0.15, 0.15); /* Add this line */
   transition: opacity 0.3s ease-in-out; /* Smooth transition for the opacity change */
   cursor: pointer;
-
+  font-family: 'Quicksand', sans-serif;
 }
 
 .recent-pin:hover {
@@ -210,9 +210,9 @@
 .viewingMessage {
   position: absolute;
   top: 30px;
-  right: 1180px;
+  right: 1120px;
   z-index: 1;
-  width: 276px;
+  width: auto;
   transform: scale(1.3);
   padding: 5px 10px;
   background-color: #d1ecf1; /* Light blue background, adjust as needed */
@@ -221,6 +221,8 @@
   border-radius: 4px;
   font-size: 0.8rem;
   font-weight: bold;
+  font-family: 'quicksand', sans-serif;
+
 }
 
 .drawing1 {
@@ -1012,6 +1014,7 @@ button.remove-file-btn:hover {
 
 .music-results-container {
   position: relative; /*  Use relative instead of absolute */
+  width: 460px;
  }
 
 .track-container {
