@@ -39,10 +39,9 @@ const Drawing1 = ({ name, notes, mediaFiles = [], music, songDetails, onViewMore
 
   
   useEffect(() => {
-    if (mediaFiles.length > 0) {
-      setImages(mediaFiles);
-    }
+    setImages(mediaFiles || []);
   }, [mediaFiles]);
+  
   
 
   useEffect(() => {
