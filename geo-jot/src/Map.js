@@ -178,11 +178,15 @@ function Map({ selectedUser, selectedPin }) {
   function FlyToMarker() {
     const map = useMap(); // This hook is used here safely inside the MapContainer
 
+    if (isViewingOwnMap) {
+
     useEffect(() => {
       if (selectedPin) {
         map.flyTo([selectedPin.position.lat, selectedPin.position.lng], 15); // Adjust zoom level as needed
       }
     }, [selectedPin, map]);
+
+    }
 
     return null; // This component does not render anything
   }
@@ -311,6 +315,8 @@ function Map({ selectedUser, selectedPin }) {
             const data = await response.json();
             console.log('Pin saved successfully:', data);
             setMarkers((currentMarkers) => [...currentMarkers, { ...markerWithUser, _id: data._id }]);
+            setSelectedMarker({ ...markerWithUser, _id: data._id });
+            setShowForm(true);
           } else {
             console.error('Failed to save pin:', await response.text());
           }
@@ -385,22 +391,22 @@ function Map({ selectedUser, selectedPin }) {
         <LocationMarker />
         {markers.map((marker, idx) => (
           <Marker
-  key={idx}
-  position={marker.position}
-  icon={animatedIcon}
-  eventHandlers={{
-    click: () => {
-      if (isViewingOwnMap) {
-        setSelectedMarker(marker);
-        setShowForm(true);
-        handleMarkerClick(marker);
-      } else {
-        setSelectedMarker(marker);
-        setShowForm(true);
-        setSelectedDrawing('Drawing1');
-      }
-    }
-  }}
+          key={idx}
+          position={marker.position}
+          icon={animatedIcon}
+          eventHandlers={{
+            click: () => {
+              if (isViewingOwnMap) {
+                setSelectedMarker(marker);
+                setShowForm(true);
+                handleMarkerClick(marker);
+              } else {
+                setSelectedMarker(marker);
+                setShowForm(true);
+                setSelectedDrawing('Drawing1');
+              }
+            }
+          }}
         ></Marker>
       
         ))}
