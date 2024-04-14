@@ -1081,3 +1081,80 @@ button.remove-file-btn:hover {
   object-fit: cover; /* Ensure the image covers the area */
   margin-right: 10px; /* Space between the image and the username */
 }
+
+/* Home.css or wherever you're defining your styles */
+
+.drawing1 .slideshow-container {
+  position: relative;
+  width: 400px; /* Reduced width */
+  height: 325px; /* Reduced height to maintain aspect ratio */
+  margin: 20px auto; /* Centers the slideshow horizontally */
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.3));
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+}
+
+.drawing1 .slideshow-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Preserves aspect ratio while covering the container */
+  border-radius: 10px; /* Rounds the corners of the image */
+}
+
+.drawing1 .slideshow-controls {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  transform: translateY(-50%);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.drawing1 .slideshow-controls .fa-chevron-left,
+.drawing1 .slideshow-controls .fa-chevron-right {
+  color: white;
+  background-color: rgba(74, 144, 226, 0.8); /* Blue background color with transparency */
+  padding: 10px;
+  font-size: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  border-radius: 50%; /* Makes the control buttons circular */
+}
+
+.drawing1 .slideshow-controls .fa-chevron-left:hover,
+.drawing1 .slideshow-controls .fa-chevron-right:hover {
+  background-color: rgba(74, 144, 226, 1); /* Solid blue background on hover */
+}
+
+.drawing1 .slideshow-dots {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+}
+
+.drawing1 .slideshow-dots .dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #ccc; /* Light gray color */
+  margin: 0 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.drawing1 .slideshow-dots .dot.active {
+  background-color: #4a90e2; /* Blue color for active dot */
+  transform: scale(1.2); /* Makes the dot slightly bigger when active */
+  transition: transform 0.3s ease-in-out; /* Smooth transition */
+}
+
+.drawing1 .slideshow-centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}

@@ -177,19 +177,16 @@ function Map({ selectedUser, selectedPin }) {
   //Zooms in on selected pin from recent pins
   function FlyToMarker() {
     const map = useMap(); // This hook is used here safely inside the MapContainer
-
-    if (isViewingOwnMap) {
-
+  
     useEffect(() => {
-      if (selectedPin) {
+      if (isViewingOwnMap && selectedPin) {
         map.flyTo([selectedPin.position.lat, selectedPin.position.lng], 15); // Adjust zoom level as needed
       }
-    }, [selectedPin, map]);
-
-    }
-
+    }, [selectedPin, map, isViewingOwnMap]); // Include all dependencies
+  
     return null; // This component does not render anything
   }
+  
 
   //Fetch pins when the component mounts
   useEffect(() => {

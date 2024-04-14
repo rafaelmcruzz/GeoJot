@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './Home.css'; // Ensure this path matches your CSS file's location
 import { useUser } from './UserContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faThumbsUp, faUserPlus } from '@fortawesome/free-solid-svg-icons';
+import { faThumbsUp, faUserPlus, faChevronRight, faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import Form from './Form'
 import { faPlay, faStop } from '@fortawesome/free-solid-svg-icons';
 // npm install --save @fortawesome/react-fontawesome @fortawesome/free-solid-svg-icons
@@ -15,6 +15,9 @@ const Drawing1 = ({ name, notes, mediaFiles = [], music, songDetails, onViewMore
   const [showInvite, setShowInvite] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [audioPlayer, setAudioPlayer] = useState(null);
+  const [images, setImages] = useState(mediaFiles || []);
+  const [currentIndex, setCurrentIndex] = useState(0);
+
 
 
   const handleAudioPlay = () => {
@@ -34,6 +37,13 @@ const Drawing1 = ({ name, notes, mediaFiles = [], music, songDetails, onViewMore
     }
   };
 
+  
+  useEffect(() => {
+    if (mediaFiles.length > 0) {
+      setImages(mediaFiles);
+    }
+  }, [mediaFiles]);
+  
 
   useEffect(() => {
     return () => {
@@ -50,7 +60,13 @@ const Drawing1 = ({ name, notes, mediaFiles = [], music, songDetails, onViewMore
   }, [songDetails]);
   
 
+  const handleNextImage = () => {
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
+  };
 
+  const handlePrevImage = () => {
+    setCurrentIndex((prevIndex) => (prevIndex === 0 ? images.length - 1 : prevIndex - 1));
+  };
 
   const { username } = useUser();
   console.log("songDetails::", songDetails);
@@ -191,14 +207,25 @@ const Drawing1 = ({ name, notes, mediaFiles = [], music, songDetails, onViewMore
         )}
       </div>
       <div className="right-section">
-        <div className="thumbnails">
-          {mediaFiles && mediaFiles.length > 0 ? (
-            mediaFiles.slice(0, 3).map((fileUrl, index) => (
-              <img key={index} src={fileUrl} alt={`Media ${index + 1}`} className="thumbnail" />
-            ))
+      <div className="slideshow-centered">
+        <div className="slideshow-container">
+          {images.length > 0 ? (
+            <img src={images[currentIndex]} alt={`Media ${currentIndex + 1}`} className="slideshow-image" />
           ) : (
             <p>No images available</p>
           )}
+          <div className="slideshow-controls">
+            <FontAwesomeIcon icon={faChevronLeft} onClick={handlePrevImage} />
+            <FontAwesomeIcon icon={faChevronRight} onClick={handleNextImage} />
+          </div>
+          {images.length > 1 && (
+            <div className="slideshow-dots">
+              {images.map((_, index) => (
+                <span key={index} className={`dot ${currentIndex === index ? 'active' : ''}`} onClick={() => setCurrentIndex(index)}></span>
+              ))}
+            </div>
+          )}
+        </div>
         </div>
       </div>
       <div className="action-buttons">
