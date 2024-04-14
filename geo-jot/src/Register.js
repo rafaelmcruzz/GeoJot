@@ -81,7 +81,18 @@ function Register() {
           {passwordErrorMessage && <div className="error">Password must have at least 8 characters, 1 uppercase, 1 lowercase, 1 digit.</div>}
           {emailErrorMessage && <div className="error">{emailErrorMessage}</div>}
         </div>
-        <button type="submit">Register</button>
+        <button style={{
+    backgroundColor: '#94c2e7',  
+    color: 'white',
+    padding: '12px 25px',
+    border: 'none',
+    borderRadius: '5px',
+    fontFamily: 'Quicksand, sans-serif',
+    boxShadow: '0 5px #775936',  
+    transition: 'all 0.3s ease',
+    cursor: 'pointer',
+    boxShadow: 'none'
+}} type="submit">Register</button>
       </form>
     </div>
   );

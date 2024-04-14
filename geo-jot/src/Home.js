@@ -109,7 +109,7 @@ function LeftSidebar() {
         <div className="profile-picture">
           <img src={profilePicUrl} alt="User Profile Picture" onClick={toggleDropdown} />
         </div>
-        <p><strong>{username}</strong></p>
+        <p><strong>@{username}</strong></p>
         <p>Followers: {followersCount}</p>
 
       </div>

@@ -5,6 +5,7 @@ import { Navigate } from "react-router-dom";
 import { useUser } from './UserContext';
 import frombg from './frombg.jpeg';
 import logo from './logo.jpg';
+import './Home.css';
 
 function Login({ }) {
   const [showRegister, setShowRegister] = useState(false);
@@ -66,14 +67,36 @@ function Login({ }) {
               <div className="form-group">
                 <input type="password" id="password" name="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
               </div>
-              <button type="submit">Login</button>
+              <button style={{
+    backgroundColor: '#94c2e7', /* Earthy background color */
+    color: 'white',
+    padding: '12px 25px',
+    border: 'none',
+    borderRadius: '5px',
+    fontFamily: 'Quicksand, sans-serif',
+    boxShadow: '0 5px #775936', /* 3D button effect */
+    transition: 'all 0.3s ease', /* Smooth hover transition */
+    cursor: 'pointer', /* Indicate that the button is clickable */  
+    boxShadow: 'none'
+}} type="submit">Login</button>
             </form>
           </div>
         ) : (
           <Register />
         )}
         <form className="login-form">
-          <button type="button" onClick={toggleRegisterForm}>
+          <button type="button" onClick={toggleRegisterForm} style={{
+    backgroundColor: '#94c2e7', /* Earthy background color */
+    color: 'white',
+    padding: '12px 25px',
+    border: 'none',
+    borderRadius: '5px',
+    fontFamily: 'Quicksand, sans-serif',
+    boxShadow: '0 5px #775936', /* 3D button effect */
+    transition: 'all 0.3s ease', /* Smooth hover transition */
+    cursor: 'pointer', /* Indicate that the button is clickable */  
+    boxShadow: 'none'
+}}>
             {showRegister ? 'Already have an account? Login' : 'Don\'t have an account? Sign up'}
           </button>
         </form>

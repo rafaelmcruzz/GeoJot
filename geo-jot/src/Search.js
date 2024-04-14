@@ -47,15 +47,20 @@ const Search = ({ onSelectUser }) => {
         placeholder="Search users..."
         className="search-input"
       />
-      {users.length > 0 && (
-        <ul className="search-results">
-          {users.map(user => (
-            <li key={user._id} className="search-result-item" onClick={() => onSelectUser(user)}>
-              {user.username}
-            </li>
-          ))}
-        </ul>
-      )}
+        {users.length > 0 && (
+          <ul className="search-results">
+            {users.map(user => (
+              <li key={user._id} className="search-result-item" style={{fontFamily: 'Quicksand, sans-serif'}}onClick={() => onSelectUser(user)}>
+                <img
+                  src={user.profilePic || 'https://geojot.s3.eu-west-1.amazonaws.com/profile-pictures/default-profile-pic.jpg'}
+                  alt={user.username}
+                  className="user-profile-pic"
+                />
+                {user.username}
+              </li>
+            ))}
+          </ul>
+        )}
     </div>
   );
 };

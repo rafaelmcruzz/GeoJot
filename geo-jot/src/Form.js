@@ -1,15 +1,14 @@
-import React, { useState, useRef, useEffect } from 'react';
-import './styles.css';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import './Home.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlay, faStop } from '@fortawesome/free-solid-svg-icons';
+import { useDropzone } from 'react-dropzone';
+
 
 // import { FileUploader } from "react-drag-drop-files";
 
 
-//Component to display the form for creating or editing a pin
 const Form = ({ onSubmit, onDelete, _id, initialMediaFiles = [], onSubmissionSuccess }) => {
-
   const [name, setName] = useState('');
   const [notes, setNotes] = useState('');
   const [music, setMusic] = useState('');
@@ -26,6 +25,18 @@ const Form = ({ onSubmit, onDelete, _id, initialMediaFiles = [], onSubmissionSuc
 
   const handleNameChange = (e) => {
     setName(e.target.value.trim());
+  };
+
+  const onDrop = useCallback(acceptedFiles => {
+    // Do something with the files
+    setMediaFiles(prevFiles => [...prevFiles, ...acceptedFiles]);
+  }, []);
+
+  const { getRootProps, getInputProps } = useDropzone({ onDrop });
+
+  // Function to remove a file from the list
+  const removeFile = (file) => {
+    setMediaFiles(currentFiles => currentFiles.filter(f => f !== file));
   };
 
 
@@ -61,12 +72,11 @@ const Form = ({ onSubmit, onDelete, _id, initialMediaFiles = [], onSubmissionSuc
     }
 
     try {
-      //Fetches music search results from the spotify API
       const url = `http://localhost:3000/api/spotify/search?query=${encodeURIComponent(query)}`;
       console.log(`Making request to: ${url}`); // Log for debugging
       const response = await fetch(url);
       const data = await response.json();
-      setMusicSearchResults(data.tracks.items);
+      setMusicSearchResults(data.tracks.items); // This assumes your Spotify search response structure
     } catch (error) {
       console.error('Error fetching music search results:', error);
     }
@@ -119,14 +129,14 @@ const Form = ({ onSubmit, onDelete, _id, initialMediaFiles = [], onSubmissionSuc
             // Populate other fields as necessary
           } catch (error) {
             console.error('Error fetching pin details:', error);
+            // Optionally handle error (e.g., displaying a message to the user)
           }
         }
       };
   
       fetchPinDetails();
     }, [_id]);
-  
-  //Function to handle form submission
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData();
@@ -136,7 +146,6 @@ const Form = ({ onSubmit, onDelete, _id, initialMediaFiles = [], onSubmissionSuc
     formData.append('selectedSongDetails', JSON.stringify(selectedSongDetails));
     mediaFiles.forEach(file => formData.append('mediaFiles', file));
 
-    //Check if name is valid before submitting
     const trimmedName = name.trim();
     const isNameValid = trimmedName.length > 2 && trimmedName.length < 21;
 
@@ -145,7 +154,8 @@ const Form = ({ onSubmit, onDelete, _id, initialMediaFiles = [], onSubmissionSuc
       return;
     }
 
-    try { //Submit the form data to backend
+
+    try {
       const response = await fetch(`http://localhost:3000/api/pins${_id ? `/${_id}` : ''}`, {
         method: _id ? 'PUT' : 'POST',
         body: formData,
@@ -153,7 +163,6 @@ const Form = ({ onSubmit, onDelete, _id, initialMediaFiles = [], onSubmissionSuc
 
       if (response.ok) {
         console.log(`${_id ? 'Update' : 'Create'} request successful`);
-        //Resets form fields and media input after successful submission
         setName('');
         setNotes('');
         setMusic('');
@@ -163,6 +172,7 @@ const Form = ({ onSubmit, onDelete, _id, initialMediaFiles = [], onSubmissionSuc
           mediaInputRef.current.value = '';
         }
 
+        // Call the onSubmissionSuccess callback provided by the parent component
         if (typeof onSubmissionSuccess === 'function') {
           onSubmissionSuccess();
         }
@@ -174,7 +184,7 @@ const Form = ({ onSubmit, onDelete, _id, initialMediaFiles = [], onSubmissionSuc
     }
   };
 
-  // JSX for rendering the form
+
   return (
     <div className="form">
       <form onSubmit={handleSubmit}>
@@ -200,15 +210,22 @@ const Form = ({ onSubmit, onDelete, _id, initialMediaFiles = [], onSubmissionSuc
           />
         </div>
         <div className="form-group">
-          <label htmlFor="media" className="media-label">
-            Attach Media:
-          </label>
-          <input
-            type="file"
-            id="media"
-            onChange={handleMediaChange}
-            multiple
-          />
+          <label>Attach Media:</label>
+          <div {...getRootProps()} className="dropzone">
+        <input {...getInputProps()} />
+        <p>Drag 'n' drop some files here, or click to select files</p>
+      </div>
+      <aside>
+        <h4>Files</h4>
+        <ul>
+          {mediaFiles.map((file, index) => (
+            <li key={index}>
+              {file.path} - {file.size} bytes
+              <button onClick={() => removeFile(file)} className="remove-file-btn">Remove</button>
+            </li>
+          ))}
+        </ul>
+      </aside>
         </div>
         <div className="form-group">
           <label htmlFor="music">Music:</label>
@@ -219,34 +236,66 @@ const Form = ({ onSubmit, onDelete, _id, initialMediaFiles = [], onSubmissionSuc
             onChange={handleMusicChange}
             placeholder="Search music..."
           />
-          {musicSearchResults.length > 0 && (
-            <div className="music-search-container">
-              {musicSearchResults.map((track) => (
-                <div key={track.id} className="track-container" onClick={() => selectSong(track)}>
-                  <img className="track-album-art" src={track.album.images[0].url} alt={track.name} />
-                  <div className="track-info">
-                    <div className="track-name">{track.name}</div>
-                    <div className="track-artists">{track.artists.map((artist) => artist.name).join(', ')}</div>
+          <div className="music-results-container"> 
+            {musicSearchResults.length > 0 && (
+              <div className="music-search-container">
+                {musicSearchResults.map((track) => (
+                  <div key={track.id} className="track-container" onClick={() => selectSong(track)}>
+                    <img className="track-album-art" src={track.album.images[0].url} alt={track.name} />
+                    <div className="track-info">
+                      <div className="track-name">{track.name}</div>
+                      <div className="track-artists">{track.artists.map((artist) => artist.name).join(', ')}</div>
+                    </div>
+                    <button
+                      className="play-button"
+                      type='button' 
+                      style={{ color: '#2d7fe3' }}  
+                      onClick={(e) => {
+                        e.stopPropagation();  
+                        handlePlayPreview(track.preview_url, track.id);
+                      }}
+                    >
+                      <FontAwesomeIcon icon={currentlyPlaying === track.id ? faStop : faPlay} />
+                    </button>
                   </div>
-                  <button
-                    className="play-button"
-                    onClick={(e) => {
-                      e.stopPropagation(); // Prevent click from bubbling up to the track container
-                      handlePlayPreview(track.preview_url, track.id);
-                    }}
-                  >
-                    <FontAwesomeIcon icon={currentlyPlaying === track.id ? faStop : faPlay} />
-                  </button>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
           )}
         </div>
-        <button  className="view-more-button">Submit</button>
-        {onDelete && <button className="delete-button" onClick={onDelete}>Delete</button>}
-      </form>
+        </div>
+        <button type="submit" style={{
+    backgroundColor: '#94c2e7',  
+    color: 'white',
+    padding: '12px 25px',
+    border: 'none',
+    borderRadius: '5px',
+    fontFamily: 'Quicksand, sans-serif',
+    boxShadow: '0 5px #775936',  
+    transition: 'all 0.3s ease',
+    cursor: 'pointer',
+    boxShadow: 'none'
+}}>Submit</button>      
+{onDelete && (
+  <button
+    type="button"
+    onClick={onDelete}
+    style={{
+      backgroundColor: '#94c2e7',  
+      color: 'white',
+      padding: '12px 25px',
+      border: 'none',
+      borderRadius: '5px',      
+      fontFamily: 'Quicksand, sans-serif',
+      cursor: 'pointer',
+      transition: 'all 0.3s ease' // For a smooth hover transition
+    }}
+  >
+    Delete
+  </button>
+)}      </form>
     </div>
   );
 };
 
 export default Form;
+

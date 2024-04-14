@@ -22,7 +22,7 @@ input[type="text"],
 input[type="password"],
 input[type="email"],
 button {
-  font-family: 'Titillium Web', sans-serif;
+  font-family: 'Quicksand', sans-serif;;
   border: none;
   border-radius: 100px;
   padding: 10px 20px;
@@ -56,7 +56,7 @@ h2[type="title"] {
 .form.register input[type="password"],
 .form.register input[type="email"],
 .form.register button {
-  font-family: 'Titillium Web', sans-serif;
+  font-family: 'Quicksand', sans-serif;;
   border: none;
   border-radius: 20px;
   padding: 10px 20px;

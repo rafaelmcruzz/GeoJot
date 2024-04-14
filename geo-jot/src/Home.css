@@ -1,17 +1,94 @@
-/* Styling for the left side bar + components*/
-.left-sidebar {
-  width: 300px;
-  height: 100vh;
-  background: linear-gradient(to bottom, #069be6, #f0caa2, #f1c58f, #AFD2A0, #CAECCF);
-  padding: 20px;
-  box-sizing: border-box;
-  border-right: 2px solid #ffffff; 
-  border-bottom: 2px solid #ffffff; 
+.app {
+  display: flex;
   
 }
 
+
+.left-sidebar {
+  width: 300px;
+  height: 100vh; /* Set height to 100% of viewport height */
+  background-color: #b0d2e8;  /* Your chosen calming blue */
+  color: #333; /* Light, earthy text color */  
+  padding: 20px;
+  box-sizing: border-box;
+  border-right: 2px solid #ffffff; /* Add right border */
+  border-bottom: 2px solid #ffffff; /* Add bottom border */
+  
+}
+
+.recent-pin {
+  display: flex;
+  align-items: center; /* Aligns the text and the pin icon vertically */
+  padding: 10px; /* Adds some padding inside each list item */
+  background-color: #94c2e7; 
+  border-bottom: 1px solid #3a3a3a; 
+  height: auto;
+  width: auto;
+  border-radius: 0;
+  box-shadow: 0 4px 8px rgba(0.15, 0.15, 0.15, 0.15); /* Add this line */
+
+}
+
+.first-pin {
+  border-top-left-radius: 5px; /* Adds border-radius to the top left corner of the first pin */
+  border-top-right-radius: 5px; /* Adds border-radius to the top right corner of the first pin */
+}
+
+.recent-pin:last-child {
+  border-bottom: none; /* Removes the border from the last item */
+  border-bottom-left-radius: 5px; /* Adds border-radius to the bottom left corner of the last pin */
+  border-bottom-right-radius: 5px; /* Adds border-radius to the bottom right corner of the last pin */
+}
+
+.recent-pins-header {
+  font-size: 1.5em; /* Sets the size of the font */
+  color: #203a4c; 
+  font-weight: bold; /* Makes the text bold */
+  border-bottom: 4px solid #203a4c; /* Add a subtle bottom border *  font-weight: bold; /* Makes the text bold */
+  padding-left: 10px; 
+  margin-top: 10px; 
+  margin-bottom: 12px; 
+  border-left: 4px solid #203a4c; 
+
+
+}
+
+.recent-pin .pin-icon {
+  width: 30px; /* Width of the icon */
+  height: 30px; /* Height of the icon */
+  background-image: url('Pin.png'); /* The URL to your pin icon */
+  background-size: cover; /* Ensures the icon covers the area */
+  margin-right: 8px; /* Adds some space between the icon and the text */
+}
+
+.recent-pin .pin-name {
+  margin: 0;
+  margin-bottom: 4px; /* Adjust the space between the pin name and location */
+  font-weight: bold; /* Makes the pin name bold */
+}
+
+.recent-pin .location-info {
+  
+  flex: 1; /* Allows the text to fill the remaining space */
+  margin: 0; /* Resets any default margins */
+}
+
+.main-content {
+  flex: 1; /* Take up remaining space */
+  position: relative;
+}
+
+.map {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%; /* Adjust width as needed */
+   /* Adjust height as needed */
+  z-index: 0; /* Lower z-index to ensure it's below search bar */
+}
+
 .user-profile {
-  border-bottom: 2px solid #ffffff; 
+  border-bottom: 2px solid #203a4c; 
   padding-bottom: 20px; 
 }
 
@@ -23,65 +100,446 @@
 
 .user-profile p {
   font-size: 18px;
-  font-weight: bold;
-}
-
-.recent-pin {
-  display: flex;
-  align-items: center; 
-  padding: 10px;
-  background: #fff; 
-  border-bottom: 1px solid #eaeaea; 
-  height: auto;
-  width: auto;
-  border-radius: 0;
-}
-
-.first-pin {
-  border-top-left-radius: 5px; 
-  border-top-right-radius: 5px;
-}
-
-.recent-pin:last-child {
-  border-bottom: none; 
-  border-bottom-left-radius: 5px; 
-  border-bottom-right-radius: 5px; 
-}
-
-.recent-pins-header {
-  font-size: 1.5em; 
   color: #333;
   font-weight: bold;
-  padding-left: 10px; 
-  margin-top: 10px;
-  margin-bottom: 12px;
-  border-left: 4px solid #555;
 }
 
-.recent-pin .pin-icon {
-  width: 30px;
-  height: 30px;
-  background-image: url('Pin.png');
-  background-size: cover;
-  margin-right: 8px;
+.address-block {
+  margin-top: 20px;
 }
 
-.recent-pin .pin-name {
-  margin: 0;
-  margin-bottom: 4px;
-  font-weight: bold;
+.address-block h2 {
+  font-size: 24px;
 }
 
-.recent-pin .location-info {
-  
-  flex: 1;
-  margin: 0; 
+.address-block ul {
+  list-style: none;
+  padding: 0;
 }
 
-/* Styling for content container*/
+.address-block li {
+  margin-bottom: 10px;
+  border-bottom: 1px solid #ccc; 
+  padding-bottom: 10px; 
+}
+
+.selected-address-details {
+  margin-top: 20px;
+  border-top: 2px solid #ccc; 
+  padding-top: 20px; 
+}
+
+.selected-address-details h2 {
+  font-size: 24px;
+}
+
+.selected-address-details p {
+  font-size: 18px;
+}
+
+.home {
+  display: flex;
+  position: relative; /* Ensure relative positioning for absolute children */
+}
+
 .content-container {
   display: flex;
   flex: 1;
+}
+
+.search-bar {
+  position: absolute;
+  top: 20px;
+  right: 40px;
+  z-index: 1;
+  width: 250px;
+  transform: scale(1.3);
+}
+
+/* Search Component Styles */
+.search-container {
+  position: relative;
+  border-radius: 5px;
+}
+
+.search-input {
+  width: 100%;
+  padding: 8px;
+  margin: 10px 0;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+
+
+.search-results {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  position: absolute;
+  width: 100%;
+  z-index: 1000; /* Ensure the list appears above other content */
+  max-height: 300px; 
+  overflow-y: hidden; 
+  overflow-x: hidden;
+  border-radius: 20px;
+}
+
+.search-result-item {
+  padding: 10px;
+  border-bottom: 1px solid #8cd2ed;
+  cursor: pointer;
+}
+
+.search-result-item:last-child {
+  border-bottom: none;
+}
+
+.search-result-item:hover {
+  background-color: #f5f5f5;
+}
+
+.viewingMessage {
+  position: absolute;
+  top: 30px;
+  right: 1180px;
+  z-index: 1;
+  width: 276px;
+  transform: scale(1.3);
+  padding: 5px 10px;
+  background-color: #d1ecf1; /* Light blue background, adjust as needed */
+  border-color: #bee5eb;
+  color: #0c5460; /* Text color, adjust as needed */
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.drawing1 {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+/* Styles for Name of Pin */
+.pin-name-label {
+  font-family: 'Quicksand', sans-serif; /* Change 'Your Font' to your desired font */
+  font-size: 22px; /* Change the font size as desired */
+  font-weight: bold;
+}
+
+.drawing1 textarea {
+  height: calc(30vh - 150px); 
+  resize: none;
+}
+
+/* Add this to remove the 'box' appearance from inputs and textareas */
+.drawing1 .form-group input,
+.drawing1 .form-group textarea {
+  border: none; /* Removes the border */
+  outline: none; /* Removes the focus outline */
+  background-color: #eaedf0; /* Makes the background transparent */
+  color: inherit; /* Inherits text color from the parent */
+  font-size: inherit; /* Inherits font size from the parent */
+  width: 100%; /* Adjust width as needed, or set to auto */
+  max-width: 100%; /* Ensures it doesn't overflow its container */
+}
+
+.drawing1 .form-group input[readonly],
+.drawing1 .form-group textarea[readonly] {
+  pointer-events: none; /* Prevents interaction */
+}
+
+
+/* Apply a map texture to the background */
+body {
+  /* background: url('path-to-your-map-background-image.jpg') no-repeat center center; */
+  background-size: cover;
+}
+
+/* Use retro or handwritten-style fonts */
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+
+.form-group label {
+  font-family: 'Quicksand', sans-serif;
+  color: #203a4c; /* An earthy color */
+}
+
+/* Style your form fields with a vintage look */
+input[type="text"],
+textarea {
+  border: none;
+  background-color: #c2dcf1; /* A softer, calming blue */ 
+  font-family: 'Quicksand', cursive;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2); /* Inner shadow for an inset effect */
+}
+
+/* Icons next to input fields */
+.form-group .icon {
+  /* background-image: url('path-to-your-icon.png'); */
+  background-size: contain;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
+}
+
+/* Style buttons with a 3D effect */
+button {
+  background-color: #94c2e7; /* Earthy background color */
+  color: white;
+  padding: 12px 25px;
+  border: none;
+  border-radius: 5px;
+  font-family: 'Quicksand', sans-serif;
+  box-shadow: 0 5px #775936; /* 3D button effect */
+  transition: all 0.3s ease; /* Smooth hover transition */
+  cursor: pointer; /* Indicate that the button is clickable */  
+  box-shadow: none;
+}
+
+button:active {
+  transform: translateY(3px);
+}
+
+/* Add transitions for interactive elements */
+button, input[type="text"], textarea {
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5); /* Inner shadow for an inset effect */
+
+}
+
+/* Ensure labels are styled appropriately */
+.drawing1 .form-group label {
+  font-weight: bold; /* Makes labels bold */
+  display: block; /* Makes label appear above the input/textarea */
+  margin-bottom: 10px; /* Adjust space between label and input/textarea */
+}
+
+/* Adjust spacing between form groups */
+.drawing1 .form-group {
+  margin-bottom: 1px; /* Increases space between form groups */
+}
+
+.left-section,
+.right-section {
+  flex: 1;
+}
+
+.form-group {
+  margin-bottom: 10px;
+}
+
+.image img {
+  width: 100px;
+  height: auto;
+}
+
+.drawing2 {
+  display: flex;
+}
+
+.back-button {
+  background-color: #007bff; 
+  color: white; 
+  padding: 8px 16px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.view-more-button:hover {
+  background-color: #0056b3;
+}
+
+.left-side, .right-side {
+  flex: 1;
+}
+
+.right-side {
+  padding-left: 10px; /* Adjust padding between sides if needed */
+  position: relative;
+  display: flex;
+  justify-content: center; /* Center images horizontally */
+  align-items: center; /* Center images vertically */
+  max-height: calc(85vh - 150px); /* Ensure the height doesn't exceed the left side */
+}
+
+.drawing2 textarea {
+  height: calc(88vh - 150px); 
+  resize: none;
+  background-color: #eaedf0;
+}
+
+.image-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  max-width: 1000px;
+  max-height: 1000px;
+  overflow: hidden; /* Ensure images are cropped */
+}
+
+.image-container img {
+  width: 100%; /* Ensure each image takes up the full width of its container */
+  height: 100%; /* Ensure each image takes up the full height of its container */
+  object-fit: cover; /* Crop the image to cover the specified dimensions */
+  max-width: 250px; /* Set a fixed width for the image */
+  max-height: 150px; /* Set a fixed height for the image */
+}
+
+.thumbnails {
+  display: flex;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  max-width: 150px; /* Set a maximum width */
+  max-height: 150px; /* Set a maximum height */
+  width: auto; /* Maintain aspect ratio */
+  height: auto; /* Maintain aspect ratio */
+  justify-content: center; 
+  align-items: center; 
+  max-width: 79%;
+  max-height: 100%;
+  overflow: hidden; /* Ensure images are cropped */
+  display: flex;
+  max-width: 200px; /* Adjust this value to fit your design */
+}
+
+.thumbnail {
+  width: 100%; /* Ensure each thumbnail takes up the full width of its container */
+  height: 100%; /* Ensure each thumbnail takes up the full height of its container */
+  object-fit: cover; /* Crop the image to cover the thumbnail dimensions */
+  max-width: 150px; /* Set a fixed width for the thumbnail */
+  max-height: 150px; /* Set a fixed height for the thumbnail */
+}
+
+/* Style buttons with a 3D effect */
+.new-button { 
+  background-color: #967249;  /* Earthy background color */
+  color: white;
+  padding: 12px 25px; 
+  border: none;
+  border-radius: 5px;
+  font-family: 'Quicksand', sans-serif; /* Quicksand font */
+  box-shadow: 0 5px #775936; /* 3D button effect with a darker shade */
+  transition: all 0.3s ease; /* For smooth hover transition */
+}
+
+.new-button:hover {
+  background-color: #b38b61; /* Less earthy color on hover */
+}
+
+.new-button:active {
+  box-shadow: 0 2px #775936;  /* Adjust shadow for pressed effect */
+  transform: translateY(3px);  
+}
+
+.thumbnail:nth-child(1) {
+  width: 150px;
+  height: 150px;
+}
+
+.thumbnail:nth-child(2) {
+  width: 150px;
+  height: 150px;
+}
+
+.thumbnail:nth-child(3) {
+  width: 150px;
+  height: 150px;
+}
+
+.music-details {
+  background-color: #e6f0fa; /* Light blue background for the container */
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 15px; /* Space below the audio player container */
+  font-family: 'Quicksand', sans-serif; /* Applying the Quicksand font */
+}
+
+
+.audio-control-button {
+  background-color: #4a90e2; /* Blue background for the button */
+  color: white; /* White color for the icon */
+  border: none;
+  border-radius: 4px; /* Slight border-radius for a square with softened edges */
+  padding: 10px; /* Size of the button */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Soft shadow for the button */
+  cursor: pointer;
+  outline: none; /* Remove the outline to make it look cleaner */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.3s ease; /* Smooth transition for background color */
+}
+
+
+.audio-control-button:hover {
+  background-color: #5691e0; /* Slightly lighter blue on hover */
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15); /* Larger shadow on hover */
+}
+
+
+.audio-control-button.playing {
+  background-color: #d9534f; /* Different color when audio is playing */
+}
+
+/* Style the audio element directly if it's being used - it might need vendor prefixes for full control */
+audio {
+  width: 100%; /* Full width to use up space */
+  outline: none; /* Remove outline */
+}
+
+/* Ensure FontAwesome icons inherit the color from the button */
+.fa-play, .fa-stop {
+  color: inherit;
+}
+
+.music-details .song-info {
+  display: flex;
+  font-weight: bold;
+  flex-direction: column; /* Stack title and audio player vertically */
+  justify-content: center;
+  gap: 10px; /* Space between title and player */
+}
+
+.music-details img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+audio {
+  width: 100%; /* To ensure the audio player stretches the full width of its container */
+}
+
+.music-details audio {
+  width: 250px; /* Adjust as necessary */
+  margin-left: -20px;
+  border: none; /* Removes the border */
+  outline: none; /* Removes the focus outline */
+  background-color: transparent;
+  height: 40px;
+}
+
+.album-art img {
+  max-width: 100%; /* Ensure the image fits within the container */
+  border-radius: 8px; /* Optional: adds rounded corners to the album art */
+  margin-bottom: 10px; /* Space between album art and audio controls */
 }
 
 .profile-picture{
@@ -128,311 +586,6 @@
   right: 10px;
 }
 
-/* styles for the profile picture*/
-.ProfilePicture-backdrop {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1050;
-}
-
-.ProfilePicture-content {
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 5px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  max-width: 500px;
-  z-index: 1051;
-}
-
-/* styles for the weather widget*/
-
-.weather-header {
-  font-size: 1.5em; 
-  color: #333;
-  font-weight: bold;
-  padding-left: 10px;
-  margin-top: 10px;
-  margin-bottom: 10px; 
-  border-left: 4px solid #555;
-}
-
-.weather-widget {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  background-color: #ffffff;
-  border-radius: 8px;
-  padding: 10px 20px;
-  margin: 20px 1;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  font-family: 'poppins', sans-serif;
-  color: #333;
-}
-
-.weather-info {
-  display: flex;
-  align-items: center;
-}
-
-.weather-info img {
-  width: 50px;
-  height: 50px;
-  margin-right: 15px;
-}
-
-.weather-details {
-  display: flex;
-  flex-direction: column;
-}
-
-.weather-city {
-  font-size: 1.2em;
-  color: #000;
-}
-
-.weather-temperature,
-.weather-condition {
-  margin: 0;
-  padding-right: 15px;
-  border-right: 1px solid #ddd;
-}
-
-.weather-widget p:last-child {
-  border-right: none;
-}
-
-
-/* Map styling + components included in map*/
-
-
-.main-content {
-  flex: 1;
-  position: relative;
-}
-
-.map {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 0;
-}
-
-.home { /* Home includes search bar, etc*/
-  display: flex;
-  position: relative; 
-}
-
-.search-bar {
-  position: absolute;
-  top: 20px;
-  right: 40px;
-  z-index: 1;
-  width: 250px;
-  transform: scale(1.3);
-}
-
-.search-container {
-  position: relative;
-  border-radius: 5px;
-}
-
-.search-input {
-  width: 100%;
-  padding: 8px;
-  margin: 10px 0;
-  border-radius: 4px;
-  border: 1px solid #ccc;
-}
-
-.search-results {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  background-color: #ffffff;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  position: absolute;
-  width: 100%;
-  z-index: 1000;
-  max-height: 300px; 
-  overflow-y: auto; 
-  border-radius: 20px;
-}
-
-.search-result-item {
-  padding: 10px;
-  border-bottom: 1px solid #8cd2ed;
-  cursor: pointer;
-}
-
-.search-result-item:last-child {
-  border-bottom: none;
-}
-
-.search-result-item:hover {
-  background-color: #f5f5f5;
-}
-
-.viewingMessage { /* Styling for the viewing other users pins message*/
-  position: absolute;
-  top: 30px;
-  right: 1180px;
-  z-index: 1;
-  width: 276px;
-  transform: scale(1.3);
-  padding: 5px 10px;
-  background-color: #d1ecf1;
-  border-color: #bee5eb;
-  color: #0c5460;
-  border-radius: 4px;
-  font-size: 0.8rem;
-  font-weight: bold;
-}
-
-/* Styling for Drawing1*/
-
-.drawing1 {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-}
-
-.pin-name-label {/* Styles for Name of Pin */
-  font-family: 'oswald', sans-serif;
-  font-size: 22px;
-  font-weight: bold;
-}
-
-.drawing1 textarea {
-  height: calc(30vh - 150px); 
-  resize: none;
-}
-
-.drawing1 .form-group input,
-.drawing1 .form-group textarea {
-  border: none;
-  outline: none;
-  background-color: #eaedf0;
-  color: inherit; 
-  font-size: inherit; 
-  width: 100%; 
-  max-width: 100%;
-}
-
-.drawing1 .form-group input[readonly],
-.drawing1 .form-group textarea[readonly] {
-  pointer-events: none; 
-}
-
-.drawing1 .form-group label {
-  font-weight: bold;
-  display: block; 
-  margin-bottom: 10px; 
-}
-
-.drawing1 .form-group {
-  margin-bottom: 1px;
-}
-
-.left-section,
-.right-section {
-  flex: 1;
-}
-
-.form-group {
-  margin-bottom: 10px;
-}
-
-.image img {
-  width: 100px;
-  height: auto;
-}
-
-.view-more-button {
-  background-color: #71aeef; 
-  color: white; 
-  font-family: "Poppins", sans-serif;
-  font-weight: 300;
-  font-style: normal;
-  padding: 8px 16px;
-  border: none;
-  border-radius: 20px;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.3s ease;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-
-
-.view-more-button:hover {
-  transform: translateY(-4px); 
-  background-color: #a0c8f2;
-}
-
-.view-more-button, .edit-button {
-  width: 100%; 
-  margin-bottom: 10px; 
-  text-align: center; 
-}
-
-.thumbnails {
-  display: flex;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-  max-width: 150px;
-  max-height: 150px;
-  width: auto;
-  height: auto;
-  justify-content: center; 
-  align-items: center; 
-  max-width: 79%;
-  max-height: 100%;
-  overflow: hidden;
-  display: flex;
-  max-width: 200px;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-.thumbnail {
-  width: 100%; 
-  height: 100%;
-  object-fit: cover;
-  max-width: 150px;
-  max-height: 150px;
-  flex: 0 1 auto;
-}
-
-.thumbnails p {
-  font-size: 16px;
-  color: #888;
-  margin-top: 453px;
-  white-space: nowrap;
-}
-
-.thumbnail:nth-child(1) {
-  width: 150px;
-  height: 150px;
-}
-
-.thumbnail:nth-child(2) {
-  width: 150px;
-  height: 150px;
-}
-
-.thumbnail:nth-child(3) {
-  width: 150px;
-  height: 150px;
-}
-
 .like-button, .invite-collaborators {
   cursor: pointer;
   display: flex;
@@ -449,57 +602,7 @@
   color: #007bff;
 }
 
-.delete-button {
-  background-color: #ee7676; 
-  color: white; 
-  font-family: "Poppins", sans-serif;
-  font-weight: 300;
-  font-style: normal;
-  padding: 8px 16px;
-  border: none;
-  border-radius: 20px;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.3s ease;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-
-.delete-button:hover {
-  background-color: #f4caca;
-  transform: translateY(-4px); 
-}
-.setting-button {
-  background-color: #ee7676; 
-  color: white; 
-  font-family: "Poppins", sans-serif;
-  font-weight: 300;
-  font-style: normal;
-  padding: 8px 16px;
-  border: none;
-  border-radius: 20px;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.3s ease;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-
-.setting-button:hover {
-  background-color: #f4caca;
-  transform: translateY(-4px); 
-}
-.drawing1 .form-group .pin-name-label:first-of-type {
-  display: none;
-}
-
-
-/* Drawing 2 Styling*/
-
-
-.drawing2 {
-  display: flex;
-}
-
-.back-button {
+.view-more-button {
   background-color: #007bff; 
   color: white; 
   padding: 8px 16px;
@@ -509,32 +612,53 @@
   transition: background-color 0.3s ease;
 }
 
-.left-side, .right-side {
-  flex: 1;
+.view-more-button:hover {
+  background-color: #0056b3;
 }
 
-.right-side {
-  padding-left: 10px;
-  position: relative;
+.delete-button {
+  /* color: #fff; */
+  border: none;
+  padding: 10px 20px;
+  font-family: 'Quicksand', sans-serif;
+  border-radius: 10px;
+  font-weight: bold;
+}
+
+.delete-button:hover {
+  background-color: #d60606;
+}
+
+/* Ensure only one name is displayed by specifically targeting the first name label */
+/* Since no changes to the JSX are requested, we'll achieve this through CSS */
+.drawing1 .form-group .pin-name-label:first-of-type {
+  display: none; /* Hide the first occurrence */
+}
+
+/* Fix music details box size and use ellipsis for overflow */
+.song-info {
+  font-family: 'Quicksand', sans-serif; /* Applying the Quicksand font */
+  flex-grow: 1;
+
+}
+
+.song-title, .song-author {
+  font-family: 'Quicksand', sans-serif; /* Applying the Quicksand font */
+  color: #2a3f5f; /* Darker blue color for contrast */
+  margin: 0; 
+}
+
+/* Improve aesthetics for images within .thumbnails container */
+.thumbnails {
   display: flex;
-  justify-content: center; 
-  align-items: center; 
-  max-height: calc(85vh - 150px);
+  flex-wrap: wrap; /* Allow thumbnails to wrap */
+  gap: 10px; /* Space between thumbnails */
 }
-
-.drawing2 textarea {
-  height: calc(88vh - 150px); 
-  resize: none;
-  background-color: #eaedf0;
-}
-
-.image-container {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-  max-width: 1000px;
-  max-height: 1000px;
-  overflow: hidden; /* Ensures images are cropped */
+.thumbnails p {
+  font-size: 16px;
+  color: #888;
+  margin-top: 453px;
+  white-space: nowrap;
 }
 
 .image-container p {
@@ -544,80 +668,180 @@
   white-space: nowrap;
 }
 
-.image-container img {
-  width: 100%;
-  height: 100%; 
-  object-fit: cover; 
-  max-width: 250px;
-  max-height: 150px;
+.thumbnail {
+  flex: 0 1 auto;
+  width: 100px; /* Fixed width */
+  height: 100px; /* Fixed height */
+  object-fit: cover; /* Cover fit to avoid distortion */
 }
 
-
-.music-details {/* Styling for the music details for both Drawing1 and Drawing2*/
-  display: flex;
-  align-items: flex-start;
-  gap: 20px;
-  background-color: #f3f4f6;
-  padding: 10px;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  width: 270px;
-  height: 125px;
-}
-
-.music-details .song-info {
-  display: flex;
-  font-weight: bold;
-  flex-direction: column;
-  justify-content: center;
-  gap: 10px;
-}
-
-.music-details img {
-  width: 60px;
-  height: 60px;
-  object-fit: cover;
-  border-radius: 8px;
-}
-
-.music-details audio {
-  width: 250px;
-  margin-left: -20px;
-  border: none;
-  outline: none;
-  background-color: transparent;
-  height: 40px;
-}
-
-.album-art img { /* Styling for the album art for both Drawing1 and Drawing2*/
-  max-width: 100%;
-  border-radius: 8px;
-  margin-bottom: 10px;
-}
-
-.song-info { /* Styling for the song info for both Drawing1 and Drawing2*/
-  width: 200px; 
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-/* Styling for the music details for Drawing1 and Drawing2*/
+/* Additional adjustments for a consistent layout */
 .music-details {
   display: flex;
   align-items: center;
   justify-content: start;
   gap: 30px;
-  width: 100%;
+  width: 100%; /* Ensure music details box doesn't exceed its container */
 }
 
 .album-art {
-  width: 50px;
-  height: 50px;
+  width: 50px; /* Adjust album art size */
+  height: 50px; /* Adjust album art size */
   object-fit: cover;
 }
 
-/* Styling for some of the modal components*/
+
+.bottom-section {
+  display: flex;
+  justify-content: center; 
+  margin-top: 20px;
+}
+
+
+.view-more-button, .edit-button {
+  width: 100%; 
+  margin-bottom: 10px; 
+  text-align: center; 
+}
+
+/* styles for the profile picture*/
+.ProfilePicture-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1050; /* Ensure this is above other content */
+}
+
+.ProfilePicture-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  max-width: 500px; /* Adjust based on your preference */
+  z-index: 1051; /* Above the backdrop */
+}
+
+/* styles for the weather widget*/
+
+.weather-header {
+  font-size: 1.5em; /* Sets the size of the font */
+  color: #203a4c; /* Sets the color of the font */
+  font-weight: bold; /* Makes the text bold */
+  padding-left: 10px; /* Adds padding to the left of the header */
+  margin-top: 10px; /* Removes any default top margin */
+  margin-bottom: 10px; /* Adds some space below the header */
+  border-left: 4px solid #203a4c;
+  border-bottom: 4px solid #203a4c; 
+}
+
+.weather-widget {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  background-color: #94c2e7; 
+  color: #203a4c;   
+  border-radius: 8px;
+  padding: 10px 20px;
+  margin: 20px 1;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  font-family: 'Quicksand', sans-serif;
+  box-shadow: 0 4px 8px rgba(0.15, 0.15, 0.15, 0.15); /* Add this line */
+
+}
+
+.weather-info {
+  display: flex;
+  align-items: center;
+}
+
+.weather-info img {
+  width: 50px;
+  height: 50px;
+  margin-right: 15px;
+}
+
+.dropzone {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  border-width: 2px;
+  border-radius: 10px;
+  border-color: #cccccc;
+  border-style: dashed;
+  background-color: #f8f8f8;
+  color: #bdbdbd;
+  outline: none;
+  transition: border .24s ease-in-out;
+  cursor: pointer;
+}
+
+.dropzone:focus {
+  border-color: #2196f3;
+}
+
+/* Styling for file details list */
+aside {
+  margin-top: 10px;
+}
+
+aside h4 {
+  margin-bottom: 8px;
+}
+
+aside ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+aside li {
+  margin-bottom: 6px;
+  font-size: 14px;
+  line-height: 24px;
+}
+
+button.remove-file-btn {
+  background-color: #94c2e7; 
+  color: white; 
+  padding: 12px 25px; 
+  border: none; 
+  border-radius: 5px; 
+  font-family: 'Quicksand', sans-serif; 
+  transition: all 0.3s ease; 
+  cursor: pointer; 
+}
+
+button.remove-file-btn:hover {
+  background-color: #f01440;
+}
+
+.weather-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.weather-city {
+  font-size: 1.2em;
+  color: #203a4c;
+}
+
+.weather-temperature,
+.weather-condition {
+  margin: 0;
+  padding-right: 15px;
+  border-right: 1px solid #ddd;
+}
+
+.weather-widget p:last-child {
+  border-right: none;
+}
 
 .modal-backdrop {
   position: fixed;
@@ -629,21 +853,21 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 999;
-  animation: fadeIn 0.3s ease;
+  z-index: 999; /* Ensure modal is on top of other content */
+  animation: fadeIn 0.3s ease; /* Add a fade-in animation */
 }
 
 .modal-content {
-  background: linear-gradient(135deg, #ffffff, #f2f6fa);
+  background: linear-gradient(135deg, #ffffff, #f2f6fa); /* Add a subtle gradient background */
   padding: 30px;
   border-radius: 10px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-  max-width: 400px;
-  text-align: center;
+  max-width: 400px; /* Limit width for better readability */
+  text-align: center; /* Center-align content */
 }
 
 .account-title {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Quicksand', sans-serif;;
   font-size: 24px;
   color: #333;
   margin-bottom: 20px;
@@ -654,7 +878,7 @@
 }
 
 .change-password-title {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Quicksand', sans-serif;
   font-size: 24px;
   color: #333;
   margin-top: 20px;
@@ -669,37 +893,37 @@
   margin-top: 30px;
   background-color: red;
   color: white;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease; /* Add smooth transition */
 }
 
 .modal-content button.delete-account-button:hover {
-  background-color: darkred; 
+  background-color: darkred; /* Change to darker red color on hover */
 }
 
 .modal-content h2 {
-  font-family: 'Helvetica', sans-serif; 
-  color: #333;
-  margin-bottom: 20px;
+  font-family: 'Quicksand', sans-serif;
+  color: #333; /* Darken heading color */
+  margin-bottom: 20px; /* Add some space below heading */
 }
 
 .modal-content p {
   font-size: 16px;
   margin-bottom: 15px;
-  color: #666;
+  color: #666; /* Adjust text color */
 }
 
 .modal-content button {
-  background-color: #007bff;
-  color: #fff;
+  background-color: #007bff; /* Change button color */
+  color: #fff; /* Change button text color */
   border: none;
   padding: 10px 20px;
   border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease; /* Add smooth transition */
 }
 
 .modal-content button:hover {
-  background-color: #0056b3;
+  background-color: #0056b3; /* Darken button color on hover */
 }
 
 .error {
@@ -716,6 +940,12 @@
   to {
     opacity: 1;
   }
+}
+
+.profile-picture-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .profile-pictures-container {
@@ -758,28 +988,46 @@
   margin-top: 10px;
 }
 
-
-/* Form Styling */
-
+.form {
+  max-height: 600px; /* Set this to your desired maximum height */
+  overflow-y: auto; /* Add vertical scrollbar if content exceeds max-height */
+}
 
 .music-search-container {
-  max-height: 200px;
-  overflow-y: auto; 
-  margin-top: 10px; 
-  border-radius: 8px;
-  background-color: #2c2c2c; 
+  width: 100%; /* Match the width of the input */
+  top: 100%; /* Adjust this if needed */
+  z-index: 5; /* Lower than the z-index of your buttons */
+  max-height: 200px; /* Set this to your desired maximum height */
+  overflow-y: auto; /* Add vertical scrollbar if content exceeds max-height */
+  margin-top: 10px; /* Add some spacing between the input and container */
+  border-radius: 8px; /* Add border-radius for a rounded look */
+  background-color: #94c2e7; /* Your chosen blue background */  
+  overflow-x: hidden; /* Hide horizontal overflow */
 }
+
+.music-results-container {
+  position: relative; /*  Use relative instead of absolute */
+ }
 
 .track-container {
   display: flex;
   align-items: center;
   margin-bottom: 10px;
-  border-bottom: 1px solid #3a3a3a;
-  background: #1e1e1e;
+  background-color: #7aabd3; /* A lighter shade for visual hierarchy */
   padding: 10px;
   border-radius: 8px;
   cursor: pointer;
 }
+
+
+.track-container:hover {
+  transform: scale(1.01); /* Scale slightly on hover */
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
+  transition: all 0.3s ease; /* For a smooth transition effect */
+  background-color: #94c2e7; /* Slightly lighter on hover */
+
+}
+
 
 .track-album-art {
   width: 50px;
@@ -794,12 +1042,12 @@
 }
 
 .music-search-container::-webkit-scrollbar-track {
-  background: #1e1e1e;
+  background: #94c2e7;
   border-radius: 10px;
 }
 
 .music-search-container::-webkit-scrollbar-thumb {
-  background: #555;
+  background: #70aee0;
   border-radius: 10px;
 }
 
@@ -815,11 +1063,16 @@
 .play-button {
   background: none;
   border: none;
+  width: 20px; /* Make the button smaller */
+  height: 20px; /* Make the button smaller */
   color: white;
   cursor: pointer;
 }
-p {
-  font-family: "Poppins", sans-serif;
-  font-weight: 300;
-  font-style: normal;
+
+.user-profile-pic {
+  width: 30px; /* Or the size you want */
+  height: 30px; /* Maintain aspect ratio */
+  border-radius: 50%; /* Circle shape */
+  object-fit: cover; /* Ensure the image covers the area */
+  margin-right: 10px; /* Space between the image and the username */
 }
