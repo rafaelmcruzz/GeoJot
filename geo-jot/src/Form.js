@@ -242,8 +242,8 @@ const Form = ({ onSubmit, onDelete, _id, initialMediaFiles = [], onSubmissionSuc
             </div>
           )}
         </div>
-        <button type="submit">Submit</button>
-        {onDelete && <button type="button" onClick={onDelete}>Delete</button>}
+        <button  className="view-more-button">Submit</button>
+        {onDelete && <button className="delete-button" onClick={onDelete}>Delete</button>}
       </form>
     </div>
   );

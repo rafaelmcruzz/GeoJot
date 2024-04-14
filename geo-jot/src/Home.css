@@ -357,17 +357,24 @@
 }
 
 .view-more-button {
-  background-color: #007bff; 
+  background-color: #71aeef; 
   color: white; 
+  font-family: "Poppins", sans-serif;
+  font-weight: 300;
+  font-style: normal;
   padding: 8px 16px;
   border: none;
   border-radius: 20px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+
+
 .view-more-button:hover {
-  background-color: #0056b3;
+  transform: translateY(-4px); 
+  background-color: #a0c8f2;
 }
 
 .view-more-button, .edit-button {
@@ -443,18 +450,43 @@
 }
 
 .delete-button {
-  background-color: #e12c10;
-  color: #fff;
+  background-color: #ee7676; 
+  color: white; 
+  font-family: "Poppins", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+  padding: 8px 16px;
   border: none;
-  padding: 10px 20px;
-  border-radius: 10px;
-  font-weight: bold;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
+
 
 .delete-button:hover {
-  background-color: #d60606;
+  background-color: #f4caca;
+  transform: translateY(-4px); 
+}
+.setting-button {
+  background-color: #ee7676; 
+  color: white; 
+  font-family: "Poppins", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+
+.setting-button:hover {
+  background-color: #f4caca;
+  transform: translateY(-4px); 
+}
 .drawing1 .form-group .pin-name-label:first-of-type {
   display: none;
 }
@@ -785,4 +817,9 @@
   border: none;
   color: white;
   cursor: pointer;
+}
+p {
+  font-family: "Poppins", sans-serif;
+  font-weight: 300;
+  font-style: normal;
 }
