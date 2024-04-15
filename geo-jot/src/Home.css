@@ -1192,3 +1192,24 @@ button.remove-file-btn:hover {
   border-radius: 20px; 
   background-color: white;
 }
+
+.media-thumbnails {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.media-thumbnail-item {
+  width: calc(33.333% - 10px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.media-thumbnail-item img {
+  width: 100%;
+  height: 100;
+  border-radius: 5px;
+}

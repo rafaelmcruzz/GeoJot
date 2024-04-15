@@ -13,7 +13,7 @@ const Form = ({ onSubmit, onDelete, _id, initialMediaFiles = [], onSubmissionSuc
   const [notes, setNotes] = useState('');
   const [music, setMusic] = useState('');
   const [musicSearchResults, setMusicSearchResults] = useState([]);
-  const [mediaFiles, setMediaFiles] = useState(initialMediaFiles);
+  const [mediaFiles, setMediaFiles] = useState(initialMediaFiles.map(url => (typeof url === 'string' ? { url } : url)));
   const [selectedSongDetails, setSelectedSongDetails] = useState({});
   const mediaInputRef = useRef(null);
   const [nameError, setNameError] = useState('');
@@ -32,16 +32,51 @@ const Form = ({ onSubmit, onDelete, _id, initialMediaFiles = [], onSubmissionSuc
   };
 
   const onDrop = useCallback(acceptedFiles => {
-    // Do something with the files
-    setMediaFiles(prevFiles => [...prevFiles, ...acceptedFiles]);
+    const newFiles = acceptedFiles.map(file => ({
+      file,
+      preview: URL.createObjectURL(file)
+    }));
+    setMediaFiles(prevFiles => [...prevFiles, ...newFiles]);
   }, []);
 
   const { getRootProps, getInputProps } = useDropzone({ onDrop });
 
-  // Function to remove a file from the list
-  const removeFile = (file) => {
-    setMediaFiles(currentFiles => currentFiles.filter(f => f !== file));
+  const removeFile = async (fileToRemove) => {
+    if (fileToRemove.url) {
+      try {
+        const response = await fetch(`http://localhost:3000/api/pins/${_id}/remove-image`, {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ imageUrl: fileToRemove.url }),
+        });
+  
+        const data = await response.json();
+        if (response.ok) {
+          console.log('Image removed successfully:', data.message);
+          setMediaFiles(currentFiles => currentFiles.filter(f => f !== fileToRemove));
+        } else {
+          throw new Error(data.error);
+        }
+      } catch (error) {
+        console.error('Failed to remove image:', error.message);
+      }
+    } else {
+      URL.revokeObjectURL(fileToRemove.preview);
+      setMediaFiles(currentFiles => currentFiles.filter(f => f !== fileToRemove));
+    }
   };
+
+  useEffect(() => {
+    return () => {
+      mediaFiles.forEach(file => {
+        if (file.preview) {
+          URL.revokeObjectURL(file.preview);
+        }
+      });
+    };
+  }, [mediaFiles]);
 
 
   const selectSong = (track) => {
@@ -59,12 +94,6 @@ const Form = ({ onSubmit, onDelete, _id, initialMediaFiles = [], onSubmissionSuc
   const handleNotesChange = (e) => {
     setNotes(e.target.value);
   };
-
-  const handleMediaChange = (e) => {
-    const newFiles = Array.from(e.target.files);
-    setMediaFiles(prevFiles => [...prevFiles, ...newFiles]);
-  };
-  
 
   const handleMusicChange = async (e) => {
     const query = e.target.value;
@@ -148,7 +177,13 @@ const Form = ({ onSubmit, onDelete, _id, initialMediaFiles = [], onSubmissionSuc
     formData.append('notes', notes);
     formData.append('music', music);
     formData.append('selectedSongDetails', JSON.stringify(selectedSongDetails));
-    mediaFiles.forEach(file => formData.append('mediaFiles', file));
+    mediaFiles.forEach(file => {
+      if (file.file) {
+        formData.append('mediaFiles', file.file);
+      } else if (file.url) {
+        formData.append('existingMediaUrls', file.url);
+      }
+    });
 
     const trimmedName = name.trim();
     const isNameValid = trimmedName.length > 2 && trimmedName.length < 21;
@@ -230,11 +265,11 @@ const Form = ({ onSubmit, onDelete, _id, initialMediaFiles = [], onSubmissionSuc
             </div>
             <aside>
               <h4>Files</h4>
-              <ul>
-                {mediaFiles.map((file, index) => (
-                  <li key={index}>
-                    {file.path} - {file.size} bytes
-                    <button onClick={() => removeFile(file)} className="remove-file-btn">Remove</button>
+              <ul className='media-thumbnails'>
+                {mediaFiles.map((item, index) => (
+                  <li key={index} className='media-thumbnail-item'>
+                    <img src={item.preview || item.url} alt={`Media preview ${index}`} style={{width: '100px', height: '100px'}} />
+                    <button type="button" onClick={() => removeFile(item)} className="remove-file-btn">Remove</button>
                   </li>
                 ))}
               </ul>

@@ -136,6 +136,7 @@ useEffect(() => {
         initialName={name}
         initialNotes={notes}
         initialMusic={music}
+        initialMediaFiles={mediaFiles}
         // Pass other initial values as needed
         onSubmissionSuccess={() => setIsEditing(false)} // Reset editing state on successful submission
       />
