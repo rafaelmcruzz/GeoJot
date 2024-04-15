@@ -19,14 +19,13 @@ const Drawing1 = ({ name, notes, mediaFiles = [], music, songDetails, onViewMore
   const [currentIndex, setCurrentIndex] = useState(0);
 
 
-
   const handleAudioPlay = () => {
+    if (!songDetails.previewUrl) return; // Do nothing if there is no preview URL
+    
     if (isPlaying) {
-      // If the music is playing, pause it and update the state
       audioPlayer.pause();
       setIsPlaying(false);
     } else {
-      // If the music is not playing, start it and update the state
       const newAudioPlayer = new Audio(songDetails.previewUrl);
       newAudioPlayer.play()
         .then(() => {
@@ -160,13 +159,17 @@ useEffect(() => {
         </div>
         <div className="form-group">
           <label htmlFor="music">Music:</label>
-          {songDetails && songDetails.previewUrl ? (
+          {songDetails  ? (
             <div className="music-details">
               <img src={songDetails.albumArtUrl} alt="Album Art" className="album-art" />
               <div className="song-info">
                 <div className="song-title">{songDetails.title}</div>
                 <div className="song-author">By {songDetails.artists}</div>
-                <button onClick={handleAudioPlay} className="audio-control-button">
+                <button 
+                  onClick={handleAudioPlay} 
+                  className={`audio-control-button ${!songDetails.previewUrl ? 'disabled' : ''}`}
+                  disabled={!songDetails.previewUrl}
+                >
                   <FontAwesomeIcon icon={isPlaying ? faStop : faPlay} />
                 </button>
               </div>
