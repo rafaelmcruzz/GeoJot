@@ -1,67 +1,74 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './Home.css';
 
 const Search = ({ onSelectUser }) => {
   const [query, setQuery] = useState('');
   const [users, setUsers] = useState([]);
+  const containerRef = useRef(null);
 
-
-  const searchResultItems = document.querySelectorAll('.search-result-item');
-
-  //Handle mouse enter and leave events for search result items
-  searchResultItems.forEach(item => {
-    
-    item.addEventListener('mouseenter', () => {
-      
-      item.style.transform = 'scale(1.02)';
-    });
-
-    item.addEventListener('mouseleave', () => {
-      
-      item.style.transform = 'scale(1)';
-    });
-  });
-
-
-  // Fetch users based on the search query
   useEffect(() => {
-    if (query.length >= 1) { 
-      fetch(`http://localhost:3000/api/users/search?query=${query}`)
-        .then(response => response.json())
-        .then(data => {
+    // Fetch users based on the search query
+    const fetchUsers = async () => {
+      try {
+        if (query.length >= 1) { 
+          const response = await fetch(`http://localhost:3000/api/users/search?query=${query}`);
+          const data = await response.json();
           setUsers(data);
-      })
-        .catch(error => console.error('Error fetching user search results:', error));
-    } else {
-      setUsers([]);
-    }
+        } else {
+          setUsers([]);
+        }
+      } catch (error) {
+        console.error('Error fetching user search results:', error);
+      }
+    };
+
+    fetchUsers();
   }, [query]); // Rerun the effect when query changes
+
+  // Event listener to close user list when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (containerRef.current && !containerRef.current.contains(event.target)) {
+        setUsers([]); // Close user list
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   // JSX for rendering the search component
   return (
-    <div className="search-container">
+    <div ref={containerRef} className="search-container">
       <input
         type="text"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         placeholder="Search users..."
         className="search-input"
-        style= { {backgroundColor: 'white'} }
+        style={{ backgroundColor: 'white' }}
       />
-        {users.length > 0 && (
-          <ul className="search-results">
-            {users.map(user => (
-              <li key={user._id} className="search-result-item" style={{fontFamily: 'Quicksand, sans-serif'}}onClick={() => onSelectUser(user)}>
-                <img
-                  src={user.profilePic || 'https://geojot.s3.eu-west-1.amazonaws.com/profile-pictures/default-profile-pic.jpg'}
-                  alt={user.username}
-                  className="user-profile-pic"
-                />
-                {user.username}
-              </li>
-            ))}
-          </ul>
-        )}
+      {users.length > 0 && (
+        <ul className="search-results">
+          {users.map(user => (
+            <li
+              key={user._id}
+              className="search-result-item"
+              style={{ fontFamily: 'Quicksand, sans-serif' }}
+              onClick={() => onSelectUser(user)}
+            >
+              <img
+                src={user.profilePic || 'https://geojot.s3.eu-west-1.amazonaws.com/profile-pictures/default-profile-pic.jpg'}
+                alt={user.username}
+                className="user-profile-pic"
+              />
+              {user.username}
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 };
