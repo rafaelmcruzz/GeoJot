@@ -182,22 +182,19 @@ function Map({ selectedUser, selectedPin, setSelectedPin}) {
   };
 
   //Zooms in on selected pin from recent pins
-  function FlyToMarker() {
-    const map = useMap(); 
+function FlyToMarker() {
+  const map = useMap(); 
 
-    if (isViewingOwnMap) {
-
-    useEffect(() => {
-      if (selectedPin) {
-        map.flyTo([selectedPin.position.lat, selectedPin.position.lng], 15);
-        setSelectedPin(null);
-      }
-    }, [selectedPin, map, setSelectedPin]);
-
+  useEffect(() => {
+    if (isViewingOwnMap && selectedPin) {
+      map.flyTo([selectedPin.position.lat, selectedPin.position.lng], 15);
+      setSelectedPin(null);
     }
+  }, [isViewingOwnMap, selectedPin, map, setSelectedPin]);
 
-    return null;
-  }
+  return null;
+}
+
 
   //Fetch pins when the component mounts
   useEffect(() => {

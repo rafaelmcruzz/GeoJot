@@ -230,8 +230,8 @@ function App() {
               alignItems: 'center'
             }}
           >
-            <UserProfile userData={selectedUser} />
-            <button onClick={closeUserProfile} style={{position: 'absolute', top: '10px', right: '10px'}}>X</button>
+            <UserProfile userData={selectedUser} closeUserProfile={closeUserProfile} />
+            {/* <button onClick={closeUserProfile} style={{position: 'absolute', top: '10px', right: '10px'}}>X</button> */}
           </div>
         </div>
       )}

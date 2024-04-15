@@ -38,10 +38,10 @@ const Drawing1 = ({ name, notes, mediaFiles = [], music, songDetails, onViewMore
   };
 
   
-  useEffect(() => {
-    setImages(mediaFiles || []);
-  }, [mediaFiles]);
-  
+useEffect(() => {
+  setImages(mediaFiles || []);
+}, [mediaFiles]);
+
   
 
   useEffect(() => {
