@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useUser } from './UserContext';
+import './styles.css';
 
 const UserProfile = ({ userData, closeUserProfile }) => {
   const { username } = useUser();
@@ -61,9 +62,9 @@ const UserProfile = ({ userData, closeUserProfile }) => {
 
   // JSX for rendering the user profile
   return (
-    <div style={{ position: 'relative', border: '1px solid gray', borderRadius: '8px', padding: '16px', display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
-          <button onClick={closeUserProfile} 
-            style={{ position: 'absolute', top: '8px', right: '8px', cursor: 'pointer', border: 'none', background: '#94c2e7', fontSize: '16px', fontWeight: 'bold' }}>
+    <div style={{ position: "relative", border: '1px solid gray', borderRadius: '8px', padding: '25px', display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
+          <button className="close-button" onClick={closeUserProfile} 
+            >
         X
     </button>
       <img
