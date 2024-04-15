@@ -17,10 +17,14 @@ const Form = ({ onSubmit, onDelete, _id, initialMediaFiles = [], onSubmissionSuc
   const [selectedSongDetails, setSelectedSongDetails] = useState({});
   const mediaInputRef = useRef(null);
   const [nameError, setNameError] = useState('');
-  const [currentPreviewUrl, setCurrentPreviewUrl] = useState('');
   const [audioPlayer, setAudioPlayer] = useState(null);
   const [currentlyPlaying, setCurrentlyPlaying] = useState(null);
-  
+
+  const getInitialSubmits = () => {
+    return Number(localStorage.getItem(`submits_${_id}`)) || 0;
+  };
+
+  const [numberOfSubmits, setNumberOfSubmits] = useState(getInitialSubmits());
 
 
   const handleNameChange = (e) => {
@@ -170,6 +174,14 @@ const Form = ({ onSubmit, onDelete, _id, initialMediaFiles = [], onSubmissionSuc
         setSelectedSongDetails({});
         if (mediaInputRef.current) {
           mediaInputRef.current.value = '';
+        }
+
+        const newCount = numberOfSubmits + 1;
+        localStorage.setItem(`submits_${_id}`, newCount.toString());
+        setNumberOfSubmits(newCount);
+
+        if (newCount > 1) {
+          window.location.reload();
         }
 
         // Call the onSubmissionSuccess callback provided by the parent component
