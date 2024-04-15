@@ -1185,3 +1185,8 @@ button.remove-file-btn:hover {
   align-items: center;
   height: 100%;
 }
+
+#username {
+  border-radius: 20px; 
+  background-color: white;
+}

@@ -69,7 +69,7 @@ function Register() {
       <h2 type="title">User Registration</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <input type="text" id="username" name="username" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} required />
+          <input type="text" id="username" name="username" placeholder="  Username" value={username} onChange={(e) => setUsername(e.target.value)} required />
         </div>
         <div className="form-group">
           <input type="email" id="email" name="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
