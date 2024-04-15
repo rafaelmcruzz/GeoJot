@@ -77,18 +77,23 @@ const Drawing2 = ({ name, notes, mediaFiles, onBack, songDetails }) => {
             <div className="song-not-chosen">Song not chosen</div>
 )}
         </div>
-        <button className='view-more-button' type="button" style={{
-    backgroundColor: '#94c2e7',  
-    color: 'white',
-    padding: '12px 25px',
-    border: 'none',
-    borderRadius: '5px',
-    fontFamily: 'Quicksand, sans-serif',
-    boxShadow: '0 5px #775936',  
-    transition: 'all 0.3s ease',
-    cursor: 'pointer',
-    boxShadow: 'none'
-}} onClick={onBack}>Back</button>
+        <button 
+    className='view-more-button' 
+    type="button" 
+    style={{
+        backgroundColor: '#94c2e7',  
+        color: 'white',
+        padding: '12px 25px',
+        border: 'none',
+        borderRadius: '5px',
+        fontFamily: 'Quicksand, sans-serif',
+        transition: 'all 0.3s ease',
+        cursor: 'pointer',
+        boxShadow: 'none'
+    }}
+    onMouseOver={e => e.currentTarget.style.boxShadow = 'inset 0 0 5px rgba(0, 0, 0, 0.5)'}
+    onMouseOut={e => e.currentTarget.style.boxShadow = 'inset 0 0 5px rgba(0, 0, 0, 0)'}
+ onClick={onBack} >Back</button> 
       </div>
       <div className="right-side">
         <div className="image-container"> 

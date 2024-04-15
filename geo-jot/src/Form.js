@@ -284,28 +284,37 @@ const Form = ({ onSubmit, onDelete, _id, initialMediaFiles = [], onSubmissionSuc
     border: 'none',
     borderRadius: '5px',
     fontFamily: 'Quicksand, sans-serif',
-    boxShadow: '0 5px #775936',  
+    fontWeight: 'bold',
+    fontSize: '16px',  
     transition: 'all 0.3s ease',
     cursor: 'pointer',
-    boxShadow: 'none'
-}}>Submit</button>      
+    boxShadow: 'inset 0 0 5px rgba(0, 0, 0, 0)'
+}} onMouseOver={e => e.currentTarget.style.boxShadow = 'inset 0 0 5px rgba(0, 0, 0, 0.5)'}
+   onMouseOut={e => e.currentTarget.style.boxShadow = 'inset 0 0 5px rgba(0, 0, 0, 0)'}>
+    Submit
+</button>
 {onDelete && (
   <button
-    type="button"
-    onClick={onDelete}
-    style={{
-      backgroundColor: '#94c2e7',  
-      color: 'white',
-      padding: '12px 25px',
-      border: 'none',
-      borderRadius: '5px',      
-      fontFamily: 'Quicksand, sans-serif',
-      cursor: 'pointer',
-      transition: 'all 0.3s ease' // For a smooth hover transition
-    }}
-  >
-    Delete
-  </button>
+  type="button"
+  onClick={onDelete}
+  style={{
+    backgroundColor: '#94c2e7',  
+    color: 'white',
+    padding: '12px 25px',
+    border: 'none',
+    borderRadius: '5px',      
+    fontFamily: 'Quicksand, sans-serif',
+    fontWeight: 'bold',
+    fontSize: '16px',
+    cursor: 'pointer',
+    transition: 'background-color 0.3s ease', // For a smooth background color transition
+  }}
+  onMouseOver={e => e.currentTarget.style.backgroundColor = '#d60606'}
+  onMouseOut={e => e.currentTarget.style.backgroundColor = '#94c2e7'}
+>
+  Delete
+</button>
+
 )}      </form>
     </div>
   );

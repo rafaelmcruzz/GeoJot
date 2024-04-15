@@ -1,3 +1,5 @@
+import './Home.css';
+
 //Component for the confirmation modal for deleting an account
 function ConfirmationModal({ isOpen, message, onConfirm, onCancel }) {
     if (!isOpen) return null;
@@ -7,8 +9,8 @@ function ConfirmationModal({ isOpen, message, onConfirm, onCancel }) {
       <div className="modal-backdrop">
         <div className="modal-content">
           <p>{message}</p>
-          <button onClick={onConfirm}>Yes</button>
-          <button onClick={onCancel}>No</button>
+          <button style={{fontWeight: 'bold', borderRadius: '10px'}} onClick={onConfirm}>Yes</button>
+          <button style={{fontWeight: 'bold', borderRadius: '10px'}} onClick={onCancel}>No</button>
         </div>
       </div>
     );

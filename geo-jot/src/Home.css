@@ -939,8 +939,9 @@ button.remove-file-btn:hover {
 }
 
 .modal-content button {
-  background-color: #007bff; /* Change button color */
+  background-color: #94c2e7; /* Change button color */
   color: #fff; /* Change button text color */
+  font-weight: bold;
   border: none;
   padding: 10px 20px;
   border-radius: 5px;
@@ -949,7 +950,8 @@ button.remove-file-btn:hover {
 }
 
 .modal-content button:hover {
-  background-color: #0056b3; /* Darken button color on hover */
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5);
+  transition: 'box-shadow 0.3s ease',
 }
 
 .error {

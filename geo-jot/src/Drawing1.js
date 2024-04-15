@@ -178,24 +178,47 @@ useEffect(() => {
             <div className="song-not-chosen">Song not chosen</div>
 )}
         </div>
-        <button type="button" onClick={onViewMore} style={{
-    backgroundColor: '#94c2e7', /* Earthy background color */
-    color: 'white',
-    padding: '11px 25px',
-    border: 'none',
-    fontFamily: 'Quicksand, sans-serif', 
-    boxShadow: 'none'
-}}className="view-more-button">View More</button>
+        <button 
+    type="button" 
+    onClick={onViewMore} 
+    className="view-more-button" 
+    style={{
+        backgroundColor: '#94c2e7', /* Earthy background color */
+        color: 'white',
+        padding: '11px 25px',
+        border: 'none',
+        fontFamily: 'Quicksand, sans-serif', 
+        transition: 'box-shadow 0.3s ease', // Add transition for smooth effect
+        boxShadow: 'inset 0 0 5px rgba(0, 0, 0, 0)', // Initial box shadow
+    }}
+    onMouseOver={e => e.currentTarget.style.boxShadow = 'inset 0 0 5px rgba(0, 0, 0, 0.5)'}
+    onMouseOut={e => e.currentTarget.style.boxShadow = 'inset 0 0 5px rgba(0, 0, 0, 0)'}
+>
+    View More
+</button>
+
+{canEdit && (
+    <button 
+        type="button" 
+        onClick={() => setIsEditing(true)} 
+        className="view-more-button" 
+        style={{
+            backgroundColor: '#94c2e7', /* Earthy background color */
+            color: 'white',
+            padding: '11px 25px',
+            border: 'none',
+            fontFamily: 'Quicksand, sans-serif', 
+            transition: 'box-shadow 0.3s ease', // Add transition for smooth effect
+            boxShadow: 'inset 0 0 5px rgba(0, 0, 0, 0)', // Initial box shadow
+        }}
+        onMouseOver={e => e.currentTarget.style.boxShadow = 'inset 0 0 5px rgba(0, 0, 0, 0.5)'}
+        onMouseOut={e => e.currentTarget.style.boxShadow = 'inset 0 0 5px rgba(0, 0, 0, 0)'}
+    >
+        Edit
+    </button>
+)}
         {canEdit && (
           <>
-            <button type="button" onClick={() => setIsEditing(true)} className="view-more-button" style={{
-    backgroundColor: '#94c2e7', /* Earthy background color */
-    color: 'white',
-    padding: '11px 25px',
-    border: 'none',
-    fontFamily: 'Quicksand, sans-serif', 
-    boxShadow: 'none'
-}}>Edit</button>
             <button className="delete-button" onClick={onDelete}>Delete Pin</button>
           </>
         )}

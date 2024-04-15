@@ -71,8 +71,8 @@ const ProfilePicture = ({ username, onClose, currentProfilePic, onProfilePicUpda
                 </div>
             )}
             <input type="file" accept="image/*" onChange={handlePictureChange} />
-            <button className='view-more-button'>Upload</button>
-            <button className='delete-button' onClick={onClose}>Close</button>
+            <button style={{fontWeight: 'bold', borderRadius: '10px'}} className='modal-content-button'>Upload</button>
+            <button style={{fontWeight: 'bold', borderRadius: '10px'}} className='modal-content-button' onClick={onClose}>Close</button>
         </form>
     );
 };

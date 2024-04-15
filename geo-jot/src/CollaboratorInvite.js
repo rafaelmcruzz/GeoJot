@@ -42,8 +42,8 @@ const CollaboratorInvite = ({ pinId, onClose }) => {
                     onChange={(e) => setCollaboratorUsername(e.target.value)}
                     required
                 />
-                <button type="submit">Invite</button>
-                <button type="button" onClick={onClose}>Cancel</button>
+                <button style={{backgroundColor: '#94c2e7', padding: '12px 25px', borderRadius: '10px', fontSize: '16px'}} type="submit">Invite</button>
+                <button style={{backgroundColor: '#94c2e7', padding: '12px 25px', borderRadius: '10px'}} type="button" onClick={onClose}>Cancel</button>
             </form>
             {feedbackMessage.message && (
                 <div className={`feedback-message ${feedbackMessage.type}`}>

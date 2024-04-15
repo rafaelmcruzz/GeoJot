@@ -105,7 +105,7 @@ function SettingsModal({ username, onClose }) {
         <form onSubmit={handleChangePassword}>
           <input type="password" name="newPassword" placeholder="New Password" required />
           <input type="password" name="confirmPassword" placeholder="Confirm New Password" required />
-          <button type="submit">Change Password</button>
+          <button style={{backgroundColor: '#94c2e7', padding: '12px 25px', borderRadius: '10px', fontSize: '16px'}} type="submit">Change Password</button>
           {statusMessage && (
             <div style={{ color: statusMessageType === 'error' ? 'red' : 'green', marginTop: '2px', fontSize: '14px' }}>
               {statusMessage}
@@ -117,10 +117,26 @@ function SettingsModal({ username, onClose }) {
             </div>
           )}
         </form>
-        <button onClick={() => setShowConfirmation(true)} className="delete-account-button">
-          Delete Account
-        </button>
-        <button onClick={onClose}>Close</button>
+        <button
+    onClick={() => setShowConfirmation(true)}
+    className="delete-account-button"
+    style={{
+        backgroundColor: '#94c2e7',
+        borderRadius: '10px',
+        padding: '12px 25px',
+        border: 'none',
+        fontFamily: 'Quicksand, sans-serif',
+        fontWeight: 'bold',
+        fontSize: '16px',
+        cursor: 'pointer',
+        transition: 'background-color 0.3s ease', // For a smooth background color transition
+    }}
+    onMouseOver={e => e.currentTarget.style.backgroundColor = '#d60606'}
+    onMouseOut={e => e.currentTarget.style.backgroundColor = '#94c2e7'}
+>
+    Delete Account
+</button>
+        <button style={{borderRadius: '10px'}} onClick={onClose}>Close</button>
         {showConfirmation && (
         <ConfirmationModal
           isOpen={showConfirmation}
