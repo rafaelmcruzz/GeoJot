@@ -222,22 +222,24 @@ const Form = ({ onSubmit, onDelete, _id, initialMediaFiles = [], onSubmissionSuc
           />
         </div>
         <div className="form-group">
-          <label>Attach Media:</label>
-          <div {...getRootProps()} className="dropzone">
-        <input {...getInputProps()} />
-        <p>Drag 'n' drop some files here, or click to select files</p>
-      </div>
-      <aside>
-        <h4>Files</h4>
-        <ul>
-          {mediaFiles.map((file, index) => (
-            <li key={index}>
-              {file.path} - {file.size} bytes
-              <button onClick={() => removeFile(file)} className="remove-file-btn">Remove</button>
-            </li>
-          ))}
-        </ul>
-      </aside>
+          <div className="media-container">
+            <label>Attach Media:</label>
+            <div {...getRootProps()} className="dropzone">
+              <input {...getInputProps()} />
+              <p>Drag 'n' drop some files here, or click to select files</p>
+            </div>
+            <aside>
+              <h4>Files</h4>
+              <ul>
+                {mediaFiles.map((file, index) => (
+                  <li key={index}>
+                    {file.path} - {file.size} bytes
+                    <button onClick={() => removeFile(file)} className="remove-file-btn">Remove</button>
+                  </li>
+                ))}
+              </ul>
+            </aside>
+          </div>
         </div>
         <div className="form-group">
           <label htmlFor="music">Music:</label>

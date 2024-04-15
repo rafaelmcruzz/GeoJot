@@ -181,13 +181,9 @@ useEffect(() => {
         <button type="button" onClick={onViewMore} style={{
     backgroundColor: '#94c2e7', /* Earthy background color */
     color: 'white',
-    padding: '12px 25px',
+    padding: '11px 25px',
     border: 'none',
-    borderRadius: '5px',
-    fontFamily: 'Quicksand, sans-serif',
-    boxShadow: '0 5px #775936', /* 3D button effect */
-    transition: 'all 0.3s ease', /* Smooth hover transition */
-    cursor: 'pointer', /* Indicate that the button is clickable */  
+    fontFamily: 'Quicksand, sans-serif', 
     boxShadow: 'none'
 }}className="view-more-button">View More</button>
         {canEdit && (
@@ -195,13 +191,9 @@ useEffect(() => {
             <button type="button" onClick={() => setIsEditing(true)} className="view-more-button" style={{
     backgroundColor: '#94c2e7', /* Earthy background color */
     color: 'white',
-    padding: '12px 25px',
+    padding: '11px 25px',
     border: 'none',
-    borderRadius: '5px',
-    fontFamily: 'Quicksand, sans-serif',
-    boxShadow: '0 5px #775936', /* 3D button effect */
-    transition: 'all 0.3s ease', /* Smooth hover transition */
-    cursor: 'pointer', /* Indicate that the button is clickable */  
+    fontFamily: 'Quicksand, sans-serif', 
     boxShadow: 'none'
 }}>Edit</button>
             <button className="delete-button" onClick={onDelete}>Delete Pin</button>

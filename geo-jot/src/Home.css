@@ -618,9 +618,11 @@ audio {
 .view-more-button {
   background-color: #007bff; 
   color: white; 
-  padding: 8px 16px;
+  padding: 10px 20px;
+  font-family: 'Quicksand', sans-serif;
+  border-radius: 10px;
+  font-weight: bold;
   border: none;
-  border-radius: 20px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
@@ -777,6 +779,17 @@ audio {
   width: 50px;
   height: 50px;
   margin-right: 15px;
+}
+
+.media-container {
+  width: 445px; /* Match the width of the input */
+  top: 100%; /* Adjust this if needed */
+  z-index: 5; /* Lower than the z-index of your buttons */
+  max-height: 150px; /* Set this to your desired maximum height */
+  overflow-y: auto; /* Add vertical scrollbar if content exceeds max-height */
+  margin-top: 10px; /* Add some spacing between the input and container */
+  border-radius: 8px; /* Add border-radius for a rounded look */ 
+  overflow-x: hidden; /* Hide horizontal overflow */
 }
 
 .dropzone {
@@ -1002,15 +1015,16 @@ button.remove-file-btn:hover {
 }
 
 .form {
-  max-height: 600px; /* Set this to your desired maximum height */
-  overflow-y: auto; /* Add vertical scrollbar if content exceeds max-height */
+  height: 700px; /* Set this to your desired maximum height */
+  width: 500px;
+  overflow-y: auto;
 }
 
 .music-search-container {
-  width: 100%; /* Match the width of the input */
+  width: 445px; /* Match the width of the input */
   top: 100%; /* Adjust this if needed */
   z-index: 5; /* Lower than the z-index of your buttons */
-  max-height: 200px; /* Set this to your desired maximum height */
+  max-height: 150px; /* Set this to your desired maximum height */
   overflow-y: auto; /* Add vertical scrollbar if content exceeds max-height */
   margin-top: 10px; /* Add some spacing between the input and container */
   border-radius: 8px; /* Add border-radius for a rounded look */
@@ -1097,11 +1111,14 @@ button.remove-file-btn:hover {
   position: relative;
   width: 400px; /* Reduced width */
   height: 325px; /* Reduced height to maintain aspect ratio */
-  margin: 20px auto; /* Centers the slideshow horizontally */
+  margin: 75px auto; /* Centers the slideshow horizontally with top and bottom margin */
+  margin-left: 20px; /* Add margin to the left side */
   background: linear-gradient(to right, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.3));
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
   border-radius: 10px;
+  border: 3px solid #70aee0;
 }
+
 
 .drawing1 .slideshow-image {
   width: 100%;
