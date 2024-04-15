@@ -1095,6 +1095,7 @@ button.remove-file-btn:hover {
   height: 20px; /* Make the button smaller */
   color: white;
   cursor: pointer;
+  transform: translate(-50%, -50%);
 }
 
 .user-profile-pic {
