@@ -103,8 +103,24 @@ function SettingsModal({ username, onClose }) {
         <p><strong>Email: </strong>{userDetails.email}</p>
         <h2 className="change-password-title">Change Password</h2>
         <form onSubmit={handleChangePassword}>
-          <input type="password" name="newPassword" placeholder="New Password" required />
-          <input type="password" name="confirmPassword" placeholder="Confirm New Password" required />
+          <input type="password" name="newPassword" placeholder="  New Password" required style={{ 
+            backgroundColor: 'white', 
+            borderRadius: '20px', 
+            boxShadow: 'inset 0 0 5px rgba(0, 0, 0, 0.2)',
+            border: 'none',
+            padding: '10px',
+            width: '100%',
+            boxSizing: 'border-box'
+        }}/>
+          <input type="password" name="confirmPassword" placeholder="  Confirm New Password" required style={{ 
+            backgroundColor: 'white', 
+            borderRadius: '20px', 
+            boxShadow: 'inset 0 0 5px rgba(0, 0, 0, 0.2)',
+            border: 'none',
+            padding: '10px',
+            width: '100%',
+            boxSizing: 'border-box'
+        }}/>
           <button style={{backgroundColor: '#94c2e7', padding: '12px 25px', borderRadius: '10px', fontSize: '16px'}} type="submit">Change Password</button>
           {statusMessage && (
             <div style={{ color: statusMessageType === 'error' ? 'red' : 'green', marginTop: '2px', fontSize: '14px' }}>
