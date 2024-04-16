@@ -160,43 +160,26 @@ useEffect(() => {
         </div>
         <div className="form-group">
           <label htmlFor="music">Music:</label>
-          {songDetails  ? (
-            <div className="music-details">
+          {songDetails.albumArtUrl ? (
+            <div className="music-details"> 
               <img src={songDetails.albumArtUrl} alt="Album Art" className="album-art" />
               <div className="song-info">
                 <div className="song-title">{songDetails.title}</div>
                 <div className="song-author">By {songDetails.artists}</div>
-                <button 
-                  onClick={handleAudioPlay} 
+                <button
+                  onClick={handleAudioPlay}
                   className={`audio-control-button ${!songDetails.previewUrl ? 'disabled' : ''}`}
                   disabled={!songDetails.previewUrl}
                 >
-                  <FontAwesomeIcon icon={isPlaying ? faStop : faPlay} />
+                  <FontAwesomeIcon icon={isPlaying ? faStop : faPlay} /> 
                 </button>
-              </div>
-            </div>
+              </div> 
+            </div> 
           ) : (
-            <div className="song-not-chosen">Song not chosen</div>
-)}
+            <div className="song-not-chosen" style={{fontFamily: 'Quicksand, sans-serif', fontWeight: 'bold', color: '#203a4c'  }}>Song not chosen</div>
+          )}
         </div>
-        <button 
-    type="button" 
-    onClick={onViewMore} 
-    className="view-more-button" 
-    style={{
-        backgroundColor: '#94c2e7', /* Earthy background color */
-        color: 'white',
-        padding: '11px 25px',
-        border: 'none',
-        fontFamily: 'Quicksand, sans-serif', 
-        transition: 'box-shadow 0.3s ease', // Add transition for smooth effect
-        boxShadow: 'inset 0 0 5px rgba(0, 0, 0, 0)', // Initial box shadow
-    }}
-    onMouseOver={e => e.currentTarget.style.boxShadow = 'inset 0 0 5px rgba(0, 0, 0, 0.5)'}
-    onMouseOut={e => e.currentTarget.style.boxShadow = 'inset 0 0 5px rgba(0, 0, 0, 0)'}
->
-    View More
-</button>
+
 
 {canEdit && (
     <button 
@@ -226,12 +209,9 @@ useEffect(() => {
       </div>
       <div className="right-section">
       <div className="slideshow-centered">
+      {images.length > 0 ? (
         <div className="slideshow-container">
-          {images.length > 0 ? (
-            <img src={images[currentIndex]} alt={`Media ${currentIndex + 1}`} className="slideshow-image" />
-          ) : (
-            <p style={{fontFamily: 'Quicksand, sans-serif', fontWeight: 'bold'}}>No images available</p>
-          )}
+          <img src={images[currentIndex]} alt={`Media ${currentIndex + 1}`} className="slideshow-image" />
           <div className="slideshow-controls">
             <FontAwesomeIcon icon={faChevronLeft} onClick={handlePrevImage} />
             <FontAwesomeIcon icon={faChevronRight} onClick={handleNextImage} />
@@ -244,7 +224,10 @@ useEffect(() => {
             </div>
           )}
         </div>
-        </div>
+      ) : (
+        <p style={{fontFamily: 'Quicksand, sans-serif', fontWeight: 'bold', color: '#203a4c'}}>No images available</p>
+      )}
+    </div>
       </div>
       <div className="action-buttons">
         <div onClick={toggleLike} className="like-button">
