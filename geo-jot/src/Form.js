@@ -13,7 +13,7 @@ const Form = ({ onSubmit, onDelete, _id, initialMediaFiles = [], onSubmissionSuc
   const [notes, setNotes] = useState('');
   const [music, setMusic] = useState('');
   const [musicSearchResults, setMusicSearchResults] = useState([]);
-  const [mediaFiles, setMediaFiles] = useState(initialMediaFiles.map(url => (typeof url === 'string' ? { url } : url)));
+  const [mediaFiles, setMediaFiles] = useState((initialMediaFiles || []).map(url => (typeof url === 'string' ? { url } : url)));
   const [selectedSongDetails, setSelectedSongDetails] = useState({});
   const mediaInputRef = useRef(null);
   const [nameError, setNameError] = useState('');

@@ -230,7 +230,7 @@ useEffect(() => {
           {images.length > 0 ? (
             <img src={images[currentIndex]} alt={`Media ${currentIndex + 1}`} className="slideshow-image" />
           ) : (
-            <p>No images available</p>
+            <p style={{fontFamily: 'Quicksand, sans-serif', fontWeight: 'bold'}}>No images available</p>
           )}
           <div className="slideshow-controls">
             <FontAwesomeIcon icon={faChevronLeft} onClick={handlePrevImage} />
