@@ -20,6 +20,7 @@ const Form = ({ onSubmit, onDelete, _id, initialMediaFiles = [], onSubmissionSuc
   const [audioPlayer, setAudioPlayer] = useState(null);
   const [currentlyPlaying, setCurrentlyPlaying] = useState(null);
   const [errorMessage, setErrorMessage] = useState('');
+  const MAX_IMAGES = 9;
 
   const getInitialSubmits = () => {
     return Number(localStorage.getItem(`submits_${_id}`)) || 0;
@@ -33,23 +34,13 @@ const Form = ({ onSubmit, onDelete, _id, initialMediaFiles = [], onSubmissionSuc
   };
 
   const onDrop = useCallback(acceptedFiles => {
-    const maxImages = mediaFiles.length + acceptedFiles.length;
-    console.log(maxImages);
-
-    if (maxImages > 9) {
-      setErrorMessage('You can only upload a maximum of 9 images.');
-      acceptedFiles = acceptedFiles.slice(0, 9 - mediaFiles.length);
-    }
-    else {
-      setErrorMessage(''); 
-    }
-
-    const newFiles = acceptedFiles.map(file => ({
-      file,
-      preview: URL.createObjectURL(file)
+    const newFiles = acceptedFiles.slice(0, MAX_IMAGES - mediaFiles.length).map(file => ({
+        file,
+        preview: URL.createObjectURL(file)
     }));
     setMediaFiles(prevFiles => [...prevFiles, ...newFiles]);
-  }, []);
+}, [mediaFiles]);
+
 
   const { getRootProps, getInputProps } = useDropzone({ onDrop });
 
@@ -271,10 +262,14 @@ const Form = ({ onSubmit, onDelete, _id, initialMediaFiles = [], onSubmissionSuc
         <div className="form-group">
           <div className="media-container">
             <label style={{textAlign: 'center'}} >Attach Media:</label>
-            <div {...getRootProps()} className="dropzone">
-              <input {...getInputProps()} />
-              <p>Drag 'n' drop some files here, or click to select files</p>
-            </div>
+            <div {...getRootProps()} className={`dropzone ${mediaFiles.length >= MAX_IMAGES ? 'disabled' : ''}`}>
+    <input {...getInputProps()} />
+    {mediaFiles.length >= MAX_IMAGES && (
+        <p style={{ color: 'red' }}>Maximum images reached</p>
+    )}
+    <p>{mediaFiles.length < MAX_IMAGES ? 'Drag \'n\' drop some files here, or click to select files' : ''}</p>
+</div>
+
             {errorMessage && <div className="max-images-message">{errorMessage}</div>}
             <aside>
               <h4 style={{textAlign: 'center'}}>Files</h4>
