@@ -30,8 +30,9 @@ const Form = ({ onSubmit, onDelete, _id, initialMediaFiles = [], onSubmissionSuc
 
 
   const handleNameChange = (e) => {
-    setName(e.target.value.trim());
+    setName(e.target.value);  // Allow spaces while typing
   };
+  
 
   const onDrop = useCallback(acceptedFiles => {
     const newFiles = acceptedFiles.slice(0, MAX_IMAGES - mediaFiles.length).map(file => ({
@@ -176,7 +177,8 @@ const Form = ({ onSubmit, onDelete, _id, initialMediaFiles = [], onSubmissionSuc
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData();
-    formData.append('name', name);
+    const trimmedName = name.trim();
+    formData.append('name', trimmedName);
     formData.append('notes', notes);
     formData.append('music', music);
     formData.append('selectedSongDetails', JSON.stringify(selectedSongDetails));
@@ -188,7 +190,6 @@ const Form = ({ onSubmit, onDelete, _id, initialMediaFiles = [], onSubmissionSuc
       }
     });
 
-    const trimmedName = name.trim();
     const isNameValid = trimmedName.length > 2 && trimmedName.length < 21;
 
     if (!isNameValid) {
