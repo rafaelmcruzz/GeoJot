@@ -23,37 +23,26 @@ const ProfilePicture = ({ username, onClose, currentProfilePic, onProfilePicUpda
     //Handle form submission
     const handleSubmit = async (e) => {
         e.preventDefault();
-      
+
         if (!file) {
-          setFeedbackMessage({ message: 'Please select a file before submitting.', type: 'error' });
-          return;
+            setFeedbackMessage({ message: 'Please select a file before submitting.', type: 'error' });
+            return;
         }
-      
         const formData = new FormData();
         formData.append('profilePic', file);
-      
+
         try {
-          const response = await fetch(`http://localhost:3000/api/users/${username}/profile-picture`, {
-            method: 'PUT',
-            body: formData
-          });
-      
-          if (!response.ok) {
-            throw new Error('Network response was not ok'); // Or a more descriptive error
-          }
-      
-          const data = await response.json(); 
-          const newProfilePicUrl = data.profilePic;
-      
-          setFeedbackMessage({ message: 'Profile picture updated successfully!', type: 'success' });
-          onProfilePicUpdate(newProfilePicUrl);
-          onClose();
+            const response = await axios.put(`https://geojotbackend.onrender.com/api/users/${username}/profile-picture`, formData, {
+                method: 'PUT',
+            });
+            const newProfilePicUrl = response.data.profilePic;
+            setFeedbackMessage({ message: 'Profile picture updated successfully!', type: 'success' });
+            onProfilePicUpdate(newProfilePicUrl);
+            onClose();
         } catch (error) {
-          setFeedbackMessage({ message: 'Error uploading profile picture.', type: 'error' });
-          console.error("There was a problem uploading the profile picture:", error); // Log for debugging
+            setFeedbackMessage({ message: 'Error uploading profile picture.', type: 'error' });
         }
-      };
-      
+    };
 
     // JSX for rendering the form
     return (
