@@ -30,6 +30,8 @@ function Map({ selectedUser, selectedPin, setSelectedPin}) {
   const { fetchRecentPins } = usePins();
   const { username } = useUser();
   const { username: currentUsername } = useUser();
+  const [center, setCenter] = useState([53.411730, -2.982645]); // Default coordinates (Liverpool)
+  const [zoom, setZoom] = useState(13); // Default zoom level
 
   //Checks if user is viewing their own map
   const isViewingOwnMap = currentUsername === (selectedUser ? selectedUser.username : currentUsername);
@@ -388,9 +390,23 @@ function FlyToMarker() {
     </div>
   )}
 
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        setCenter([position.coords.latitude, position.coords.longitude]);
+        setZoom(60); // Closer zoom when user location is found
+      },
+      () => {
+        console.error("Geolocation permission denied or not available. Defaulting to Liverpool, England.");
+        setCenter([53.411730, -2.982645]); // Default to Liverpool if permission is denied
+        setZoom(13); // Default zoom level
+      }
+    );
+  }, []);
+
   return (
     <div className="map">
-      <MapContainer center={[53.411730, -2.982645]} zoom={13} style={{ height: '100vh' }}>
+      <MapContainer center={center} zoom={zoom} style={{ height: '100vh' }}>
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
