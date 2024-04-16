@@ -72,7 +72,17 @@ const ProfilePicture = ({ username, onClose, currentProfilePic, onProfilePicUpda
             )}
             <input type="file" accept="image/*" onChange={handlePictureChange} />
             <button style={{fontWeight: 'bold', borderRadius: '10px'}} className='modal-content-button'>Upload</button>
-            <button style={{fontWeight: 'bold', borderRadius: '10px'}} className='modal-content-button' onClick={onClose}>Close</button>
+            <button style={{
+        backgroundColor: '#94c2e7',
+        borderRadius: '10px',
+        padding: '12px 25px',
+        border: 'none',
+        fontFamily: 'Quicksand, sans-serif',
+        fontWeight: 'bold',
+        fontSize: '16px',
+        cursor: 'pointer',
+        transition: 'background-color 0.3s ease', // For a smooth background color transition
+    }}className="delete-account-button" onClick={onClose}>Close</button>
         </form>
     );
 };

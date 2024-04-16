@@ -73,23 +73,25 @@ function LeftSidebar( {onPinSelect} ) {
     }
   }, [recentPins]);
 
-  //Toggle the dropdown menu
-  const toggleDropdown = () => {
-    setShowDropdown(!showDropdown);
+  const toggleDropdownOn = () => {
+  
+    setShowDropdown(true);
+  }
+  
+  const toggleDropdownDown = () => {
+   
+    setShowDropdown(false);
   }
 
-  //Handle user logout
   const handleLogout = () => {
     logout();
     navigate('/', { replace: true });
   }
 
-  //Toggle the settings modal
   const toggleSettingsModal = () => {
     setShowSettingsModal(!showSettingsModal);
   };
 
-  //Event Handles for changing profile picture
   const handleChangeProfilePicture = () => {
     setShowProfilePicture(true);
   }
@@ -107,18 +109,18 @@ function LeftSidebar( {onPinSelect} ) {
     <div className="left-sidebar">
       <div className="user-profile">
         <div className="profile-picture">
-          <img src={profilePicUrl} alt="User Profile Picture" onClick={toggleDropdown} />
+        <img src={profilePicUrl} alt="User Profile Picture" onMouseEnter={toggleDropdownOn} onMouseLeave={toggleDropdownDown} />
         </div>
         <p><strong>@{username}</strong></p>
         <p>Followers: {followersCount}</p>
 
       </div>
       {showDropdown && (
-        <div className="profile-dropdown">
-          <p onClick={handleChangeProfilePicture}>Change Profile Picture</p>
-          <p onClick={toggleSettingsModal}>Settings</p>
-          <p onClick={handleLogout}>Logout</p>
-        </div>
+       <div className="profile-dropdown" onMouseEnter={toggleDropdownOn} onMouseLeave={toggleDropdownDown}>
+       <p onClick={handleChangeProfilePicture}>Change Profile Picture</p>
+       <p onClick={toggleSettingsModal}>Settings</p>
+       <p onClick={handleLogout}>Logout</p>
+     </div>
       )}
       {showProfilePicture && (
         <div className="ProfilePicture-backdrop" onClick={() => setShowProfilePicture(false)}>
