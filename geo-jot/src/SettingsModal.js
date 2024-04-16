@@ -14,7 +14,7 @@ function SettingsModal({ username, onClose }) {
   //Fetch user details when the component mounts or username changes
   useEffect(() => {
     if (username) { 
-      fetch(`http://localhost:3000/api/users/${username}/details`)
+      fetch(`https://geojotbackend.onrender.com/api/users/${username}/details`)
         .then(response => {
           if (!response.ok) {
             throw new Error('Network response was not ok');
@@ -47,7 +47,7 @@ function SettingsModal({ username, onClose }) {
     }
 
     try {
-      const response = await fetch(`http://localhost:3000/api/users/${username}/change-password`, {
+      const response = await fetch(`https://geojotbackend.onrender.com/api/users/${username}/change-password`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ newPassword })
@@ -75,7 +75,7 @@ function SettingsModal({ username, onClose }) {
     setShowConfirmation(true);
 
       try {
-        const response = await fetch(`http://localhost:3000/api/users/${username}`, {
+        const response = await fetch(`https://geojotbackend.onrender.com/api/users/${username}`, {
           method: 'DELETE',
         });
   

@@ -78,7 +78,7 @@ useEffect(() => {
   useEffect(() => {
     const fetchLikes = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/api/pins/${pinId}/likes`);
+        const response = await fetch(`https://geojotbackend.onrender.com/api/pins/${pinId}/likes`);
         if (!response.ok) throw new Error('Failed to fetch likes');
         const data = await response.json();
         setLikes(data.likes || []);
@@ -100,7 +100,7 @@ useEffect(() => {
   const toggleLike = async () => {
     try {
       console.log("currentUser", username);
-      const response = await fetch(`http://localhost:3000/api/pins/${pinId}/toggle-like`, {
+      const response = await fetch(`https://geojotbackend.onrender.com/api/pins/${pinId}/toggle-like`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

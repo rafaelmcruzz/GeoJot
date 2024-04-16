@@ -28,7 +28,7 @@ function LeftSidebar( {onPinSelect} ) {
     // Only proceed if username is available
     if (!username) return;
 
-    fetch(`http://localhost:3000/api/users/${username}/details`)
+    fetch(`https://geojotbackend.onrender.com/api/users/${username}/details`)
       .then(response => response.json())
       .then(data => {
         setFollowersCount(data.followers?.length || 0);

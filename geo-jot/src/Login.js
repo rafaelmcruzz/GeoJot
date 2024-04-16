@@ -25,7 +25,7 @@ function Login({ }) {
 
     try {
       // Send login credentials to the backend for authentication
-      const response = await axios.post('http://localhost:3000/api/login', {
+      const response = await axios.post(`https://geojotbackend.onrender.com/api/login`, {
         username: usernameInput,
         password
       });
@@ -39,7 +39,7 @@ function Login({ }) {
       sessionStorage.setItem('username', response.data.user.username);
  
     } catch (error) {
-      console.error('Error logging in:', error);
+      console.error(`https://geojotbackend.onrender.com/api/login`, error);
     }
   };
 

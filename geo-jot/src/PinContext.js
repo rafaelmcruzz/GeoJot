@@ -12,7 +12,7 @@ export const PinProvider = ({ children }) => {
 
   const fetchRecentPins = useCallback(async () => {
     try {
-        const response = await fetch(`http://localhost:3000/api/pins/recent?username=${username}`); // Adjust URL as needed
+        const response = await fetch(`https://geojotbackend.onrender.com/api/pins/recent?username=${username}`); // Adjust URL as needed
         if (!response.ok) throw new Error('Failed to fetch recent pins');
         const pins = await response.json();
         setRecentPins(pins);

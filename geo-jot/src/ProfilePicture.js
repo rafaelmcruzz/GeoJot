@@ -32,7 +32,7 @@ const ProfilePicture = ({ username, onClose, currentProfilePic, onProfilePicUpda
         formData.append('profilePic', file);
 
         try {
-            const response = await axios.put(`http://localhost:3000/api/users/${username}/profile-picture`, formData, {
+            const response = await axios.put(`https://geojotbackend.onrender.com/api/users/${username}/profile-picture`, formData, {
                 method: 'PUT',
             });
             const newProfilePicUrl = response.data.profilePic;

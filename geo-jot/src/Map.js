@@ -72,7 +72,7 @@ function Map({ selectedUser, selectedPin, setSelectedPin}) {
   // Function to fetch pins to the current user
   const fetchPins = async () => {
     try {
-      const response = await fetch(`http://localhost:3000/api/pins?username=${username}`);
+      const response = await fetch(`https://geojotbackend.onrender.com/api/pins?username=${username}`);
       if (response.ok) {
         let pins = await response.json();
         pins = pins.filter(pin => pin.position && pin.position.lat && pin.position.lng);
@@ -96,7 +96,7 @@ function Map({ selectedUser, selectedPin, setSelectedPin}) {
   const fetchPinsDiffUser = async (usernameParam) => {
     try {
       const usernameToFetch = usernameParam || username;
-      const response = await fetch(`http://localhost:3000/api/pins?username=${usernameToFetch}`);
+      const response = await fetch(`https://geojotbackend.onrender.com/api/pins?username=${usernameToFetch}`);
       if (response.ok) {
         let pins = await response.json();
         pins = pins.filter(pin => pin.position && pin.position.lat && pin.position.lng);
@@ -124,7 +124,7 @@ function Map({ selectedUser, selectedPin, setSelectedPin}) {
   //Fetches details for a pin
   const fetchPinDetails = async (pinId) => {
     try {
-      const response = await fetch(`http://localhost:3000/api/pins/details/${pinId}`);
+      const response = await fetch(`https://geojotbackend.onrender.com/api/pins/details/${pinId}`);
       if (response.ok) {
         const pinDetails = await response.json();
         return pinDetails;
@@ -141,7 +141,7 @@ function Map({ selectedUser, selectedPin, setSelectedPin}) {
   // Function to handle form submission
   const handleFormSubmit = async (formData) => {
     try {
-      const response = await fetch(`http://localhost:3000/api/pins/${formData._id}`, {
+      const response = await fetch(`https://geojotbackend.onrender.com/api/pins/${formData._id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -223,7 +223,7 @@ function FlyToMarker() {
   const deleteMarker = async (markerId) => {  
 
     try {
-      const response = await fetch(`http://localhost:3000/api/pins/${markerId}`, {
+      const response = await fetch(`https://geojotbackend.onrender.com/api/pins/${markerId}`, {
         method: 'DELETE',
       });
 
@@ -311,7 +311,7 @@ function FlyToMarker() {
         const markerWithUser = { ...newMarker, username: currentUsername, details: {} };
     
         try {
-          const response = await fetch('http://localhost:3000/api/pins', {
+          const response = await fetch(`https://geojotbackend.onrender.com/api/pins`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',

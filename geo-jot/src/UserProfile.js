@@ -18,7 +18,7 @@ const UserProfile = ({ userData, closeUserProfile }) => {
 
   useEffect(() => {
     if (userData && userData.username) {
-      fetch(`http://localhost:3000/api/users/search?query=${encodeURIComponent(userData.username)}`)
+      fetch(`https://geojotbackend.onrender.com/api/users/search?query=${encodeURIComponent(userData.username)}`)
         .then(response => response.json())
         .then(data => {
           const user = data.find(u => u.username === userData.username);
@@ -39,7 +39,7 @@ const UserProfile = ({ userData, closeUserProfile }) => {
 
     const action = isFollowing ? 'unfollow' : 'follow';
 
-    fetch(`http://localhost:3000/api/users/${usernameToFollow}/${action}`, {
+    fetch(`https://geojotbackend.onrender.com/api/users/${usernameToFollow}/${action}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

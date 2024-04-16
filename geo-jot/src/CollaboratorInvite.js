@@ -14,7 +14,7 @@ const CollaboratorInvite = ({ pinId, onClose }) => {
         if (!collaboratorUsername) return;
 
         try {
-            const response = await fetch(`http://localhost:3000/api/pins/${pinId}/collaborators`, {
+            const response = await fetch(`https://geojotbackend.onrender.com/api/pins/${pinId}/collaborators`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ collaboratorUsername }),

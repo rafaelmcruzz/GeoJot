@@ -1,10 +1,8 @@
-/* Styling for Form, Login and Register */
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Ensure the background image covers the entire viewport */
 body {
   background-size: cover;
   margin: 0;

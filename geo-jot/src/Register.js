@@ -30,7 +30,7 @@ function Register() {
     
     try {
 
-      const response = await axios.post('http://localhost:3000/api/register', {
+      const response = await axios.post(`https://geojotbackend.onrender.com/api/register`, {
         email,
         username,
         password

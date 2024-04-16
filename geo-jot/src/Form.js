@@ -48,7 +48,7 @@ const Form = ({ onSubmit, onDelete, _id, initialMediaFiles = [], onSubmissionSuc
   const removeFile = async (fileToRemove) => {
     if (fileToRemove.url) {
       try {
-        const response = await fetch(`http://localhost:3000/api/pins/${_id}/remove-image`, {
+        const response = await fetch(`https://geojotbackend.onrender.com/api/pins/${_id}/remove-image`, {
           method: 'PATCH',
           headers: {
             'Content-Type': 'application/json',
@@ -109,7 +109,7 @@ const Form = ({ onSubmit, onDelete, _id, initialMediaFiles = [], onSubmissionSuc
     }
 
     try {
-      const url = `http://localhost:3000/api/spotify/search?query=${encodeURIComponent(query)}`;
+      const url = `https://geojotbackend.onrender.com/api/spotify/search?query=${encodeURIComponent(query)}`;
       console.log(`Making request to: ${url}`);
       const response = await fetch(url);
       const data = await response.json();
@@ -156,7 +156,7 @@ const Form = ({ onSubmit, onDelete, _id, initialMediaFiles = [], onSubmissionSuc
       const fetchPinDetails = async () => {
         if (_id) {
           try {
-            const response = await fetch(`http://localhost:3000/api/pins/details/${_id}`);
+            const response = await fetch(`https://geojotbackend.onrender.com/api/pins/details/${_id}`);
             if (!response.ok) throw new Error('Failed to fetch pin details');
             const data = await response.json();
             setName(data.name || '');
@@ -199,7 +199,7 @@ const Form = ({ onSubmit, onDelete, _id, initialMediaFiles = [], onSubmissionSuc
 
 
     try {
-      const response = await fetch(`http://localhost:3000/api/pins${_id ? `/${_id}` : ''}`, {
+      const response = await fetch(`https://geojotbackend.onrender.com/api/pins${_id ? `/${_id}` : ''}`, {
         method: _id ? 'PUT' : 'POST',
         body: formData,
       });
