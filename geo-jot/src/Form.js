@@ -19,6 +19,7 @@ const Form = ({ onSubmit, onDelete, _id, initialMediaFiles = [], onSubmissionSuc
   const [nameError, setNameError] = useState('');
   const [audioPlayer, setAudioPlayer] = useState(null);
   const [currentlyPlaying, setCurrentlyPlaying] = useState(null);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const getInitialSubmits = () => {
     return Number(localStorage.getItem(`submits_${_id}`)) || 0;
@@ -32,6 +33,17 @@ const Form = ({ onSubmit, onDelete, _id, initialMediaFiles = [], onSubmissionSuc
   };
 
   const onDrop = useCallback(acceptedFiles => {
+    const maxImages = mediaFiles.length + acceptedFiles.length;
+    console.log(maxImages);
+
+    if (maxImages > 9) {
+      setErrorMessage('You can only upload a maximum of 9 images.');
+      acceptedFiles = acceptedFiles.slice(0, 9 - mediaFiles.length);
+    }
+    else {
+      setErrorMessage(''); 
+    }
+
     const newFiles = acceptedFiles.map(file => ({
       file,
       preview: URL.createObjectURL(file)
@@ -263,6 +275,7 @@ const Form = ({ onSubmit, onDelete, _id, initialMediaFiles = [], onSubmissionSuc
               <input {...getInputProps()} />
               <p>Drag 'n' drop some files here, or click to select files</p>
             </div>
+            {errorMessage && <div className="max-images-message">{errorMessage}</div>}
             <aside>
               <h4 style={{textAlign: 'center'}}>Files</h4>
               <ul className='media-thumbnails'>

@@ -1220,3 +1220,12 @@ button.remove-file-btn:hover {
   height: 100;
   border-radius: 5px;
 }
+
+.max-images-message {
+  color: #D8000C;
+  background-color: #FFD2D2;
+  padding: 7px;
+  margin-top: 10px;
+  border-radius: 5px;
+  border: 1px solid #D8000C;
+}
