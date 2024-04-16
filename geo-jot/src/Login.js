@@ -32,7 +32,7 @@ function Login({ }) {
 
       // Handle successful login
       setIsLoggedIn(true);
-      setUsername(response.data.user.username); // Adjusted access path
+      setUsername(response.data.user.username); 
 
       // Store login status in session storage
       sessionStorage.setItem('isLoggedIn', 'true');

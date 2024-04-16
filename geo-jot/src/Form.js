@@ -5,7 +5,7 @@ import { faPlay, faStop } from '@fortawesome/free-solid-svg-icons';
 import { useDropzone } from 'react-dropzone';
 
 
-// import { FileUploader } from "react-drag-drop-files";
+
 
 
 const Form = ({ onSubmit, onDelete, _id, initialMediaFiles = [], onSubmissionSuccess }) => {
@@ -30,7 +30,7 @@ const Form = ({ onSubmit, onDelete, _id, initialMediaFiles = [], onSubmissionSuc
 
 
   const handleNameChange = (e) => {
-    setName(e.target.value);  // Allow spaces while typing
+    setName(e.target.value);  
   };
   
 
@@ -110,10 +110,10 @@ const Form = ({ onSubmit, onDelete, _id, initialMediaFiles = [], onSubmissionSuc
 
     try {
       const url = `http://localhost:3000/api/spotify/search?query=${encodeURIComponent(query)}`;
-      console.log(`Making request to: ${url}`); // Log for debugging
+      console.log(`Making request to: ${url}`);
       const response = await fetch(url);
       const data = await response.json();
-      setMusicSearchResults(data.tracks.items); // This assumes your Spotify search response structure
+      setMusicSearchResults(data.tracks.items); 
     } catch (error) {
       console.error('Error fetching music search results:', error);
     }
@@ -162,11 +162,11 @@ const Form = ({ onSubmit, onDelete, _id, initialMediaFiles = [], onSubmissionSuc
             setName(data.name || '');
             setNotes(data.notes || '');
             setMusic(data.music || '');
-            setSelectedSongDetails(data.selectedSongDetails || {}); // Ensure this is correctly set
-            // Populate other fields as necessary
+            setSelectedSongDetails(data.selectedSongDetails || {});
+           
           } catch (error) {
             console.error('Error fetching pin details:', error);
-            // Optionally handle error (e.g., displaying a message to the user)
+           
           }
         }
       };
@@ -351,7 +351,7 @@ const Form = ({ onSubmit, onDelete, _id, initialMediaFiles = [], onSubmissionSuc
     fontWeight: 'bold',
     fontSize: '16px',
     cursor: 'pointer',
-    transition: 'background-color 0.3s ease', // For a smooth background color transition
+    transition: 'background-color 0.3s ease', 
   }}
   onMouseOver={e => e.currentTarget.style.backgroundColor = '#d60606'}
   onMouseOut={e => e.currentTarget.style.backgroundColor = '#94c2e7'}

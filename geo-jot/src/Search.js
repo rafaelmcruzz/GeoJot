@@ -23,13 +23,13 @@ const Search = ({ onSelectUser }) => {
     };
 
     fetchUsers();
-  }, [query]); // Rerun the effect when query changes
+  }, [query]); 
 
   // Event listener to close user list when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (containerRef.current && !containerRef.current.contains(event.target)) {
-        setUsers([]); // Close user list
+        setUsers([]); 
       }
     };
 

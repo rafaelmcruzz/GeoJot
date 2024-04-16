@@ -17,7 +17,6 @@ const UserProfile = ({ userData, closeUserProfile }) => {
   }, [userData, username]);
 
   useEffect(() => {
-    // Ensure username is available
     if (userData && userData.username) {
       fetch(`http://localhost:3000/api/users/search?query=${encodeURIComponent(userData.username)}`)
         .then(response => response.json())
@@ -34,7 +33,6 @@ const UserProfile = ({ userData, closeUserProfile }) => {
   }, [userData.username]); 
 
   const handleFollow = (usernameToFollow) => {
-    // Prevent users from following/unfollowing themselves
     if (username === usernameToFollow) {
       return;
     }
@@ -50,7 +48,6 @@ const UserProfile = ({ userData, closeUserProfile }) => {
     })
     .then(response => response.json())
     .then(data => {
-      // Toggle the follow state and update followers count accordingly
       setIsFollowing(!isFollowing);
       setFollowersCount(currentCount => isFollowing ? currentCount - 1 : currentCount + 1);
     })

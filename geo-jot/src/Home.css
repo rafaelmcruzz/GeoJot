@@ -12,51 +12,51 @@ button.disabled {
 
 .left-sidebar {
   width: 300px;
-  height: 100vh; /* Set height to 100% of viewport height */
-  background-color: #b0d2e8;  /* Your chosen calming blue */
-  color: #333; /* Light, earthy text color */  
+  height: 100vh; 
+  background-color: #b0d2e8;  
+  color: #333;  
   padding: 20px;
   box-sizing: border-box;
-  border-right: 2px solid #ffffff; /* Add right border */
-  border-bottom: 2px solid #ffffff; /* Add bottom border */
+  border-right: 2px solid #ffffff; 
+  border-bottom: 2px solid #ffffff; 
   font-family: 'Quicksand', sans-serif;
 }
 
 .recent-pin {
   display: flex;
-  align-items: center; /* Aligns the text and the pin icon vertically */
-  padding: 10px; /* Adds some padding inside each list item */
+  align-items: center; 
+  padding: 10px;
   background-color: #faf3f3; 
   border-bottom: 1px solid #3a3a3a; 
   height: auto;
   width: auto;
   border-radius: 0;
-  box-shadow: 0 4px 8px rgba(0.15, 0.15, 0.15, 0.15); /* Add this line */
-  transition: opacity 0.3s ease-in-out; /* Smooth transition for the opacity change */
+  box-shadow: 0 4px 8px rgba(0.15, 0.15, 0.15, 0.15);
+  transition: opacity 0.3s ease-in-out; 
   cursor: pointer;
   font-family: 'Quicksand', sans-serif;
 }
 
 .recent-pin:hover {
-  opacity: 0.95; /* Reduce opacity on hover */
+  opacity: 0.95; 
 }
 
 .first-pin {
-  border-top-left-radius: 5px; /* Adds border-radius to the top left corner of the first pin */
-  border-top-right-radius: 5px; /* Adds border-radius to the top right corner of the first pin */
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
 }
 
 .recent-pin:last-child {
-  border-bottom: none; /* Removes the border from the last item */
-  border-bottom-left-radius: 5px; /* Adds border-radius to the bottom left corner of the last pin */
-  border-bottom-right-radius: 5px; /* Adds border-radius to the bottom right corner of the last pin */
+  border-bottom: none; 
+  border-bottom-left-radius: 5px; 
+  border-bottom-right-radius: 5px; 
 }
 
 .recent-pins-header {
-  font-size: 1.5em; /* Sets the size of the font */
+  font-size: 1.5em; 
   color: #203a4c; 
-  font-weight: bold; /* Makes the text bold */
-  border-bottom: 4px solid #203a4c; /* Add a subtle bottom border *  font-weight: bold; /* Makes the text bold */
+  font-weight: bold; 
+  border-bottom: 4px solid #203a4c; 
   padding-left: 10px; 
   margin-top: 10px; 
   margin-bottom: 12px; 
@@ -66,27 +66,27 @@ button.disabled {
 }
 
 .recent-pin .pin-icon {
-  width: 30px; /* Width of the icon */
-  height: 30px; /* Height of the icon */
-  background-image: url('Pin.png'); /* The URL to your pin icon */
-  background-size: cover; /* Ensures the icon covers the area */
-  margin-right: 8px; /* Adds some space between the icon and the text */
+  width: 30px; 
+  height: 30px;
+  background-image: url('Pin.png'); 
+  background-size: cover; 
+  margin-right: 8px; 
 }
 
 .recent-pin .pin-name {
   margin: 0;
-  margin-bottom: 4px; /* Adjust the space between the pin name and location */
-  font-weight: bold; /* Makes the pin name bold */
+  margin-bottom: 4px; 
+  font-weight: bold;
 }
 
 .recent-pin .location-info {
   
-  flex: 1; /* Allows the text to fill the remaining space */
-  margin: 0; /* Resets any default margins */
+  flex: 1;
+  margin: 0;
 }
 
 .main-content {
-  flex: 1; /* Take up remaining space */
+  flex: 1; 
   position: relative;
 }
 
@@ -94,7 +94,7 @@ button.disabled {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%; /* Adjust width as needed */
+  width: 100%; 
   z-index: 0; 
 }
 
@@ -150,7 +150,7 @@ button.disabled {
 
 .home {
   display: flex;
-  position: relative; /* Ensure relative positioning for absolute children */
+  position: relative; 
 }
 
 .content-container {
@@ -167,7 +167,7 @@ button.disabled {
   transform: scale(1.3);
 }
 
-/* Search Component Styles */
+
 .search-container {
   position: relative;
   border-radius: 5px;
@@ -192,7 +192,7 @@ button.disabled {
   border-radius: 4px;
   position: absolute;
   width: 100%;
-  z-index: 1000; /* Ensure the list appears above other content */
+  z-index: 1000;
   max-height: 300px; 
   overflow-y: hidden; 
   overflow-x: hidden;
@@ -221,9 +221,9 @@ button.disabled {
   width: auto;
   transform: scale(1.3);
   padding: 5px 10px;
-  background-color: #d1ecf1; /* Light blue background, adjust as needed */
+  background-color: #d1ecf1;
   border-color: #bee5eb;
-  color: #0c5460; /* Text color, adjust as needed */
+  color: #0c5460; 
   border-radius: 4px;
   font-size: 0.8rem;
   font-weight: bold;
@@ -237,10 +237,10 @@ button.disabled {
   align-items: flex-start;
 }
 
-/* Styles for Name of Pin */
+
 .pin-name-label {
-  font-family: 'Quicksand', sans-serif; /* Change 'Your Font' to your desired font */
-  font-size: 22px; /* Change the font size as desired */
+  font-family: 'Quicksand', sans-serif; 
+  font-size: 22px; 
   font-weight: bold;
 }
 
@@ -249,52 +249,51 @@ button.disabled {
   resize: none;
 }
 
-/* Add this to remove the 'box' appearance from inputs and textareas */
+
 .drawing1 .form-group input,
 .drawing1 .form-group textarea {
-  border: none; /* Removes the border */
-  outline: none; /* Removes the focus outline */
-  background-color: #eaedf0; /* Makes the background transparent */
-  color: inherit; /* Inherits text color from the parent */
-  font-size: inherit; /* Inherits font size from the parent */
-  width: 100%; /* Adjust width as needed, or set to auto */
-  max-width: 100%; /* Ensures it doesn't overflow its container */
+  border: none; 
+  outline: none;
+  background-color: #eaedf0; 
+  color: inherit; 
+  font-size: inherit;
+  width: 100%; 
+  max-width: 100%;  
 }
 
 .drawing1 .form-group input[readonly],
 .drawing1 .form-group textarea[readonly] {
-  pointer-events: none; /* Prevents interaction */
+  pointer-events: none;  
 }
 
 
-/* Apply a map texture to the background */
+ 
 body {
-  /* background: url('path-to-your-map-background-image.jpg') no-repeat center center; */
-  background-size: cover;
+   background-size: cover;
 }
 
-/* Use retro or handwritten-style fonts */
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+
 
 .form-group label {
   font-family: 'Quicksand', sans-serif;
-  color: #203a4c; /* An earthy color */
+  color: #203a4c;  
 }
 
-/* Style your form fields with a vintage look */
+
 input[type="text"],
 textarea {
   border: none;
-  background-color: #c2dcf1; /* A softer, calming blue */ 
+  background-color: #c2dcf1;  
   font-family: 'Quicksand', cursive;
   padding: 10px;
   border-radius: 5px;
-  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2); /* Inner shadow for an inset effect */
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);  
 }
 
-/* Icons next to input fields */
+ 
 .form-group .icon {
-  /* background-image: url('path-to-your-icon.png'); */
+ 
   background-size: contain;
   display: inline-block;
   width: 20px;
@@ -302,17 +301,17 @@ textarea {
   vertical-align: middle;
 }
 
-/* Style buttons with a 3D effect */
+
 button {
-  background-color: #94c2e7; /* Earthy background color */
+  background-color: #94c2e7; 
   color: white;
   padding: 12px 25px;
   border: none;
   border-radius: 5px;
   font-family: 'Quicksand', sans-serif;
-  box-shadow: 0 5px #775936; /* 3D button effect */
-  transition: all 0.3s ease; /* Smooth hover transition */
-  cursor: pointer; /* Indicate that the button is clickable */  
+  box-shadow: 0 5px #775936;  
+  transition: all 0.3s ease;  
+  cursor: pointer;  
   box-shadow: none;
 }
 
@@ -320,26 +319,26 @@ button:active {
   transform: translateY(3px);
 }
 
-/* Add transitions for interactive elements */
+
 button, input[type="text"], textarea {
   transition: all 0.3s ease;
 }
 
 button:hover {
-  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5); /* Inner shadow for an inset effect */
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5);
 
 }
 
-/* Ensure labels are styled appropriately */
+
 .drawing1 .form-group label {
-  font-weight: bold; /* Makes labels bold */
-  display: block; /* Makes label appear above the input/textarea */
-  margin-bottom: 10px; /* Adjust space between label and input/textarea */
+  font-weight: bold;
+  display: block;
+  margin-bottom: 10px;
 }
 
-/* Adjust spacing between form groups */
+
 .drawing1 .form-group {
-  margin-bottom: 1px; /* Increases space between form groups */
+  margin-bottom: 1px;
 }
 
 .left-section,
@@ -379,12 +378,12 @@ button:hover {
 }
 
 .right-side {
-  padding-left: 10px; /* Adjust padding between sides if needed */
+  padding-left: 10px;
   position: relative;
   display: flex;
-  justify-content: center; /* Center images horizontally */
-  align-items: center; /* Center images vertically */
-  max-height: calc(85vh - 150px); /* Ensure the height doesn't exceed the left side */
+  justify-content: center;
+  align-items: center;
+  max-height: calc(85vh - 150px);
 }
 
 .drawing2 textarea {
@@ -399,60 +398,60 @@ button:hover {
   gap: 10px;
   max-width: 1000px;
   max-height: 1000px;
-  overflow: hidden; /* Ensure images are cropped */
+  overflow: hidden;
 }
 
 .image-container img {
-  width: 100%; /* Ensure each image takes up the full width of its container */
-  height: 100%; /* Ensure each image takes up the full height of its container */
-  object-fit: cover; /* Crop the image to cover the specified dimensions */
-  max-width: 250px; /* Set a fixed width for the image */
-  max-height: 150px; /* Set a fixed height for the image */
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  max-width: 250px;
+  max-height: 150px;
 }
 
 .thumbnails {
   display: flex;
   grid-template-columns: repeat(3, 1fr);
   gap: 10px;
-  max-width: 150px; /* Set a maximum width */
-  max-height: 150px; /* Set a maximum height */
-  width: auto; /* Maintain aspect ratio */
-  height: auto; /* Maintain aspect ratio */
+  max-width: 150px;
+  max-height: 150px;
+  width: auto;
+  height: auto;
   justify-content: center; 
   align-items: center; 
   max-width: 79%;
   max-height: 100%;
-  overflow: hidden; /* Ensure images are cropped */
+  overflow: hidden;
   display: flex;
-  max-width: 200px; /* Adjust this value to fit your design */
+  max-width: 200px;
 }
 
 .thumbnail {
-  width: 100%; /* Ensure each thumbnail takes up the full width of its container */
-  height: 100%; /* Ensure each thumbnail takes up the full height of its container */
-  object-fit: cover; /* Crop the image to cover the thumbnail dimensions */
-  max-width: 150px; /* Set a fixed width for the thumbnail */
-  max-height: 150px; /* Set a fixed height for the thumbnail */
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  max-width: 150px;
+  max-height: 150px;
 }
 
-/* Style buttons with a 3D effect */
+
 .new-button { 
-  background-color: #967249;  /* Earthy background color */
+  background-color: #967249; 
   color: white;
   padding: 12px 25px; 
   border: none;
   border-radius: 5px;
-  font-family: 'Quicksand', sans-serif; /* Quicksand font */
-  box-shadow: 0 5px #775936; /* 3D button effect with a darker shade */
-  transition: all 0.3s ease; /* For smooth hover transition */
+  font-family: 'Quicksand', sans-serif;
+  box-shadow: 0 5px #775936;
+  transition: all 0.3s ease;
 }
 
 .new-button:hover {
-  background-color: #b38b61; /* Less earthy color on hover */
+  background-color: #b38b61;
 }
 
 .new-button:active {
-  box-shadow: 0 2px #775936;  /* Adjust shadow for pressed effect */
+  box-shadow: 0 2px #775936; 
   transform: translateY(3px);  
 }
 
@@ -472,51 +471,51 @@ button:hover {
 }
 
 .music-details {
-  background-color: #e6f0fa; /* Light blue background for the container */
+  background-color: #e6f0fa; 
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
   padding: 15px;
   display: flex;
   align-items: center;
   gap: 15px;
-  margin-bottom: 15px; /* Space below the audio player container */
-  font-family: 'Quicksand', sans-serif; /* Applying the Quicksand font */
+  margin-bottom: 15px; 
+  font-family: 'Quicksand', sans-serif; 
 }
 
 
 .audio-control-button {
-  background-color: #4a90e2; /* Blue background for the button */
-  color: white; /* White color for the icon */
+  background-color: #4a90e2;
+  color: white; 
   border: none;
-  border-radius: 4px; /* Slight border-radius for a square with softened edges */
-  padding: 10px; /* Size of the button */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Soft shadow for the button */
+  border-radius: 4px; 
+  padding: 10px; 
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   cursor: pointer;
-  outline: none; /* Remove the outline to make it look cleaner */
+  outline: none;
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: background-color 0.3s ease; /* Smooth transition for background color */
+  transition: background-color 0.3s ease;
 }
 
 
 .audio-control-button:hover {
-  background-color: #5691e0; /* Slightly lighter blue on hover */
-  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15); /* Larger shadow on hover */
+  background-color: #5691e0;
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
 }
 
 
 .audio-control-button.playing {
-  background-color: #d9534f; /* Different color when audio is playing */
+  background-color: #d9534f;
 }
 
-/* Style the audio element directly if it's being used - it might need vendor prefixes for full control */
+
 audio {
-  width: 100%; /* Full width to use up space */
-  outline: none; /* Remove outline */
+  width: 100%;
+  outline: none;
 }
 
-/* Ensure FontAwesome icons inherit the color from the button */
+
 .fa-play, .fa-stop {
   color: inherit;
 }
@@ -524,9 +523,9 @@ audio {
 .music-details .song-info {
   display: flex;
   font-weight: bold;
-  flex-direction: column; /* Stack title and audio player vertically */
+  flex-direction: column;
   justify-content: center;
-  gap: 10px; /* Space between title and player */
+  gap: 10px;
 }
 
 .music-details img {
@@ -537,22 +536,22 @@ audio {
 }
 
 audio {
-  width: 100%; /* To ensure the audio player stretches the full width of its container */
+  width: 100%;
 }
 
 .music-details audio {
-  width: 250px; /* Adjust as necessary */
+  width: 250px;
   margin-left: -20px;
-  border: none; /* Removes the border */
-  outline: none; /* Removes the focus outline */
+  border: none;
+  outline: none;
   background-color: transparent;
   height: 40px;
 }
 
 .album-art img {
-  max-width: 100%; /* Ensure the image fits within the container */
-  border-radius: 8px; /* Optional: adds rounded corners to the album art */
-  margin-bottom: 10px; /* Space between album art and audio controls */
+  max-width: 100%;
+  border-radius: 8px;
+  margin-bottom: 10px;
 }
 
 .profile-picture{
@@ -584,7 +583,7 @@ audio {
   background-color: #f5f5f5;
 }
 
-/* Adding a separator for a clearer distinction */
+
 .profile-dropdown p:not(:last-child) {
   border-bottom: 1px solid #eee;
 }
@@ -632,7 +631,7 @@ audio {
 }
 
 .delete-button {
-  /* color: #fff; */
+ 
   border: none;
   padding: 10px 20px;
   font-family: 'Quicksand', sans-serif;
@@ -644,30 +643,30 @@ audio {
   background-color: #d60606;
 }
 
-/* Ensure only one name is displayed by specifically targeting the first name label */
-/* Since no changes to the JSX are requested, we'll achieve this through CSS */
+
+
 .drawing1 .form-group .pin-name-label:first-of-type {
-  display: none; /* Hide the first occurrence */
+  display: none;
 }
 
-/* Fix music details box size and use ellipsis for overflow */
+
 .song-info {
-  font-family: 'Quicksand', sans-serif; /* Applying the Quicksand font */
+  font-family: 'Quicksand', sans-serif;
   flex-grow: 1;
 
 }
 
 .song-title, .song-author {
-  font-family: 'Quicksand', sans-serif; /* Applying the Quicksand font */
-  color: #2a3f5f; /* Darker blue color for contrast */
+  font-family: 'Quicksand', sans-serif;
+  color: #2a3f5f;
   margin: 0; 
 }
 
-/* Improve aesthetics for images within .thumbnails container */
+
 .thumbnails {
   display: flex;
-  flex-wrap: wrap; /* Allow thumbnails to wrap */
-  gap: 10px; /* Space between thumbnails */
+  flex-wrap: wrap;
+  gap: 10px;
 }
 .thumbnails p {
   font-size: 16px;
@@ -685,23 +684,23 @@ audio {
 
 .thumbnail {
   flex: 0 1 auto;
-  width: 100px; /* Fixed width */
-  height: 100px; /* Fixed height */
-  object-fit: cover; /* Cover fit to avoid distortion */
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
 }
 
-/* Additional adjustments for a consistent layout */
+
 .music-details {
   display: flex;
   align-items: center;
   justify-content: start;
   gap: 30px;
-  width: 100%; /* Ensure music details box doesn't exceed its container */
+  width: 100%;
 }
 
 .album-art {
-  width: 50px; /* Adjust album art size */
-  height: 50px; /* Adjust album art size */
+  width: 50px;
+  height: 50px;
   object-fit: cover;
 }
 
@@ -719,7 +718,7 @@ audio {
   text-align: center; 
 }
 
-/* styles for the profile picture*/
+
 .ProfilePicture-backdrop {
   position: fixed;
   top: 0;
@@ -730,7 +729,7 @@ audio {
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1050; /* Ensure this is above other content */
+  z-index: 1050;
 }
 
 .ProfilePicture-content {
@@ -738,19 +737,19 @@ audio {
   padding: 20px;
   border-radius: 5px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  max-width: 500px; /* Adjust based on your preference */
-  z-index: 1051; /* Above the backdrop */
+  max-width: 500px;
+  z-index: 1051;
 }
 
-/* styles for the weather widget*/
+
 
 .weather-header {
-  font-size: 1.5em; /* Sets the size of the font */
-  color: #203a4c; /* Sets the color of the font */
-  font-weight: bold; /* Makes the text bold */
-  padding-left: 10px; /* Adds padding to the left of the header */
-  margin-top: 10px; /* Removes any default top margin */
-  margin-bottom: 10px; /* Adds some space below the header */
+  font-size: 1.5em;
+  color: #203a4c;
+  font-weight: bold;
+  padding-left: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
   border-left: 4px solid #203a4c;
   border-bottom: 4px solid #203a4c; 
 }
@@ -766,7 +765,7 @@ audio {
   margin: 20px 1;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   font-family: 'Quicksand', sans-serif;
-  box-shadow: 0 4px 8px rgba(0.15, 0.15, 0.15, 0.15); /* Add this line */
+  box-shadow: 0 4px 8px rgba(0.15, 0.15, 0.15, 0.15);
 
 }
 
@@ -782,14 +781,14 @@ audio {
 }
 
 .media-container {
-  width: 460px; /* Match the width of the input */
-  top: 100%; /* Adjust this if needed */
-  z-index: 5; /* Lower than the z-index of your buttons */
-  max-height: 160px; /* Set this to your desired maximum height */
-  overflow-y: auto; /* Add vertical scrollbar if content exceeds max-height */
-  margin-top: 10px; /* Add some spacing between the input and container */
-  border-radius: 8px; /* Add border-radius for a rounded look */ 
-  overflow-x: hidden; /* Hide horizontal overflow */
+  width: 460px;
+  top: 100%;
+  z-index: 5;
+  max-height: 160px;
+  overflow-y: auto;
+  margin-top: 10px;
+  border-radius: 8px; 
+  overflow-x: hidden;
 }
 
 .dropzone {
@@ -813,7 +812,7 @@ audio {
   border-color: #2196f3;
 }
 
-/* Styling for file details list */
+
 aside {
   margin-top: 10px;
 }
@@ -879,17 +878,17 @@ button.remove-file-btn:hover {
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 999; /* Ensure modal is on top of other content */
-  animation: fadeIn 0.3s ease; /* Add a fade-in animation */
+  z-index: 999;
+  animation: fadeIn 0.3s ease;
 }
 
 .modal-content {
-  background: linear-gradient(135deg, #ffffff, #f2f6fa); /* Add a subtle gradient background */
+  background: linear-gradient(135deg, #ffffff, #f2f6fa);
   padding: 30px;
   border-radius: 10px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-  max-width: 400px; /* Limit width for better readability */
-  text-align: center; /* Center-align content */
+  max-width: 400px;
+  text-align: center;
 }
 
 .account-title {
@@ -919,34 +918,34 @@ button.remove-file-btn:hover {
   margin-top: 30px;
   background-color: red;
   color: white;
-  transition: background-color 0.3s ease; /* Add smooth transition */
+  transition: background-color 0.3s ease;
 }
 
 .modal-content button.delete-account-button:hover {
-  background-color: darkred; /* Change to darker red color on hover */
+  background-color: darkred;
 }
 
 .modal-content h2 {
   font-family: 'Quicksand', sans-serif;
-  color: #333; /* Darken heading color */
-  margin-bottom: 20px; /* Add some space below heading */
+  color: #333;
+  margin-bottom: 20px;
 }
 
 .modal-content p {
   font-size: 16px;
   margin-bottom: 15px;
-  color: #666; /* Adjust text color */
+  color: #666;
 }
 
 .modal-content button {
-  background-color: #94c2e7; /* Change button color */
-  color: #fff; /* Change button text color */
+  background-color: #94c2e7;
+  color: #fff;
   font-weight: bold;
   border: none;
   padding: 10px 20px;
   border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s ease; /* Add smooth transition */
+  transition: background-color 0.3s ease;
 }
 
 .modal-content button:hover {
@@ -960,7 +959,7 @@ button.remove-file-btn:hover {
   margin-top: 0px;
 }
 
-/* Animation keyframes */
+
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -1017,32 +1016,32 @@ button.remove-file-btn:hover {
 }
 
 .form-create {
-  height: 750px; /* Set this to your desired maximum height */
+  height: 750px;
   width: 500px;
   overflow-y: auto;
   padding: 20px;
 }
 
 .form {
-  height: 580px; /* Set this to your desired maximum height */
+  height: 580px;
   width: 500px;
   overflow-y: auto;
 }
 
 .music-search-container {
-  width: 445px; /* Match the width of the input */
-  top: 100%; /* Adjust this if needed */
-  z-index: 5; /* Lower than the z-index of your buttons */
-  max-height: 150px; /* Set this to your desired maximum height */
-  overflow-y: auto; /* Add vertical scrollbar if content exceeds max-height */
-  margin-top: 10px; /* Add some spacing between the input and container */
-  border-radius: 8px; /* Add border-radius for a rounded look */
-  background-color: #94c2e7; /* Your chosen blue background */  
-  overflow-x: hidden; /* Hide horizontal overflow */
+  width: 445px;
+  top: 100%;
+  z-index: 5;
+  max-height: 150px;
+  overflow-y: auto;
+  margin-top: 10px;
+  border-radius: 8px;
+  background-color: #94c2e7;  
+  overflow-x: hidden;
 }
 
 .music-results-container {
-  position: relative; /*  Use relative instead of absolute */
+  position: relative;
   width: 460px;
  }
 
@@ -1050,7 +1049,7 @@ button.remove-file-btn:hover {
   display: flex;
   align-items: center;
   margin-bottom: 10px;
-  background-color: #7aabd3; /* A lighter shade for visual hierarchy */
+  background-color: #7aabd3;
   padding: 10px;
   border-radius: 8px;
   cursor: pointer;
@@ -1058,10 +1057,10 @@ button.remove-file-btn:hover {
 
 
 .track-container:hover {
-  transform: scale(1.01); /* Scale slightly on hover */
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
-  transition: all 0.3s ease; /* For a smooth transition effect */
-  background-color: #94c2e7; /* Slightly lighter on hover */
+  transform: scale(1.01);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  background-color: #94c2e7;
 
 }
 
@@ -1100,29 +1099,29 @@ button.remove-file-btn:hover {
 .play-button {
   background: none;
   border: none;
-  width: 20px; /* Make the button smaller */
-  height: 20px; /* Make the button smaller */
+  width: 20px;
+  height: 20px;
   color: white;
   cursor: pointer;
   transform: translate(-50%, -50%);
 }
 
 .user-profile-pic {
-  width: 30px; /* Or the size you want */
-  height: 30px; /* Maintain aspect ratio */
-  border-radius: 50%; /* Circle shape */
-  object-fit: cover; /* Ensure the image covers the area */
-  margin-right: 10px; /* Space between the image and the username */
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 10px;
 }
 
-/* Home.css or wherever you're defining your styles */
+
 
 .drawing1 .slideshow-container {
   position: relative;
-  width: 400px; /* Reduced width */
-  height: 325px; /* Reduced height to maintain aspect ratio */
-  margin: 75px auto; /* Centers the slideshow horizontally with top and bottom margin */
-  margin-left: 20px; /* Add margin to the left side */
+  width: 400px;
+  height: 325px;
+  margin: 75px auto;
+  margin-left: 20px;
   background: linear-gradient(to right, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.3));
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
   border-radius: 10px;
@@ -1133,8 +1132,8 @@ button.remove-file-btn:hover {
 .drawing1 .slideshow-image {
   width: 100%;
   height: 100%;
-  object-fit: cover; /* Preserves aspect ratio while covering the container */
-  border-radius: 10px; /* Rounds the corners of the image */
+  object-fit: cover;
+  border-radius: 10px;
 }
 
 .drawing1 .slideshow-controls {
@@ -1151,17 +1150,17 @@ button.remove-file-btn:hover {
 .drawing1 .slideshow-controls .fa-chevron-left,
 .drawing1 .slideshow-controls .fa-chevron-right {
   color: white;
-  background-color: rgba(74, 144, 226, 0.8); /* Blue background color with transparency */
+  background-color: rgba(74, 144, 226, 0.8);
   padding: 10px;
   font-size: 20px;
   cursor: pointer;
   transition: background-color 0.3s;
-  border-radius: 50%; /* Makes the control buttons circular */
+  border-radius: 50%;
 }
 
 .drawing1 .slideshow-controls .fa-chevron-left:hover,
 .drawing1 .slideshow-controls .fa-chevron-right:hover {
-  background-color: rgba(74, 144, 226, 1); /* Solid blue background on hover */
+  background-color: rgba(74, 144, 226, 1);
 }
 
 .drawing1 .slideshow-dots {
@@ -1176,16 +1175,16 @@ button.remove-file-btn:hover {
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background-color: #ccc; /* Light gray color */
+  background-color: #ccc;
   margin: 0 5px;
   cursor: pointer;
   transition: background-color 0.3s;
 }
 
 .drawing1 .slideshow-dots .dot.active {
-  background-color: #4a90e2; /* Blue color for active dot */
-  transform: scale(1.2); /* Makes the dot slightly bigger when active */
-  transition: transform 0.3s ease-in-out; /* Smooth transition */
+  background-color: #4a90e2;
+  transform: scale(1.2);
+  transition: transform 0.3s ease-in-out;
 }
 
 .drawing1 .slideshow-centered {

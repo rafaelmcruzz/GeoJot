@@ -20,7 +20,7 @@ const Drawing1 = ({ name, notes, mediaFiles = [], music, songDetails, onViewMore
 
 
   const handleAudioPlay = () => {
-    if (!songDetails.previewUrl) return; // Do nothing if there is no preview URL
+    if (!songDetails.previewUrl) return; 
     
     if (isPlaying) {
       audioPlayer.pause();
@@ -53,7 +53,7 @@ useEffect(() => {
   
   useEffect(() => {
     if (isPlaying) {
-      handleAudioPlay(); // Call this function to stop playing when the song details change
+      handleAudioPlay(); 
     }
   }, [songDetails]);
   
@@ -71,13 +71,8 @@ useEffect(() => {
 
 
   const handleEdit = () => {
-    // If managing directly in Drawing1, toggle isEditing state
     setIsEditing(true);
 
-    // If managed by a parent component, call the onEdit prop with pin details
-    // onEdit({ pinId, name, notes, music, songDetails });
-
-    // You might also need to manage the display of Form.js at a higher level depending on your app's structure
   };
   
   useEffect(() => {
@@ -87,7 +82,7 @@ useEffect(() => {
         if (!response.ok) throw new Error('Failed to fetch likes');
         const data = await response.json();
         setLikes(data.likes || []);
-        setLiked(data.likes.includes(username)); // Update liked state based on the fetched likes
+        setLiked(data.likes.includes(username)); 
       } catch (error) {
         console.error("Error fetching likes:", error.message);
       }
@@ -97,7 +92,7 @@ useEffect(() => {
   }, [pinId, username]);
 
   useEffect(() => {
-    setLiked(likes.includes(username)); // Update liked state whenever likes array changes
+    setLiked(likes.includes(username)); 
   }, [likes, username]);
 
   const toggleInviteForm = () => setShowInvite(!showInvite);
@@ -187,13 +182,13 @@ useEffect(() => {
         onClick={() => setIsEditing(true)} 
         className="view-more-button" 
         style={{
-            backgroundColor: '#94c2e7', /* Earthy background color */
+            backgroundColor: '#94c2e7', 
             color: 'white',
             padding: '11px 25px',
             border: 'none',
             fontFamily: 'Quicksand, sans-serif', 
-            transition: 'box-shadow 0.3s ease', // Add transition for smooth effect
-            boxShadow: 'inset 0 0 5px rgba(0, 0, 0, 0)', // Initial box shadow
+            transition: 'box-shadow 0.3s ease', 
+            boxShadow: 'inset 0 0 5px rgba(0, 0, 0, 0)',
         }}
         onMouseOver={e => e.currentTarget.style.boxShadow = 'inset 0 0 5px rgba(0, 0, 0, 0.5)'}
         onMouseOut={e => e.currentTarget.style.boxShadow = 'inset 0 0 5px rgba(0, 0, 0, 0)'}
