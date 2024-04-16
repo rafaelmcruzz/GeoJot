@@ -233,7 +233,7 @@ const Form = ({ onSubmit, onDelete, _id, initialMediaFiles = [], onSubmissionSuc
 
 
   return (
-    <div className="form">
+    <div className="form-create">
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="name">Name:</label>
@@ -258,13 +258,13 @@ const Form = ({ onSubmit, onDelete, _id, initialMediaFiles = [], onSubmissionSuc
         </div>
         <div className="form-group">
           <div className="media-container">
-            <label>Attach Media:</label>
+            <label style={{textAlign: 'center'}} >Attach Media:</label>
             <div {...getRootProps()} className="dropzone">
               <input {...getInputProps()} />
               <p>Drag 'n' drop some files here, or click to select files</p>
             </div>
             <aside>
-              <h4>Files</h4>
+              <h4 style={{textAlign: 'center'}}>Files</h4>
               <ul className='media-thumbnails'>
                 {mediaFiles.map((item, index) => (
                   <li key={index} className='media-thumbnail-item'>

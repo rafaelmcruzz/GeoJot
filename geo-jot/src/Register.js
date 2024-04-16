@@ -72,27 +72,50 @@ function Register() {
           <input type="text" id="username" name="username" placeholder="  Username" value={username} onChange={(e) => setUsername(e.target.value)} required />
         </div>
         <div className="form-group">
-          <input type="email" id="email" name="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+          <input type="email" id="email" name="email" placeholder="  Email" value={email} onChange={(e) => setEmail(e.target.value)} required style={{ 
+            backgroundColor: 'white', 
+            borderRadius: '20px', 
+            boxShadow: 'inset 0 0 5px rgba(0, 0, 0, 0.2)',
+            border: 'none',
+            padding: '10px',
+            width: '100%',
+            boxSizing: 'border-box'
+        }} />
         </div>
         <div className="form-group">
-          <input type="password" id="password" name="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+          <input type="password" id="password" name="password" placeholder="  Password" value={password} onChange={(e) => setPassword(e.target.value)} required style={{ 
+            backgroundColor: 'white', 
+            borderRadius: '20px', 
+            boxShadow: 'inset 0 0 5px rgba(0, 0, 0, 0.2)',
+            border: 'none',
+            padding: '10px',
+            width: '100%',
+            boxSizing: 'border-box'
+        }} />
           {usernameErrorMessage && <div className="error">{usernameErrorMessage}</div>}
           {passwordErrorMessage && <div className="error">{passwordErrorMessage}</div>}
           {passwordErrorMessage && <div className="error">Password must have at least 8 characters, 1 uppercase, 1 lowercase, 1 digit.</div>}
           {emailErrorMessage && <div className="error">{emailErrorMessage}</div>}
         </div>
-        <button style={{
-    backgroundColor: '#94c2e7',  
-    color: 'white',
-    padding: '12px 25px',
-    border: 'none',
-    borderRadius: '5px',
-    fontFamily: 'Quicksand, sans-serif',
-    boxShadow: '0 5px #775936',  
-    transition: 'all 0.3s ease',
-    cursor: 'pointer',
-    boxShadow: 'none'
-}} type="submit">Register</button>
+        <button 
+    style={{
+        backgroundColor: '#94c2e7',  
+        color: 'white',
+        padding: '14px 25px',
+        border: 'none',
+        borderRadius: '10px',
+        fontFamily: 'Quicksand, sans-serif',
+        fontSize: '16px',
+        transition: 'all 0.3s ease',
+        cursor: 'pointer',
+    }}
+    type="submit"
+    onMouseOver={e => e.currentTarget.style.boxShadow = 'inset 0 0 5px rgba(0, 0, 0, 0.5)'}
+    onMouseOut={e => e.currentTarget.style.boxShadow = 'inset 0 0 5px rgba(0, 0, 0, 0)'}
+>
+    Register
+</button>
+
       </form>
     </div>
   );

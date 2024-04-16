@@ -74,41 +74,74 @@ function Login({ }) {
               />
               </div>
               <div className="form-group">
-                <input type="password" id="password" name="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
-              </div>
-              <button style={{
-                backgroundColor: '#94c2e7',
-                color: 'white',
-                padding: '12px 25px',
-                border: 'none',
-                borderRadius: '5px',
-                fontFamily: 'Quicksand, sans-serif',
-                boxShadow: '0 5px #775936',
-                transition: 'all 0.3s ease',
-                cursor: 'pointer',
-                boxShadow: 'none'
-              }} type="submit">Login</button>
+    <input 
+        type="password" 
+        id="password" 
+        name="password" 
+        placeholder="  Password" 
+        value={password} 
+        onChange={(e) => setPassword(e.target.value)} 
+        required
+        style={{ 
+            backgroundColor: 'white', 
+            borderRadius: '20px', 
+            boxShadow: 'inset 0 0 5px rgba(0, 0, 0, 0.2)',
+            border: 'none',
+            padding: '10px',
+            width: '100%',
+            boxSizing: 'border-box'
+        }}
+    />
+</div>
+
+              <button 
+    style={{
+        backgroundColor: '#94c2e7',
+        color: 'white',
+        padding: '14px 25px',
+        border: 'none',
+        borderRadius: '10px',
+        fontFamily: 'Quicksand, sans-serif',
+        fontSize: '16px',
+        transition: 'all 0.3s ease',
+        cursor: 'pointer',
+        boxShadow: 'none',
+    }}
+    type="submit"
+    onMouseOver={e => e.currentTarget.style.boxShadow = 'inset 0 0 5px rgba(0, 0, 0, 0.5)'}
+    onMouseOut={e => e.currentTarget.style.boxShadow = 'none'}
+>
+    Login
+</button>
+
             </form>
           </div>
         ) : (
           <Register />
         )}
           <form className="login-form">
-                <button type="button" onClick={toggleRegisterForm} style={{
-                backgroundColor: '#94c2e7',
-                color: 'white',
-                padding: '12px 25px',
-                border: 'none',
-                borderRadius: '5px',
-                fontFamily: 'Quicksand, sans-serif',
-                boxShadow: '0 5px #775936',
-                transition: 'all 0.3s ease',
-                cursor: 'pointer',   
-                boxShadow: 'none'
-            }}>
-            {showRegister ? 'Already have an account? Login' : 'Don\'t have an account? Sign up'}
-          </button>
-        </form>
+    <button 
+        type="button" 
+        onClick={toggleRegisterForm} 
+        style={{
+            backgroundColor: '#94c2e7',
+            color: 'white',
+            padding: '14px 25px',
+            border: 'none',
+            borderRadius: '10px',
+            fontFamily: 'Quicksand, sans-serif',
+            fontSize: '16px',
+            fontWeight: 'bold',
+            transition: 'all 0.3s ease',
+            cursor: 'pointer',
+        }}
+        onMouseOver={e => e.currentTarget.style.boxShadow = 'inset 0 0 5px rgba(0, 0, 0, 0.5)'}
+        onMouseOut={e => e.currentTarget.style.boxShadow = 'none'}
+    >
+        {showRegister ? 'Already have an account? Login' : 'Don\'t have an account? Sign up'}
+    </button>
+</form>
+
       </div>
     </div>
     </div>
