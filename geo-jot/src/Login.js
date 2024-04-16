@@ -60,7 +60,7 @@ function Login({ }) {
           <div>
             <img src={logo} class="logo" />
             <h2 type="title">Welcome to GeoJot</h2>
-            <form onSubmit={handleLoginSubmit}>
+            <form onSubmit={handleLoginSubmit} autocomplete="off">
               <div className="form-group">
               <input 
                 type="text" 

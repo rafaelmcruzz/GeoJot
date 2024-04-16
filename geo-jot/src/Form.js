@@ -237,9 +237,9 @@ const Form = ({ onSubmit, onDelete, _id, initialMediaFiles = [], onSubmissionSuc
 
   return (
     <div className="form-create">
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} autocomplete="off">
         <div className="form-group">
-          <label htmlFor="name">Name:</label>
+          <label style={{textAlign: 'center'}}   htmlFor="name">Name:</label>
           <input
             id="name"
             type="text"
@@ -250,7 +250,7 @@ const Form = ({ onSubmit, onDelete, _id, initialMediaFiles = [], onSubmissionSuc
           {nameError && <span className="error">{nameError}</span>}
         </div>
         <div className="form-group">
-          <label htmlFor="notes">Notes:</label>
+          <label style={{textAlign: 'center'}} htmlFor="notes">Notes:</label>
           <textarea
             id="notes"
             value={notes}
@@ -272,7 +272,7 @@ const Form = ({ onSubmit, onDelete, _id, initialMediaFiles = [], onSubmissionSuc
 
             {errorMessage && <div className="max-images-message">{errorMessage}</div>}
             <aside>
-              <h4 style={{textAlign: 'center'}}>Files</h4>
+              <h4 style={{textAlign: 'center', fontFamily: 'Quicksand, sans-serif', fontWeight: 'bold'}}>Files</h4>
               <ul className='media-thumbnails'>
                 {mediaFiles.map((item, index) => (
                   <li key={index} className='media-thumbnail-item'>
@@ -285,7 +285,7 @@ const Form = ({ onSubmit, onDelete, _id, initialMediaFiles = [], onSubmissionSuc
           </div>
         </div>
         <div className="form-group">
-          <label htmlFor="music">Music:</label>
+          <label style={{textAlign: 'center'}} htmlFor="music">Music:</label>
           <input
             id="music"
             type="text"

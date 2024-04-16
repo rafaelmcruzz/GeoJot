@@ -67,7 +67,7 @@ function Register() {
     <div>
       <img src={logo} class="logo" />
       <h2 type="title">User Registration</h2>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} autocomplete="off">
         <div className="form-group">
           <input type="text" id="username" name="username" placeholder="  Username" value={username} onChange={(e) => setUsername(e.target.value)} required />
         </div>
