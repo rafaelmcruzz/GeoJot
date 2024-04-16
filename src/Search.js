@@ -11,7 +11,7 @@ const Search = ({ onSelectUser }) => {
     const fetchUsers = async () => {
       try {
         if (query.length >= 1) { 
-          const response = await fetch(`http://localhost:3000/api/users/search?query=${query}`);
+          const response = await fetch(`https://geojotbackend.onrender.com/api/users/search?query=${query}`);
           const data = await response.json();
           setUsers(data);
         } else {
