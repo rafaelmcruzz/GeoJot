@@ -152,7 +152,7 @@ function SettingsModal({ username, onClose }) {
 >
     Delete Account
 </button>
-        <button style={{borderRadius: '10px'}} onClick={onClose}>Close</button>
+        <button style={{borderRadius: '10px', padding: '12px 25px'}} onClick={onClose}>Close</button>
         {showConfirmation && (
         <ConfirmationModal
           isOpen={showConfirmation}
