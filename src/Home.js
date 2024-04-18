@@ -155,10 +155,10 @@ function LeftSidebar({ onPinSelect }) {
 }
 
 //Component for the main content of the page, which includes the map
-function MainContent({ selectedUser, selectedPin, setSelectedPin }) {
+function MainContent({ selectedUser, selectedPin, setSelectedPin, selectedLocation}) {
   return (
     <div className="main-content">
-      <Map selectedUser={selectedUser} selectedPin={selectedPin} setSelectedPin={setSelectedPin} />
+       <Map selectedUser={selectedUser} selectedPin={selectedPin} selectedLocation={selectedLocation} setSelectedPin={setSelectedPin} />
     </div>
   );
 }
@@ -167,6 +167,7 @@ function MainContent({ selectedUser, selectedPin, setSelectedPin }) {
 function App() {
   const [selectedUser, setSelectedUser] = useState(null);
   const [selectedPin, setSelectedPin] = useState(null);
+  const [selectedLocation, setSelectedLocation] = useState(null); 
   const { username } = useUser();
 
   // Determines if the map being viewed is not the current user's
@@ -175,8 +176,11 @@ function App() {
 
   //Function to handle user selection
   const onSelectUser = (user) => {
-    console.log('Selected user:', user);
     setSelectedUser(user);
+  };
+
+  const onSelectLocation = (location) => {
+    setSelectedLocation(location); 
   };
 
   //Function to close the user profile modal
@@ -188,7 +192,7 @@ function App() {
   return (
     <div className="home">
       <div className="search-bar">
-        <Search onSelectUser={onSelectUser} />
+      <Search onSelectUser={onSelectUser} onSelectLocation={onSelectLocation} />
       </div>
       <div>
         {!isViewingOwnMap && selectedUser && (
@@ -202,7 +206,7 @@ function App() {
       </div>
       <div className="content-container">
         <LeftSidebar onPinSelect={setSelectedPin} />
-        <MainContent selectedUser={selectedUser} selectedPin={selectedPin} setSelectedPin={setSelectedPin} />
+        <MainContent selectedUser={selectedUser} selectedPin={selectedPin} selectedLocation={selectedLocation} setSelectedPin={setSelectedPin} />
       </div>
       {isUserProfileVisible && (
         <div

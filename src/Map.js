@@ -21,7 +21,7 @@ const animatedIcon = new L.DivIcon({
 });
 
 //Main map component
-function Map({ selectedUser, selectedPin, setSelectedPin}) {
+function Map({ selectedUser, selectedPin, setSelectedPin, setSelectedLocation, selectedLocation}) {
  
   const [markers, setMarkers] = useState([]);
   const [showForm, setShowForm] = useState(false);
@@ -152,7 +152,7 @@ function Map({ selectedUser, selectedPin, setSelectedPin}) {
       });
 
       console.log("formdata", formData)
-  
+ //AIzaSyDJSceLzQJpeTTR5P4Ma-4QPRl8si-XLX0 
       if (response.ok) {
         //Logic to update the local state with the new details of the pin
         const updatedMarkers = markers.map(marker =>
@@ -196,6 +196,20 @@ function FlyToMarker() {
 
   return null;
 }
+
+function FlyToLocation({ location }) {
+  const map = useMap();
+
+  useEffect(() => {
+    if (location) {
+      map.flyTo([location.lat, location.lng], 17); 
+      // setSelectedLocation(null)
+    }
+  }, [location, map]);
+
+  return null;
+}
+
 
 
   //Fetch pins when the component mounts
@@ -411,6 +425,7 @@ function FlyToMarker() {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
+        {selectedLocation && <FlyToLocation location={selectedLocation} />}
         <FlyToMarker />
         <LocationMarker />
         {!isViewingOwnMap && (

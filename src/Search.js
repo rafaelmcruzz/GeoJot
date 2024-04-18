@@ -1,35 +1,58 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './Home.css';
 
-const Search = ({ onSelectUser }) => {
+
+const Search = ({ onSelectUser, onSelectLocation }) => {
   const [query, setQuery] = useState('');
   const [users, setUsers] = useState([]);
+  const [places, setPlaces] = useState([]);
+  const [activeTab, setActiveTab] = useState('users');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
   const containerRef = useRef(null);
+  const [isSearchActive, setIsSearchActive] = useState(false);
+
+
+
 
   useEffect(() => {
-    // Fetch users based on the search query
-    const fetchUsers = async () => {
-      try {
-        if (query.length >= 1) { 
-          const response = await fetch(`https://geojotbackend.onrender.com/api/users/search?query=${query}`);
-          const data = await response.json();
-          setUsers(data);
-        } else {
-          setUsers([]);
-        }
-      } catch (error) {
-        console.error('Error fetching user search results:', error);
-      }
-    };
-
-    fetchUsers();
-  }, [query]); 
+    if (!query) {
+      setUsers([]);
+      setPlaces([]);
+      return;
+    }
+  
+    setLoading(true);
+    // Fetch users from the backend
+    fetch(`https://geojotbackend.onrender.com/api/users/search?query=${query}`)
+    .then(response => response.json())
+      .then(data => {
+        setUsers(data);
+      }).catch(err => {
+        console.error('Error fetching user search results:', err);
+        setError(err);
+      });
+  
+    // Fetch places from the backend
+    fetch(`http://localhost:3000/api/places/search?query=${query}`)
+      .then(response => response.json())
+      .then(data => {
+        console.log(data)
+        setPlaces(data);
+      }).catch(err => {
+        console.error('Error fetching place search results:', err);
+        setError(err);
+      }).finally(() => setLoading(false));
+  
+  }, [query]);
 
   // Event listener to close user list when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (containerRef.current && !containerRef.current.contains(event.target)) {
         setUsers([]); 
+        setPlaces([])
+        setIsSearchActive(false);  
       }
     };
 
@@ -39,6 +62,19 @@ const Search = ({ onSelectUser }) => {
     };
   }, []);
 
+  const onSelectPlace = (placeId) => {
+    fetch(`http://localhost:3000/api/places/details/${placeId}`)
+      .then(response => response.json())
+      .then(data => {
+        console.log(data)
+        const latLng = { lat: data.lat, lng: data.lng };
+        onSelectLocation(latLng); // Function to update map view
+      })
+      .catch(err => {
+        console.error('Error fetching place details:', err);
+      });
+  }
+
   // JSX for rendering the search component
   return (
     <div ref={containerRef} className="search-container">
@@ -46,18 +82,40 @@ const Search = ({ onSelectUser }) => {
         type="text"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
-        placeholder="Search users..."
+        onFocus={() => setIsSearchActive(true)}
+        placeholder="Search users or places..."
         className="search-input"
         style={{ backgroundColor: 'white' }}
       />
-      {users.length > 0 && (
+  
+          {isSearchActive && (
+          <div className="search-tabs" style={{ fontSize: '12px' }}>  
+            <button
+              onClick={() => setActiveTab('users')}
+              style={{ fontWeight: activeTab === 'users' ? 'bold' : 'normal', padding: '5px 10px' }}  
+            >
+              Users
+            </button>
+            <button
+              onClick={() => setActiveTab('places')}
+              style={{ fontWeight: activeTab === 'places' ? 'bold' : 'normal', padding: '5px 10px' }}  
+            >
+              Places
+            </button>
+          </div>
+        )}
+  
+      {loading && <div>Loading...</div>}
+      {error && <div>Error: {error.message}</div>}
+  
+      {activeTab === 'users' && users.length > 0 && (
         <ul className="search-results">
           {users.map(user => (
             <li
               key={user._id}
               className="search-result-item"
-              style={{ fontFamily: 'Quicksand, sans-serif' }}
               onClick={() => onSelectUser(user)}
+              style={{ cursor: 'pointer' }}
             >
               <img
                 src={user.profilePic || 'https://geojot.s3.eu-west-1.amazonaws.com/profile-pictures/default-profile-pic.jpg'}
@@ -65,6 +123,21 @@ const Search = ({ onSelectUser }) => {
                 className="user-profile-pic"
               />
               {user.username}
+            </li>
+          ))}
+        </ul>
+      )}
+  
+      {activeTab === 'places' && places.length > 0 && (
+        <ul className="search-results">
+          {places.map(place => (
+            <li
+              key={place.place_id}
+              className="search-result-item"
+              onClick={() => onSelectPlace(place.place_id)}
+              style={{ cursor: 'pointer' }}
+            >
+              {place.description}
             </li>
           ))}
         </ul>
