@@ -63,7 +63,7 @@ const Search = ({ onSelectUser, onSelectLocation }) => {
   }, []);
 
   const onSelectPlace = (placeId) => {
-    fetch(`http://localhost:3000/api/places/details/${placeId}`)
+    fetch(`https://geojotbackend.onrender.com/api/places/details/${placeId}`)
       .then(response => response.json())
       .then(data => {
         console.log(data)
