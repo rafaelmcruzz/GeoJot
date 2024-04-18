@@ -11,7 +11,7 @@ import ProfilePicture from './ProfilePicture';
 import SettingsModal from './SettingsModal';
 
 //LeftSidebar component includes the user profile, recent pins, and meteorology
-function LeftSidebar( {onPinSelect} ) {
+function LeftSidebar({ onPinSelect }) {
   const { username, logout } = useUser();
   const [showDropdown, setShowDropdown] = useState(false);
   //const [recentPins, setRecentPins] = useState([]);
@@ -35,7 +35,7 @@ function LeftSidebar( {onPinSelect} ) {
         setProfilePicUrl(data.profilePic || 'https://geojot.s3.eu-west-1.amazonaws.com/profile-pictures/default-profile-pic.jpg');
       })
       .catch(error => console.error('Error fetching user details:', error));
-  }, [username]); 
+  }, [username]);
 
   useEffect(() => {
     fetchRecentPins();
@@ -44,7 +44,7 @@ function LeftSidebar( {onPinSelect} ) {
   //Fetch locatuion details for recent pins
   const fetchLocationDetails = async (pin) => {
     const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${pin.position.lat}&lon=${pin.position.lng}&zoom=18&addressdetails=1`;
-  
+
     try {
       const response = await fetch(url);
       const data = await response.json();
@@ -56,7 +56,7 @@ function LeftSidebar( {onPinSelect} ) {
       return { road: "Unknown Road", city: "Unknown City" };
     }
   };
-  
+
   //Fetch location details for all recent pins
   useEffect(() => {
     const fetchAllLocationDetails = async () => {
@@ -67,19 +67,19 @@ function LeftSidebar( {onPinSelect} ) {
       }
       setLocationDetails(details);
     };
-  
+
     if (recentPins.length > 0) {
       fetchAllLocationDetails();
     }
   }, [recentPins]);
 
   const toggleDropdownOn = () => {
-  
+
     setShowDropdown(true);
   }
-  
+
   const toggleDropdownDown = () => {
-   
+
     setShowDropdown(false);
   }
 
@@ -109,23 +109,23 @@ function LeftSidebar( {onPinSelect} ) {
     <div className="left-sidebar">
       <div className="user-profile">
         <div className="profile-picture">
-        <img src={profilePicUrl} alt="User Profile Picture" onMouseEnter={toggleDropdownOn} onMouseLeave={toggleDropdownDown} />
+          <img src={profilePicUrl} alt="User Profile Picture" onMouseEnter={toggleDropdownOn} onMouseLeave={toggleDropdownDown} />
         </div>
         <p><strong>@{username}</strong></p>
         <p>Followers: {followersCount}</p>
 
       </div>
       {showDropdown && (
-       <div className="profile-dropdown" onMouseEnter={toggleDropdownOn} onMouseLeave={toggleDropdownDown}>
-       <p onClick={handleChangeProfilePicture}>Change Profile Picture</p>
-       <p onClick={toggleSettingsModal}>Settings</p>
-       <p onClick={handleLogout}>Logout</p>
-     </div>
+        <div className="profile-dropdown" onMouseEnter={toggleDropdownOn} onMouseLeave={toggleDropdownDown}>
+          <p onClick={handleChangeProfilePicture}>Change Profile Picture</p>
+          <p onClick={toggleSettingsModal}>Settings</p>
+          <p onClick={handleLogout}>Logout</p>
+        </div>
       )}
       {showProfilePicture && (
         <div className="ProfilePicture-backdrop" onClick={() => setShowProfilePicture(false)}>
           <div className="ProfilePicture-content" onClick={(e) => e.stopPropagation()}>
-            <ProfilePicture username={username} onClose={() => setShowProfilePicture(false)} currentProfilePic={{profilePicUrl}} onProfilePicUpdate={handleProfilePicUpdate} />
+            <ProfilePicture username={username} onClose={() => setShowProfilePicture(false)} currentProfilePic={{ profilePicUrl }} onProfilePicUpdate={handleProfilePicUpdate} />
           </div>
         </div>
       )}
@@ -136,18 +136,20 @@ function LeftSidebar( {onPinSelect} ) {
       <WeatherWidget />
       <div className="recent-pins">
         <h3 className="recent-pins-header">Recent Pins</h3>
-        {recentPins.map((pin, index) => (
+        <div className="recent-pins-list">
+          {recentPins.map((pin, index) => (
             <div key={pin._id} className={`recent-pin ${index === 0 ? 'first-pin' : ''}`} onClick={() => onPinSelect(pin)}>
-                <div className="pin-icon"></div>
-                <div className="pin-details">
-                    <p className="pin-name">{pin.name}</p>
-                    <p className="location-info">
-                        {locationDetails[pin._id] ? `${locationDetails[pin._id].road}, ${locationDetails[pin._id].city}` : 'Loading location...'}
-                    </p> 
-                </div>
+              <div className="pin-icon"></div>
+              <div className="pin-details">
+                <p className="pin-name">{pin.name}</p>
+                <p className="location-info">
+                  {locationDetails[pin._id] ? `${locationDetails[pin._id].road}, ${locationDetails[pin._id].city}` : 'Loading location...'}
+                </p>
+              </div>
             </div>
-        ))}
-    </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }
@@ -190,11 +192,11 @@ function App() {
       </div>
       <div>
         {!isViewingOwnMap && selectedUser && (
-          <div className="viewingMessage" style={{ position: 'fixed', top: '890px', right: '50px', height: '30px'}}>
-          <p>You are viewing the pins of the user: <span style={{ cursor: 'pointer', textDecoration: 'underline' }} onClick={() => setUserProfileVisible(true)}>{selectedUser.username}</span></p>
-        </div>
-        
-        
+          <div className="viewingMessage" style={{ position: 'fixed', top: '890px', right: '50px', height: '30px' }}>
+            <p>You are viewing the pins of the user: <span style={{ cursor: 'pointer', textDecoration: 'underline' }} onClick={() => setUserProfileVisible(true)}>{selectedUser.username}</span></p>
+          </div>
+
+
         )}
       </div>
       <div className="content-container">
@@ -202,29 +204,29 @@ function App() {
         <MainContent selectedUser={selectedUser} selectedPin={selectedPin} setSelectedPin={setSelectedPin} />
       </div>
       {isUserProfileVisible && (
-        <div 
-          className="modal-backdrop" 
-          onClick={closeUserProfile} 
-          style={{ 
-            display: 'flex', 
-            position: 'fixed', 
-            top: 0, 
-            left: 0, 
-            width: '100%', 
-            height: '100%', 
-            backgroundColor: 'rgba(0, 0, 0, 0.5)', 
-            justifyContent: 'center', 
+        <div
+          className="modal-backdrop"
+          onClick={closeUserProfile}
+          style={{
+            display: 'flex',
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            backgroundColor: 'rgba(0, 0, 0, 0.5)',
+            justifyContent: 'center',
             alignItems: 'center',
             zIndex: 1000
           }}
         >
-          <div 
-            className="user-profile-modal" 
-            onClick={(e) => e.stopPropagation()} 
-            style={{ 
-              backgroundColor: 'white', 
-              padding: '20px', 
-              borderRadius: '10px', 
+          <div
+            className="user-profile-modal"
+            onClick={(e) => e.stopPropagation()}
+            style={{
+              backgroundColor: 'white',
+              padding: '20px',
+              borderRadius: '10px',
               zIndex: 1001,
               maxWidth: '500px',
               margin: 'auto',

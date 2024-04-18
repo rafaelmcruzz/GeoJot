@@ -64,6 +64,10 @@ button.disabled {
 
 
 }
+.recent-pins-list {
+  max-height: calc(100vh - 480px);
+  overflow-y: auto;
+}
 
 .recent-pin .pin-icon {
   width: 30px; 
