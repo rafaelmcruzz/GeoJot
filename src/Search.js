@@ -34,7 +34,7 @@ const Search = ({ onSelectUser, onSelectLocation }) => {
       });
   
     // Fetch places from the backend
-    fetch(`http://localhost:3000/api/places/search?query=${query}`)
+    fetch(`https://geojotbackend.onrender.com/api/places/search?query=${query}`)
       .then(response => response.json())
       .then(data => {
         console.log(data)
@@ -115,7 +115,7 @@ const Search = ({ onSelectUser, onSelectLocation }) => {
               key={user._id}
               className="search-result-item"
               onClick={() => onSelectUser(user)}
-              style={{ cursor: 'pointer' }}
+              style={{ cursor: 'pointer', fontFamily: 'Quicksand, sans-serif' }}
             >
               <img
                 src={user.profilePic || 'https://geojot.s3.eu-west-1.amazonaws.com/profile-pictures/default-profile-pic.jpg'}
@@ -135,7 +135,7 @@ const Search = ({ onSelectUser, onSelectLocation }) => {
               key={place.place_id}
               className="search-result-item"
               onClick={() => onSelectPlace(place.place_id)}
-              style={{ cursor: 'pointer' }}
+              style={{ cursor: 'pointer', fontFamily: 'Quicksand, sans-serif' }}
             >
               {place.description}
             </li>
