@@ -13,6 +13,8 @@ function Login({ }) {
   const [password, setPassword] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const { setUsername } = useUser();
+  const [errorMessage, setErrorMessage] = useState('');
+
 
   //Toggle between login and register forms
   const toggleRegisterForm = () => {
@@ -22,10 +24,11 @@ function Login({ }) {
   //Handle login form submission
   const handleLoginSubmit = async (event) => {
     event.preventDefault();
+    setErrorMessage(''); 
 
     try {
       // Send login credentials to the backend for authentication
-      const response = await axios.post(`https://geojotbackend.onrender.com/api/login`, {
+      const response = await axios.post(`http://localhost:3000/api/login`, {
         username: usernameInput,
         password
       });
@@ -39,7 +42,12 @@ function Login({ }) {
       sessionStorage.setItem('username', response.data.user.username);
  
     } catch (error) {
-      console.error(`https://geojotbackend.onrender.com/api/login`, error);
+      if (error.response) {
+        setErrorMessage(error.response.data.error);
+      } else {
+        setErrorMessage('An unexpected error occurred. Please try again.');
+      }
+
     }
   };
 
@@ -93,6 +101,7 @@ function Login({ }) {
         }}
     />
 </div>
+{errorMessage && <div className="error">{errorMessage}</div>}
 
               <button 
     style={{
