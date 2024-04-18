@@ -192,11 +192,12 @@ function App() {
       </div>
       <div>
         {!isViewingOwnMap && selectedUser && (
-          <div className="viewingMessage" style={{ position: 'fixed', top: '890px', right: '50px', height: '30px' }}>
-            <p>You are viewing the pins of the user: <span style={{ cursor: 'pointer', textDecoration: 'underline' }} onClick={() => setUserProfileVisible(true)}>{selectedUser.username}</span></p>
+          <div className="contain">
+            <div className="viewingMessage" style={{ position: 'fixed', top: '92%', right: '3%', height: '30px'}}>
+              <p>You are viewing the pins of the user: <span style={{ cursor: 'pointer', textDecoration: 'underline' }} onClick={() => setUserProfileVisible(true)}>{selectedUser.username}</span></p>
+            </div>
           </div>
-
-
+        
         )}
       </div>
       <div className="content-container">
