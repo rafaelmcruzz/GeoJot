@@ -145,7 +145,7 @@ function SettingsModal({ username, onClose }) {
         fontWeight: 'bold',
         fontSize: '16px',
         cursor: 'pointer',
-        transition: 'background-color 0.3s ease', // For a smooth background color transition
+        transition: 'background-color 0.3s ease', 
     }}
     onMouseOver={e => e.currentTarget.style.backgroundColor = '#d60606'}
     onMouseOut={e => e.currentTarget.style.backgroundColor = '#94c2e7'}

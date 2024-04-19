@@ -197,7 +197,7 @@ button.disabled {
   width: 100%;
   z-index: 1000;
   max-height: 300px; 
-  overflow-y: hidden; 
+  overflow-y: auto; 
   overflow-x: hidden;
   border-radius: 20px;
 }

@@ -36,9 +36,9 @@ function Register() {
         password
       });
 
-      // Handle successful registration
+      
       console.log('User registered successfully:', response.data);
-      window.location.reload(); //Reload the page to show the login form
+      window.location.reload(); 
 
     } catch (error) {
       
@@ -57,7 +57,7 @@ function Register() {
       }
     }
     
-    // Reset the form fields
+   
     setEmail('');
     setUsername('');
     setPassword('');

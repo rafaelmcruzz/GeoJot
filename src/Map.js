@@ -30,8 +30,8 @@ function Map({ selectedUser, selectedPin, setSelectedPin, setSelectedLocation, s
   const { fetchRecentPins } = usePins();
   const { username } = useUser();
   const { username: currentUsername } = useUser();
-  const [center, setCenter] = useState([53.411730, -2.982645]); // Default coordinates (Liverpool)
-  const [zoom, setZoom] = useState(13); // Default zoom level
+  const [center, setCenter] = useState([53.411730, -2.982645]); 
+  const [zoom, setZoom] = useState(13);  
 
   //Checks if user is viewing their own map
   const isViewingOwnMap = currentUsername === (selectedUser ? selectedUser.username : currentUsername);
@@ -110,8 +110,8 @@ function Map({ selectedUser, selectedPin, setSelectedPin, setSelectedLocation, s
           if (details && details.name) {
             return { ...pin, details };
           }
-          return null; //Return null for pins without a name in details
-        }))).filter(pin => pin !== null); //filter out the nulls
+          return null;  
+        }))).filter(pin => pin !== null);  
 
         setMarkers(pinsWithDetails);
       } else {
@@ -215,7 +215,7 @@ function FlyToLocation({ location }) {
   //Fetch pins when the component mounts
   useEffect(() => {
     if (username) {
-      fetchPins(); //Only fetch pins if the username exists
+      fetchPins();  
     }
   }, [username]);
 
@@ -224,7 +224,7 @@ function FlyToLocation({ location }) {
     if (selectedMarker && selectedMarker.details && (selectedMarker.details.name || selectedMarker.details.notes)) {
       setSelectedDrawing('Drawing1');
     } else {
-      setSelectedDrawing(null); // If no details, reset selectedDrawing
+      setSelectedDrawing(null);  
     }
   }, [selectedMarker]);
 
@@ -246,9 +246,9 @@ function FlyToLocation({ location }) {
       if (response.ok) {
         console.log('Pin successfully deleted');
         setMarkers(currentMarkers => currentMarkers.filter(marker => marker._id !== markerId));
-        setSelectedMarker(null); // Reset selected marker after deletion
-        fetchPins(); // Fetch pins to update the map
-        fetchRecentPins(); // Fetch recent pins to update the sidebar
+        setSelectedMarker(null);  
+        fetchPins();  
+        fetchRecentPins();  
       } else {
         console.error('Failed to delete pin:', await response.text());
       }

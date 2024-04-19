@@ -68,14 +68,14 @@ const Search = ({ onSelectUser, onSelectLocation }) => {
       .then(data => {
         console.log(data)
         const latLng = { lat: data.lat, lng: data.lng };
-        onSelectLocation(latLng); // Function to update map view
+        onSelectLocation(latLng); 
       })
       .catch(err => {
         console.error('Error fetching place details:', err);
       });
   }
 
-  // JSX for rendering the search component
+  
   return (
     <div ref={containerRef} className="search-container">
       <input

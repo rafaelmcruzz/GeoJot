@@ -81,7 +81,7 @@ const ProfilePicture = ({ username, onClose, currentProfilePic, onProfilePicUpda
         fontWeight: 'bold',
         fontSize: '16px',
         cursor: 'pointer',
-        transition: 'background-color 0.3s ease', // For a smooth background color transition
+        transition: 'background-color 0.3s ease',
     }}className="delete-account-button" onClick={onClose}>Close</button>
         </form>
     );

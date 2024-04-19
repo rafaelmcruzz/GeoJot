@@ -11,7 +11,7 @@ const WeatherWidget = () => {
     const getCurrentDate = () => {
         const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
         const today = new Date();
-        return today.toLocaleDateString("en-US", options); // Adjust "en-US" as needed for your locale
+        return today.toLocaleDateString("en-US", options); 
       };
 
     const dateString = getCurrentDate();
@@ -49,7 +49,7 @@ const WeatherWidget = () => {
                 );
             } else {
                 console.error("Geolocation is not supported by this browser. Defaulting to Liverpool, England.");
-                // Use default location (Liverpool) if Geolocation API is not supported
+                
                 fetchWeather(defaultLocation.lat, defaultLocation.lon);
             }
         };

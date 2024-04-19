@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import './Home.css'; // Ensure this path matches your CSS file's location
+import './Home.css'; 
 import { useUser } from './UserContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faThumbsUp, faUserPlus, faChevronRight, faChevronLeft } from '@fortawesome/free-solid-svg-icons';
@@ -132,8 +132,7 @@ useEffect(() => {
         initialNotes={notes}
         initialMusic={music}
         initialMediaFiles={mediaFiles}
-        // Pass other initial values as needed
-        onSubmissionSuccess={() => setIsEditing(false)} // Reset editing state on successful submission
+        onSubmissionSuccess={() => setIsEditing(false)} 
       />
     );
   }

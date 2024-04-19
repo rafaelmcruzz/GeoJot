@@ -40,7 +40,7 @@ const Drawing2 = ({ name, notes, mediaFiles, onBack, songDetails }) => {
   
   useEffect(() => {
     if (isPlaying) {
-      handleAudioPlay(); // Call this function to stop playing when the song details change
+      handleAudioPlay(); 
     }
   }, [songDetails]);
 
