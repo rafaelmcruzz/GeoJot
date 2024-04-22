@@ -155,10 +155,10 @@ function LeftSidebar({ onPinSelect }) {
 }
 
 //Component for the main content of the page, which includes the map
-function MainContent({ selectedUser, selectedPin, setSelectedPin, selectedLocation}) {
+function MainContent({ selectedUser, selectedPin, setSelectedPin, setSelectedLocation, selectedLocation}) {
   return (
     <div className="main-content">
-       <Map selectedUser={selectedUser} selectedPin={selectedPin} selectedLocation={selectedLocation} setSelectedPin={setSelectedPin} />
+       <Map selectedUser={selectedUser} selectedPin={selectedPin} setSelectedLocation={setSelectedLocation} selectedLocation={selectedLocation} setSelectedPin={setSelectedPin} />
     </div>
   );
 }
@@ -206,7 +206,7 @@ function App() {
       </div>
       <div className="content-container">
         <LeftSidebar onPinSelect={setSelectedPin} />
-        <MainContent selectedUser={selectedUser} selectedPin={selectedPin} selectedLocation={selectedLocation} setSelectedPin={setSelectedPin} />
+        <MainContent selectedUser={selectedUser}  setSelectedLocation={setSelectedLocation} selectedPin={selectedPin} selectedLocation={selectedLocation} setSelectedPin={setSelectedPin} />
       </div>
       {isUserProfileVisible && (
         <div

@@ -203,7 +203,7 @@ function FlyToLocation({ location }) {
   useEffect(() => {
     if (location) {
       map.flyTo([location.lat, location.lng], 17); 
-      // setSelectedLocation(null)
+      setSelectedLocation(null);
     }
   }, [location, map]);
 

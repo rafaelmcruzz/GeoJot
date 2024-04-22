@@ -35,12 +35,18 @@ const Form = ({ onSubmit, onDelete, _id, initialMediaFiles = [], onSubmissionSuc
   
 
   const onDrop = useCallback(acceptedFiles => {
+    const nonImageFiles = acceptedFiles.filter(file => !file.type.startsWith('image/'));
+    if (nonImageFiles.length > 0) {
+      alert("Sorry, only image files are allowed!");
+      return; 
+    }
+
     const newFiles = acceptedFiles.slice(0, MAX_IMAGES - mediaFiles.length).map(file => ({
-        file,
-        preview: URL.createObjectURL(file)
+      file,
+      preview: URL.createObjectURL(file)
     }));
     setMediaFiles(prevFiles => [...prevFiles, ...newFiles]);
-}, [mediaFiles]);
+  }, [mediaFiles]);
 
 
   const { getRootProps, getInputProps } = useDropzone({ onDrop });
